@@ -1,0 +1,60 @@
+---
+import Container from '../ui/Container.astro';
+---
+
+<footer
+  class="border-t py-12"
+  style="border-color: var(--color-line); background: var(--color-bg);"
+  aria-label="Pie de página"
+>
+  <Container>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <!-- Logo + company -->
+      <div class="flex items-center gap-4">
+        <img
+          src="/assets/isotype.png"
+          alt="PUEDES SER MÁS"
+          width="40"
+          height="40"
+          loading="lazy"
+          class="object-contain"
+        />
+        <div>
+          <p class="font-heading text-lg text-text uppercase">PUEDES SER MÁS</p>
+          <p class="font-body text-xs" style="color: var(--color-text-muted);">
+            Diplomado Coach Emprendedor
+          </p>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <nav aria-label="Footer navigation">
+        <ul class="flex flex-wrap gap-6">
+          <li>
+            <a
+              href="#admision"
+              class="font-body text-xs uppercase tracking-widest transition-colors"
+              style="color: var(--color-text-muted);"
+            >
+              Aplicar
+            </a>
+          </li>
+          <li>
+            <a
+              href="#curriculum"
+              class="font-body text-xs uppercase tracking-widest transition-colors"
+              style="color: var(--color-text-muted);"
+            >
+              Programa
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <p class="font-body text-xs" style="color: var(--color-text-muted);">
+        © {new Date().getFullYear()} PUEDES SER MÁS. Todos los derechos reservados.
+      </p>
+    </div>
+  </Container>
+</footer>

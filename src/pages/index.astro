@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBlock from '../components/blocks/HeroBlock.astro';
+import PainAgitatorBlock from '../components/blocks/PainAgitatorBlock.astro';
+import RevelationBlock from '../components/blocks/RevelationBlock.astro';
+import CurriculumBlock from '../components/blocks/CurriculumBlock.astro';
+import ExclusiveFilterBlock from '../components/blocks/ExclusiveFilterBlock.astro';
+import AuthorityBlock from '../components/blocks/AuthorityBlock.astro';
+import OfferStackBlock from '../components/blocks/OfferStackBlock.astro';
+import AdmissionBlock from '../components/blocks/AdmissionBlock.astro';
+import FooterBlock from '../components/blocks/FooterBlock.astro';
+---
+
+<BaseLayout
+  title="Diplomado Coach Emprendedor — PUEDES SER MÁS"
+  description="En 90 días, transformate en un emprendedor con dirección, valor y estructura. Programa online en vivo. Cohorte Mayo 2026. Máximo 15 alumnos."
+  ogImage="/assets/logo.png"
+>
+  <main>
+    <!-- Block 1: Hero -->
+    <HeroBlock />
+
+    <!-- Block 2: Pain Agitator — 4 saboteurs -->
+    <PainAgitatorBlock />
+
+    <!-- Block 3: Revelation — Second-Order Learning + William James -->
+    <RevelationBlock />
+
+    <!-- Block 4: Curriculum — React Island (client:visible) -->
+    <CurriculumBlock />
+
+    <!-- Block 5: Exclusive Filter — 15 students, camera, Mayo 2026 -->
+    <ExclusiveFilterBlock />
+
+    <!-- Block 6: Authority — Claudio Español credentials -->
+    <AuthorityBlock />
+
+    <!-- Block 7: Offer Stack — bonuses value stack -->
+    <OfferStackBlock />
+
+    <!-- Block 8: Admission Form — React Island (client:visible), id="admision" -->
+    <AdmissionBlock />
+  </main>
+
+  <FooterBlock />
+</BaseLayout>

@@ -1,0 +1,119 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  cohort?: string;
+}
+
+const { cohort = 'COHORTE 01 — MAYO 2026' } = Astro.props;
+---
+
+<section
+  class="relative min-h-screen flex flex-col items-center justify-center py-20 overflow-hidden"
+  style="background: var(--color-bg);"
+  aria-label="Hero — Diplomado Coach Emprendedor"
+>
+  <!-- Background accent -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+    style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(31,60,135,0.15) 0%, transparent 70%);"
+  >
+  </div>
+
+  <Container class="relative z-10 flex flex-col items-center text-center gap-8">
+    <!-- Logo horizontal -->
+    <div class="mb-4">
+      <img
+        src="/assets/logo.png"
+        alt="PUEDES SER MÁS — Logo oficial"
+        width="280"
+        height="80"
+        loading="eager"
+        class="mx-auto object-contain"
+        style="max-width: min(280px, 60vw);"
+      />
+    </div>
+
+    <!-- Cohort badge -->
+    <p
+      class="text-xs font-body font-bold uppercase tracking-widest px-4 py-1.5 border"
+      style="color: var(--color-cta); border-color: var(--color-cta);"
+    >
+      {cohort}
+    </p>
+
+    <!-- Headline -->
+    <h1
+      class="font-heading uppercase text-text max-w-4xl"
+      style="font-size: var(--text-hero); line-height: 0.95; letter-spacing: 0.01em;"
+    >
+      Diplomado<br />
+      <span style="color: var(--color-cta);">Coach</span><br />
+      Emprendedor
+    </h1>
+
+    <!-- Big Promise (sub-headline) -->
+    <p
+      class="font-body max-w-2xl leading-relaxed"
+      style="font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--color-text-muted);"
+    >
+      En 90 días, vas a dejar de improvisar y transformarte en un emprendedor con dirección, valor y
+      estructura, capaz de construir un negocio que genere ingresos de forma sostenida.
+    </p>
+
+    <!-- Stats row -->
+    <div class="flex flex-wrap gap-8 justify-center mt-2">
+      {
+        [
+          { value: '90', label: 'Días' },
+          { value: '12', label: 'Clases' },
+          { value: '15', label: 'Alumnos máx.' },
+          { value: '100%', label: 'Online en vivo' },
+        ].map((stat) => (
+          <div class="flex flex-col items-center gap-1">
+            <span class="font-heading text-4xl" style="color: var(--color-cta);">
+              {stat.value}
+            </span>
+            <span
+              class="font-body text-xs uppercase tracking-widest"
+              style="color: var(--color-text-muted);"
+            >
+              {stat.label}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- CTA button -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-4">
+      <Button
+        href="#admision"
+        variant="primary"
+        aria-label="Aplicar al Diplomado Coach Emprendedor"
+        class="text-base"
+      >
+        Quiero aplicar al Diplomado
+      </Button>
+      <Button href="#curriculum" variant="ghost" class="text-base"> Ver el programa </Button>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="mt-12 flex flex-col items-center gap-2 opacity-50" aria-hidden="true">
+      <span
+        class="text-xs font-body uppercase tracking-widest"
+        style="color: var(--color-text-muted);">Scroll para conocer más</span
+      >
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" class="animate-bounce">
+        <path
+          d="M8 4v12M4 12l4 4 4-4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </Container>
+</section>

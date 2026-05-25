@@ -1,0 +1,65 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import { saboteurs, calloutPhrase } from '../../content/saboteurs';
+---
+
+<section
+  class="py-24"
+  style="background: var(--color-surface); padding-top: var(--space-block); padding-bottom: var(--space-block);"
+  aria-label="Los saboteadores del emprendedor"
+>
+  <Container>
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        ¿Te identificás con esto?
+      </p>
+      <SectionTitle class="mb-6">
+        ¿Por qué los emprendedores<br />no llegan a donde quieren?
+      </SectionTitle>
+      <p class="font-body max-w-xl mx-auto" style="color: var(--color-text-muted);">
+        No es falta de talento ni de esfuerzo. Son estos cuatro patrones que nadie te enseñó a
+        identificar.
+      </p>
+    </div>
+
+    <!-- 4 Saboteurs grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {
+        saboteurs.map((saboteur, index) => (
+          <article
+            class="flex flex-col gap-4 p-6 border border-line"
+            style="background: rgba(255,255,255,0.02); border-radius: var(--radius-card);"
+          >
+            <div
+              class="font-heading text-5xl leading-none"
+              style="color: var(--color-cta); opacity: 0.4;"
+              aria-hidden="true"
+            >
+              {String(index + 1).padStart(2, '0')}
+            </div>
+            <h3 class="font-heading text-2xl text-text uppercase">{saboteur.name}</h3>
+            <p class="font-body text-sm leading-relaxed" style="color: var(--color-text-muted);">
+              {saboteur.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Callout phrase -->
+    <div class="text-center">
+      <p
+        class="font-heading inline-block px-8 py-4 border-2"
+        style="font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--color-cta); border-color: var(--color-cta); letter-spacing: 0.05em;"
+      >
+        {calloutPhrase}
+      </p>
+      <p class="font-body mt-6 max-w-lg mx-auto" style="color: var(--color-text-muted);">
+        El primer paso para cambiar tu realidad es reconocer el patrón que te detiene. Esto es lo
+        que trabajamos desde el día uno.
+      </p>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,38 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import { AdmissionForm } from '../islands/AdmissionForm';
+---
+
+<section
+  id="admision"
+  class="relative"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-surface);"
+  aria-label="Formulario de admisión — Diplomado Coach Emprendedor"
+>
+  <!-- Background accent line -->
+  <div
+    class="absolute left-0 top-0 bottom-0 w-1"
+    style="background: var(--color-cta);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container>
+    <div class="text-center mb-12">
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        Cohorte Mayo 2026 — 15 lugares
+      </p>
+      <SectionTitle class="mb-6">
+        Aplicá al<br />Diplomado
+      </SectionTitle>
+      <p class="font-body max-w-lg mx-auto" style="color: var(--color-text-muted);">
+        Completá el formulario y nos contactaremos en las próximas 48 horas hábiles para darte más
+        información sobre el proceso de admisión.
+      </p>
+    </div>
+
+    <!-- React Island — client:visible -->
+    <AdmissionForm client:visible />
+  </Container>
+</section>

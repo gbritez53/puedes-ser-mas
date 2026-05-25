@@ -1,0 +1,117 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+---
+
+<section
+  class="relative overflow-hidden"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-bg);"
+  aria-label="El método — Aprendizaje de Segundo Orden"
+>
+  <!-- Accent line -->
+  <div
+    class="absolute left-0 top-0 bottom-0 w-1"
+    style="background: var(--color-cta);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: concept explanation -->
+      <div class="flex flex-col gap-8">
+        <div>
+          <p
+            class="font-body text-xs uppercase tracking-widest mb-4"
+            style="color: var(--color-cta);"
+          >
+            La diferencia que hace la diferencia
+          </p>
+          <SectionTitle class="mb-6">
+            Aprendizaje<br />de Segundo<br />Orden
+          </SectionTitle>
+        </div>
+
+        <div class="space-y-4">
+          <div class="border-l-2 pl-6" style="border-color: var(--color-accent);">
+            <h3
+              class="font-body font-bold text-sm uppercase tracking-widest mb-2"
+              style="color: var(--color-text-muted);"
+            >
+              Primer Orden (lo que ya hacés)
+            </h3>
+            <p class="font-body" style="color: var(--color-text-muted);">
+              Aprender más información, más técnicas, más estrategias. Seguís siendo el mismo
+              observador viendo el mismo mundo.
+            </p>
+          </div>
+
+          <div class="border-l-2 pl-6" style="border-color: var(--color-cta);">
+            <h3 class="font-body font-bold text-sm uppercase tracking-widest mb-2 text-text">
+              Segundo Orden (lo que cambia todo)
+            </h3>
+            <p class="font-body text-text">
+              Cambiar la forma en que observás la realidad. Cuando cambiás el observador, cambian
+              las acciones posibles y, por lo tanto, los resultados.
+            </p>
+          </div>
+        </div>
+
+        <p class="font-body" style="color: var(--color-text-muted);">
+          El Diplomado Coach Emprendedor no te da un curso más. Te transforma en un observador
+          distinto, capaz de ver oportunidades donde antes solo veías obstáculos.
+        </p>
+      </div>
+
+      <!-- Right: William James quote -->
+      <div class="flex flex-col gap-8">
+        <blockquote class="relative pl-8" style="border-left: 3px solid var(--color-cta);">
+          <span
+            class="absolute -top-4 -left-2 font-heading text-8xl leading-none pointer-events-none select-none"
+            style="color: var(--color-cta); opacity: 0.3;"
+            aria-hidden="true"
+          >
+            "
+          </span>
+          <p
+            class="font-body relative z-10"
+            style="font-size: clamp(1.1rem, 2.5vw, 1.35rem); line-height: 1.5; color: var(--color-text);"
+          >
+            El mayor descubrimiento de mi generación es que un ser humano puede{' '}
+            <strong style="color: var(--color-cta);">CAMBIAR SU VIDA</strong> cambiando su actitud mental.
+          </p>
+          <footer class="mt-6">
+            <cite
+              class="font-body font-bold text-sm uppercase tracking-widest not-italic"
+              style="color: var(--color-text-muted);"
+            >
+              William James
+            </cite>
+            <p class="font-body text-xs mt-1" style="color: var(--color-text-muted); opacity: 0.6;">
+              Filósofo y psicólogo — padre de la psicología funcional
+            </p>
+          </footer>
+        </blockquote>
+
+        <!-- Visual metaphor -->
+        <div
+          class="grid grid-cols-2 gap-4 p-6 border"
+          style="border-color: var(--color-line); border-radius: var(--radius-card); background: rgba(255,255,255,0.02);"
+        >
+          <div class="text-center p-4">
+            <div class="font-heading text-3xl mb-2" style="color: var(--color-text-muted);">
+              HACER
+            </div>
+            <p class="font-body text-xs" style="color: var(--color-text-muted);">
+              Cambio de acciones
+            </p>
+          </div>
+          <div class="text-center p-4 border-l" style="border-color: var(--color-line);">
+            <div class="font-heading text-3xl mb-2 text-text">SER</div>
+            <p class="font-body text-xs text-text">Cambio de identidad</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

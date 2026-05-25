@@ -1,0 +1,83 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Button from '../ui/Button.astro';
+import { bonuses } from '../../content/bonuses';
+---
+
+<section
+  class="relative"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-bg);"
+  aria-label="Stack de bonos — Oferta completa"
+>
+  <Container>
+    <div class="text-center mb-16">
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        Todo lo que incluye tu inversión
+      </p>
+      <SectionTitle class="mb-6">
+        El stack de valor<br />completo
+      </SectionTitle>
+      <p class="font-body max-w-xl mx-auto" style="color: var(--color-text-muted);">
+        Además del programa de 12 clases en vivo, tu inversión incluye todo esto:
+      </p>
+    </div>
+
+    <!-- Bonus list -->
+    <div class="max-w-3xl mx-auto mb-16">
+      {
+        bonuses.map((bonus, index) => (
+          <div
+            class:list={[
+              'flex items-start gap-6 py-6',
+              index < bonuses.length - 1 ? 'border-b' : '',
+            ]}
+            style="border-color: var(--color-line);"
+          >
+            <div
+              class="font-heading text-4xl leading-none flex-shrink-0 w-12 text-right"
+              style="color: var(--color-cta); opacity: 0.5;"
+              aria-hidden="true"
+            >
+              {String(index + 1).padStart(2, '0')}
+            </div>
+
+            <div class="flex-1">
+              <div class="flex items-center justify-between gap-4 mb-2 flex-wrap">
+                <h3 class="font-body font-bold text-text">{bonus.label}</h3>
+                {bonus.value && (
+                  <span
+                    class="font-body text-xs font-bold uppercase tracking-widest px-2 py-1"
+                    style="color: var(--color-cta); border: 1px solid var(--color-cta); border-radius: 2px;"
+                  >
+                    {bonus.value}
+                  </span>
+                )}
+              </div>
+              <p class="font-body text-sm leading-relaxed" style="color: var(--color-text-muted);">
+                {bonus.description}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Final CTA -->
+    <div
+      class="text-center p-12 border"
+      style="border-color: var(--color-cta); border-radius: var(--radius-card); background: rgba(196,23,24,0.05);"
+    >
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        Cohorte Mayo 2026 — 15 lugares disponibles
+      </p>
+      <p
+        class="font-heading uppercase text-text mb-8"
+        style="font-size: clamp(1.5rem, 4vw, 2.5rem);"
+      >
+        PUEDES SER MÁS.<br />¿Lo vas a hacer?
+      </p>
+      <Button href="#admision" variant="primary" class="text-base"> Aplicar al Diplomado </Button>
+    </div>
+  </Container>
+</section>

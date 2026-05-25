@@ -1,0 +1,102 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import { authority } from '../../content/authority';
+---
+
+<section
+  class="relative"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-surface);"
+  aria-label="Tu mentor — Claudio Español"
+>
+  <Container>
+    <div class="text-center mb-16">
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        Tu mentor en este proceso
+      </p>
+      <SectionTitle>Conocé a {authority.name}</SectionTitle>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Portrait -->
+      <div class="relative">
+        <div
+          class="absolute inset-0 translate-x-4 translate-y-4 -z-10"
+          style="background: var(--color-cta); border-radius: var(--radius-card); opacity: 0.3;"
+          aria-hidden="true"
+        >
+        </div>
+        <img
+          src="/assets/claudio-portrait.webp"
+          alt={`${authority.name} — ${authority.role}`}
+          width="480"
+          height="560"
+          loading="lazy"
+          class="w-full object-cover object-top"
+          style="border-radius: var(--radius-card); max-height: 560px;"
+        />
+      </div>
+
+      <!-- Content -->
+      <div class="flex flex-col gap-8">
+        <!-- Name and role -->
+        <div>
+          <h3 class="font-heading text-5xl text-text uppercase mb-2">{authority.name}</h3>
+          <p
+            class="font-body font-bold text-sm uppercase tracking-widest"
+            style="color: var(--color-cta);"
+          >
+            {authority.role}
+          </p>
+        </div>
+
+        <!-- Bio -->
+        <p class="font-body leading-relaxed" style="color: var(--color-text-muted);">
+          {authority.bio}
+        </p>
+
+        <!-- Credentials -->
+        <div>
+          <p
+            class="font-body text-xs uppercase tracking-widest mb-4"
+            style="color: var(--color-text-muted);"
+          >
+            Roles y reconocimientos
+          </p>
+          <ul class="space-y-2">
+            {
+              authority.credentials.map((cred) => (
+                <li class="flex items-center gap-3">
+                  <span style="color: var(--color-cta); flex-shrink: 0;">▸</span>
+                  <span class="font-body text-sm text-text">{cred.label}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Endorsements — all 3 institutional -->
+        <div>
+          <p
+            class="font-body text-xs uppercase tracking-widest mb-4"
+            style="color: var(--color-text-muted);"
+          >
+            Avalado por
+          </p>
+          <div class="flex flex-wrap gap-3">
+            {
+              authority.endorsements.map((endorsement) => (
+                <span
+                  class="font-body text-xs font-bold uppercase tracking-wider px-3 py-1.5 border"
+                  style="border-color: var(--color-line); color: var(--color-text-muted); border-radius: 2px;"
+                >
+                  {endorsement.institution}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

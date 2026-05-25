@@ -1,0 +1,107 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section
+  class="relative"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-accent);"
+  aria-label="Criterios de admisión — Programa exclusivo"
+>
+  <Container>
+    <div class="text-center mb-12">
+      <p class="font-body text-xs uppercase tracking-widest mb-4 text-white opacity-70">
+        Esto no es para todos
+      </p>
+      <SectionTitle class="mb-6 text-white">
+        Un programa<br />deliberadamente<br />exclusivo
+      </SectionTitle>
+    </div>
+
+    <!-- 3 key filters -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <!-- 15 students cap -->
+      <div
+        class="flex flex-col items-center text-center gap-4 p-8"
+        style="background: rgba(0,0,0,0.3); border-radius: var(--radius-card);"
+      >
+        <div
+          class="font-heading leading-none"
+          style="font-size: 5rem; color: var(--color-cta);"
+          aria-label="Máximo 15 alumnos por cohorte"
+        >
+          15
+        </div>
+        <div>
+          <p class="font-heading text-2xl text-white uppercase mb-2">alumnos máximo</p>
+          <p class="font-body text-sm opacity-70 text-white">
+            Por cohorte. Sin excepciones. La calidad del proceso requiere grupos pequeños donde cada
+            historia importa.
+          </p>
+        </div>
+      </div>
+
+      <!-- Camera requirement -->
+      <div
+        class="flex flex-col items-center text-center gap-4 p-8"
+        style="background: rgba(0,0,0,0.3); border-radius: var(--radius-card);"
+      >
+        <div class="text-5xl" aria-hidden="true">📷</div>
+        <div>
+          <p class="font-heading text-2xl text-white uppercase mb-2">Cámara encendida</p>
+          <p class="font-body text-sm opacity-70 text-white">
+            Todas las clases en vivo requieren cámara activa. El proceso ontológico funciona con
+            presencia real, no como espectador.
+          </p>
+        </div>
+      </div>
+
+      <!-- Cohort date -->
+      <div
+        class="flex flex-col items-center text-center gap-4 p-8"
+        style="background: rgba(0,0,0,0.3); border-radius: var(--radius-card);"
+      >
+        <div class="font-heading text-white" style="font-size: 3rem; line-height: 1;">
+          MAYO<br />2026
+        </div>
+        <div>
+          <p class="font-heading text-2xl text-white uppercase mb-2">Inicio de cohorte</p>
+          <p class="font-body text-sm opacity-70 text-white">
+            Online en vivo, 180 minutos por semana. Plataforma SKOOL. El proceso completo son 90
+            días.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Requirements list -->
+    <div class="max-w-2xl mx-auto mb-12">
+      <p class="font-body text-center text-white mb-6 opacity-80">El programa es para vos si:</p>
+      <ul class="space-y-3">
+        {
+          [
+            'Sos emprendedor o querés serlo y estás comprometido con tu crecimiento real',
+            'Estás dispuesto a cuestionar tus creencias, no solo aprender más información',
+            'Podés destinar 180 minutos semanales para el proceso en vivo',
+            'Entendés que la transformación requiere tiempo, no atajos',
+            'Tenés una cámara funcionando y conexión a internet estable',
+          ].map((item) => (
+            <li class="flex items-start gap-3">
+              <span style="color: var(--color-cta); flex-shrink: 0; margin-top: 2px;">✓</span>
+              <span class="font-body text-sm text-white opacity-90">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <Button href="#admision" variant="primary" class="text-base"> Solicitar mi lugar </Button>
+      <p class="font-body text-xs mt-4 text-white opacity-50">
+        Las plazas se asignan por orden de aplicación. Proceso selectivo.
+      </p>
+    </div>
+  </Container>
+</section>

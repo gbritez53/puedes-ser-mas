@@ -1,0 +1,57 @@
+---
+interface Props {
+  variant?: 'primary' | 'ghost';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  disabled?: boolean;
+  'aria-label'?: string;
+  id?: string;
+}
+
+const {
+  variant = 'primary',
+  href,
+  type = 'button',
+  class: className = '',
+  disabled = false,
+  'aria-label': ariaLabel,
+  id,
+} = Astro.props;
+
+const baseClasses =
+  'inline-flex items-center justify-center gap-2 font-body font-bold uppercase tracking-widest transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+
+const variantClasses = {
+  primary: 'bg-cta text-text hover:bg-cta-hover px-8 py-4 text-sm focus-visible:outline-cta',
+  ghost:
+    'border border-text text-text hover:bg-white/10 px-8 py-4 text-sm focus-visible:outline-text',
+};
+
+const Tag = href ? 'a' : 'button';
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class:list={[baseClasses, variantClasses[variant], className]}
+      aria-label={ariaLabel}
+      id={id}
+      style="border-radius: var(--radius-cta)"
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      class:list={[baseClasses, variantClasses[variant], className]}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      id={id}
+      style="border-radius: var(--radius-cta)"
+    >
+      <slot />
+    </button>
+  )
+}

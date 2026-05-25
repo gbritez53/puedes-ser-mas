@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Colors */
+  --color-bg: #000000;
+  --color-surface: #0a0a0a;
+  --color-cta: #c41718;
+  --color-cta-hover: #a01313;
+  --color-text: #ffffff;
+  --color-text-muted: #b8b8b8;
+  --color-accent: #1f3c87;
+  --color-line: #1a1a1a;
+
+  /* Typography */
+  --font-heading: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+  --font-display: 'Montserrat', system-ui, sans-serif;
+
+  /* Sizes */
+  --text-hero: clamp(3rem, 8vw, 7rem);
+  --text-section: clamp(2rem, 5vw, 4rem);
+  --text-body: 1.0625rem;
+
+  /* Spacing rhythm */
+  --space-block: clamp(4rem, 10vw, 8rem);
+
+  /* Radii */
+  --radius-cta: 2px;
+  --radius-card: 4px;
+
+  /* Easings */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cta);
+    outline-offset: 3px;
+  }
+}

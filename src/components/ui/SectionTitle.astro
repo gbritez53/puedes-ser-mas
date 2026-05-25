@@ -1,0 +1,20 @@
+---
+interface Props {
+  as?: 'h1' | 'h2' | 'h3';
+  class?: string;
+  accent?: boolean;
+}
+
+const { as: Tag = 'h2', class: className = '', accent = false } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'font-heading uppercase tracking-wide leading-none',
+    accent ? 'text-cta' : 'text-text',
+    className,
+  ]}
+  style="font-size: var(--text-section)"
+>
+  <slot />
+</Tag>

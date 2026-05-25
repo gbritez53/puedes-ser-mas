@@ -1,0 +1,49 @@
+---
+import Container from '../ui/Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import { CurriculumAccordion } from '../islands/CurriculumAccordion';
+import { curriculum } from '../../content/curriculum';
+---
+
+<section
+  id="curriculum"
+  class="relative"
+  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-bg);"
+  aria-label="Programa — 4 módulos, 12 clases"
+>
+  <Container>
+    <div class="text-center mb-16">
+      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
+        El programa completo
+      </p>
+      <SectionTitle class="mb-6">
+        4 Módulos.<br />12 Clases.<br />90 días.
+      </SectionTitle>
+      <div class="flex flex-wrap gap-8 justify-center mt-8">
+        {
+          [
+            { label: 'Módulos', value: '4' },
+            { label: 'Clases en vivo', value: '12' },
+            { label: 'Minutos / semana', value: '180' },
+            { label: 'Plataforma', value: 'SKOOL' },
+          ].map((stat) => (
+            <div class="flex flex-col items-center gap-1">
+              <span class="font-heading text-4xl" style="color: var(--color-cta);">
+                {stat.value}
+              </span>
+              <span
+                class="font-body text-xs uppercase tracking-widest"
+                style="color: var(--color-text-muted);"
+              >
+                {stat.label}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- React Island — client:visible defers hydration until in viewport -->
+    <CurriculumAccordion modules={curriculum} client:visible />
+  </Container>
+</section>
