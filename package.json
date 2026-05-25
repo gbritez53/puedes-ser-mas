@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.0.0",
+    "@astrojs/vercel": "^10.0.7",
     "@libsql/client": "^0.15.0",
     "astro": "^6.3.7",
     "drizzle-orm": "^0.43.0",
