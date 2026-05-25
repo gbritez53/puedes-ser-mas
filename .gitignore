@@ -1,0 +1,16 @@
+# Dependencias y builds
+node_modules/
+dist/
+knowledge/
+.astro/
+
+# Variables de entorno (¡Crucial para Turso!)
+.env
+.env.production
+
+# Logs y caché
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
