@@ -28,6 +28,7 @@ const cards = Object.values(diplomados);
           cta="VER MAPA DE TRANSFORMACIÓN"
           imageUrl={diplomado.heroImageUrl}
           href={'/diplomados/' + diplomado.slug}
+          variant={diplomado.slug === 'comunicacion-y-oratoria' ? 'red' : 'blue'}
         />
       ))
     }
