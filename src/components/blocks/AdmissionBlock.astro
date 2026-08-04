@@ -1,38 +1,36 @@
 ---
-import Container from '../ui/Container.astro';
-import SectionTitle from '../ui/SectionTitle.astro';
 import { AdmissionForm } from '../islands/AdmissionForm';
 ---
 
 <section
-  id="admision"
-  class="relative"
-  style="padding-top: var(--space-block); padding-bottom: var(--space-block); background: var(--color-surface);"
-  aria-label="Formulario de admisión — Diplomado Coach Emprendedor"
+  class="py-20 px-4 md:px-20 bg-surface-lowest border-t border-line/50"
+  id="registro"
+  aria-label="Registro — Diplomados"
 >
-  <!-- Background accent line -->
-  <div
-    class="absolute left-0 top-0 bottom-0 w-1"
-    style="background: var(--color-cta);"
-    aria-hidden="true"
-  >
-  </div>
-
-  <Container>
-    <div class="text-center mb-12">
-      <p class="font-body text-xs uppercase tracking-widest mb-4" style="color: var(--color-cta);">
-        Cohorte Mayo 2026 — 15 lugares
-      </p>
-      <SectionTitle class="mb-6">
-        Aplicá al<br />Diplomado
-      </SectionTitle>
-      <p class="font-body max-w-lg mx-auto" style="color: var(--color-text-muted);">
-        Completá el formulario y nos contactaremos en las próximas 48 horas hábiles para darte más
-        información sobre el proceso de admisión.
+  <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-center">
+    <div class="flex-1 text-center md:text-left">
+      <h2 class="font-heading text-[56px] leading-[56px] uppercase mb-4 text-white">
+        ¡SUPÉRATE SIEMPRE!
+        <br />
+        <span class="text-cta">REGÍSTRATE HOY</span>
+      </h2>
+      <p class="font-body text-[18px] leading-[28px] text-text-variant">
+        Completa tus datos para recibir la información detallada de nuestros diplomados y comenzar
+        tu transformación.
       </p>
     </div>
 
-    <!-- React Island — client:visible -->
-    <AdmissionForm client:visible />
-  </Container>
+    <div
+      class="w-full md:w-1/2 bg-surface p-8 rounded-xl border border-line/30 relative overflow-hidden"
+    >
+      <div
+        class="absolute -top-10 -right-10 w-32 h-32 bg-cta/10 rounded-full blur-3xl"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="relative z-10">
+        <AdmissionForm client:visible />
+      </div>
+    </div>
+  </div>
 </section>

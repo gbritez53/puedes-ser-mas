@@ -1,0 +1,39 @@
+---
+const logoUrl =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuAbtU_j4-SfTTprsz0tbcXXbSzeeRp8E1bhzeufBq-cx62Ijgxj68DuxmropqVaThVGZgVwMVWmbzXYUTv7ZYvnSIKsjnHnyM8yDSEy_og7HYV4OQuEohGVR-uKDTCWsYCsfpo_KPPYwMwKKCaHkoQq4kOyphK6ZQisTM-aBl7bnsUwMlzNp1sRt1JPmT_nyJxaMHtwVl9xX0yPUNcp1xMT73oXNWGCOo2E0fX0UKgU2FOs1BV2ScZA';
+
+const links = [
+  { href: '#diplomados', label: 'Diplomados' },
+  { href: '#testimonios', label: 'Testimonios' },
+  { href: '#certificacion', label: 'Certificación' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<nav class="sticky top-0 z-50 bg-black border-b border-line/30" aria-label="Navegación principal">
+  <div class="flex justify-between items-center w-full px-4 md:px-20 py-4 max-w-[1280px] mx-auto">
+    <div class="flex items-center gap-4">
+      <img src={logoUrl} alt="PUEDES SER MÁS Logo" class="h-12 w-auto" loading="eager" />
+    </div>
+
+    <div class="hidden md:flex gap-8 items-center">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-white font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase hover:text-[#ffb3ac] transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <a
+      href="#registro"
+      class="font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase px-6 py-3 rounded-lg bg-cta text-white hover:scale-[1.02] transition-transform"
+    >
+      INSCRÍBETE HOY
+    </a>
+  </div>
+</nav>

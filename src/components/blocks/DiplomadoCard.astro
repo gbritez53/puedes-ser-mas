@@ -1,0 +1,70 @@
+---
+interface Props {
+  chip: string;
+  title: string;
+  description: string;
+  features: string[];
+  cta: string;
+  imageUrl: string;
+}
+
+const { chip, title, description, features, cta, imageUrl } = Astro.props;
+---
+
+<article
+  class="bg-surface border border-accent/30 rounded-xl overflow-hidden flex flex-col card-glow transition-all duration-300"
+>
+  <div class="h-48 relative">
+    <img
+      src={imageUrl}
+      alt=""
+      class="w-full h-full object-cover"
+      loading="lazy"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+  </div>
+
+  <div class="p-6 flex-1 flex flex-col">
+    <div
+      class="inline-block bg-black border border-accent text-accent-soft font-body text-[10px] px-2 py-1 rounded-sm mb-4 uppercase w-fit font-bold tracking-[0.1em]"
+    >
+      {chip}
+    </div>
+
+    <h3 class="font-heading text-[32px] leading-[32px] mb-2 text-white uppercase">{title}</h3>
+
+    <p class="font-body text-[16px] leading-[24px] text-text-variant mb-6">{description}</p>
+
+    <ul class="space-y-2 mb-8 flex-1">
+      {
+        features.map((feature) => (
+          <li class="flex items-center gap-2 font-body text-sm text-white">
+            <span
+              class="material-symbols-outlined text-cta text-sm"
+              style="font-variation-settings: 'FILL' 1;"
+              aria-hidden="true"
+            >
+              check_circle
+            </span>
+            {feature}
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="#registro"
+      class="text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
+    >
+      {cta}
+    </a>
+  </div>
+</article>
+
+<style>
+  .card-glow:hover {
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
+    border-color: rgba(211, 47, 47, 1);
+  }
+</style>

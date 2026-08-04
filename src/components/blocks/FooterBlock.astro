@@ -1,60 +1,46 @@
 ---
-import Container from '../ui/Container.astro';
+const logoUrl =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuAbtU_j4-SfTTprsz0tbcXXbSzeeRp8E1bhzeufBq-cx62Ijgxj68DuxmropqVaThVGZgVwMVWmbzXYUTv7ZYvnSIKsjnHnyM8yDSEy_og7HYV4OQuEohGVR-uKDTCWsYCsfpo_KPPYwMwKKCaHkoQq4kOyphK6ZQisTM-aBl7bnsUwMlzNp1sRt1JPmT_nyJxaMHtwVl9xX0yPUNcp1xMT73oXNWGCOo2E0fX0UKgU2FOs1BV2ScZA';
+
+const year = new Date().getFullYear();
+
+const links = [
+  { label: 'Política de Privacidad' },
+  { label: 'Términos de Servicio' },
+  { label: 'Cookies' },
+];
 ---
 
-<footer
-  class="border-t py-12"
-  style="border-color: var(--color-line); background: var(--color-bg);"
-  aria-label="Pie de página"
->
-  <Container>
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-      <!-- Logo + company -->
-      <div class="flex items-center gap-4">
-        <img
-          src="/assets/isotype.png"
-          alt="PUEDES SER MÁS"
-          width="40"
-          height="40"
-          loading="lazy"
-          class="object-contain"
-        />
-        <div>
-          <p class="font-heading text-lg text-text uppercase">PUEDES SER MÁS</p>
-          <p class="font-body text-xs" style="color: var(--color-text-muted);">
-            Diplomado Coach Emprendedor
-          </p>
-        </div>
-      </div>
+<footer class="bg-surface-lowest border-t border-line/30" aria-label="Pie de página">
+  <div
+    class="flex flex-col items-center w-full px-4 md:px-20 py-20 max-w-[1280px] mx-auto text-center gap-8"
+  >
+    <img
+      src={logoUrl}
+      alt="PUEDES SER MÁS Logo"
+      class="h-16 w-auto grayscale opacity-80"
+      loading="lazy"
+    />
 
-      <!-- Links -->
-      <nav aria-label="Footer navigation">
-        <ul class="flex flex-wrap gap-6">
-          <li>
-            <a
-              href="#admision"
-              class="font-body text-xs uppercase tracking-widest transition-colors"
-              style="color: var(--color-text-muted);"
-            >
-              Aplicar
-            </a>
-          </li>
-          <li>
-            <a
-              href="#curriculum"
-              class="font-body text-xs uppercase tracking-widest transition-colors"
-              style="color: var(--color-text-muted);"
-            >
-              Programa
-            </a>
-          </li>
-        </ul>
-      </nav>
+    <p class="font-heading text-[28px] text-white uppercase tracking-wider max-w-2xl">
+      PUEDES SER MÁS es más que una marca: <span class="text-cta">es un movimiento.</span>
+    </p>
 
-      <!-- Copyright -->
-      <p class="font-body text-xs" style="color: var(--color-text-muted);">
-        © {new Date().getFullYear()} PUEDES SER MÁS. Todos los derechos reservados.
-      </p>
+    <div class="flex flex-wrap justify-center gap-6 mt-4">
+      {
+        links.map((link) => (
+          <a
+            href="#"
+            class="text-text-variant font-body text-[16px] leading-[24px] hover:text-[#ffb3ac] transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </div>
-  </Container>
+
+    <p class="text-text-variant font-body text-sm mt-8 opacity-50">
+      © {year} PUEDES SER MÁS. Todos los derechos reservados.
+    </p>
+  </div>
 </footer>

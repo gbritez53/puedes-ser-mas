@@ -1,0 +1,51 @@
+---
+import DiplomadoCard from './DiplomadoCard.astro';
+
+const card1ImageUrl =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuCqj0gK45PlfDDcvaVwgkqlAiHvAw4zfBEQJfO_C52zKM0i51dsURktZNz_LHr_P5euy9EvI1NHf-qTPXf7TuKbnCe5gqaNQ0cw8r3_n0lwBVEBv9nvWL4feFUKiabvTUY9aTDi_7ZxO0dBAJN8f_N5yDF7XEgZEVF1CFv6xGZbEPNrwexuAjIjFipaTMkz91BVPUBivZvkszSMlmuQA0zNtvCbDc155BFP6Q5oEItA9oJXEyNLjxUH';
+const card2ImageUrl =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuCyeBUeQqRkrWbYLJMle4kUuVYV3UFuTB7INSMsVnZKehMwC_RmAbKv7L9CQuleg5Sg357SWv_PQAhnXaNRIT2dPkiHtBkEEIaFzk4kctfoP_6V-MgMxjnolI2Z875DXsoo0aMFESSR6FrFLOf9ZyRNJTZc4B5XHVmuawXx7zDJvFbNay763g3OheRZD-o8GQDL2ziwerlsimOLQfdzsbp1AsdXkJEeslGjaaFPulXSkLws-XqIUgBh';
+
+const diplomados = [
+  {
+    chip: 'Liderazgo',
+    title: 'Diplomado en Coaching y Liderazgo',
+    description: 'Aprende a dirigirte a ti mismo para liderar a otros hacia el éxito.',
+    features: ['Autodominio', 'Gestión emocional', 'Metas claras', 'Equipos de alto rendimiento'],
+    cta: 'QUIERO LIDERAR',
+    imageUrl: card1ImageUrl,
+  },
+  {
+    chip: 'Comunicación',
+    title: 'Diplomado en Comunicación y Oratoria',
+    description: 'Haz que tu voz se escuche con poder, aplomo e impacto.',
+    features: ['Lenguaje corporal', 'Miedo escénico', 'Discursos memorables'],
+    cta: 'QUIERO HABLAR CON IMPACTO',
+    imageUrl: card2ImageUrl,
+  },
+];
+---
+
+<section class="py-20 px-4 md:px-20 max-w-[1280px] mx-auto" id="diplomados" aria-label="Diplomados">
+  <div class="text-center mb-16">
+    <h2 class="font-heading text-[48px] leading-[48px] uppercase mb-4 text-white">
+      TRANSFORMA TU VIDA: ELIGE TU CAMINO
+    </h2>
+    <div class="w-24 h-1 bg-cta mx-auto"></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {
+      diplomados.map((diplomado) => (
+        <DiplomadoCard
+          chip={diplomado.chip}
+          title={diplomado.title}
+          description={diplomado.description}
+          features={diplomado.features}
+          cta={diplomado.cta}
+          imageUrl={diplomado.imageUrl}
+        />
+      ))
+    }
+  </div>
+</section>
