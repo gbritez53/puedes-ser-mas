@@ -25,5 +25,8 @@ export default defineConfig({
         '@': path.resolve(__dirname, 'src'),
       },
     },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime'],
+    },
   },
 });
