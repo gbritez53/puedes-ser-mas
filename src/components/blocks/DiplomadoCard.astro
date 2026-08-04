@@ -3,13 +3,29 @@ interface Props {
   chip: string;
   title: string;
   description: string;
+  enfoque: string[];
+  promesa: string;
+  fechaInicio: string;
+  plazas: string;
   features: string[];
   cta: string;
   imageUrl: string;
   href: string;
 }
 
-const { chip, title, description, features, cta, imageUrl, href } = Astro.props;
+const {
+  chip,
+  title,
+  description,
+  enfoque,
+  promesa,
+  fechaInicio,
+  plazas,
+  features,
+  cta,
+  imageUrl,
+  href,
+} = Astro.props;
 ---
 
 <article
@@ -33,11 +49,50 @@ const { chip, title, description, features, cta, imageUrl, href } = Astro.props;
       {chip}
     </div>
 
-    <h3 class="font-heading text-[32px] leading-[32px] mb-2 text-white uppercase">{title}</h3>
+    <h3 class="font-heading text-[28px] leading-[30px] mb-2 text-white uppercase">{title}</h3>
 
-    <p class="font-body text-[16px] leading-[24px] text-text-variant mb-6">{description}</p>
+    <p class="font-body text-[16px] leading-[24px] text-text-variant mb-4">{description}</p>
 
-    <ul class="space-y-2 mb-8 flex-1">
+    <div class="mb-4">
+      <p class="font-body text-[11px] uppercase tracking-widest font-bold text-accent-soft mb-2">
+        Enfoque
+      </p>
+      <div class="flex flex-wrap gap-2">
+        {
+          enfoque.map((item) => (
+            <span class="font-body text-[11px] px-2 py-1 rounded-sm bg-accent/15 border border-accent/40 text-white">
+              {item}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <blockquote class="border-l-2 border-cta pl-3 mb-4">
+      <p class="font-body text-[14px] leading-[22px] italic text-white">{promesa}</p>
+    </blockquote>
+
+    <ul class="space-y-2 mb-6 flex-1">
+      <li class="flex items-center gap-2 font-body text-sm text-white">
+        <span
+          class="material-symbols-outlined text-cta text-sm"
+          style="font-variation-settings: 'FILL' 1;"
+          aria-hidden="true"
+        >
+          event
+        </span>
+        {fechaInicio}
+      </li>
+      <li class="flex items-center gap-2 font-body text-sm text-white">
+        <span
+          class="material-symbols-outlined text-cta text-sm"
+          style="font-variation-settings: 'FILL' 1;"
+          aria-hidden="true"
+        >
+          group
+        </span>
+        {plazas}
+      </li>
       {
         features.map((feature) => (
           <li class="flex items-center gap-2 font-body text-sm text-white">
@@ -56,7 +111,7 @@ const { chip, title, description, features, cta, imageUrl, href } = Astro.props;
 
     <a
       href={href}
-      class="text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
+      class="btn-lift text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
     >
       {cta}
     </a>
@@ -65,7 +120,7 @@ const { chip, title, description, features, cta, imageUrl, href } = Astro.props;
 
 <style>
   .card-glow:hover {
-    box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
-    border-color: rgba(211, 47, 47, 1);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--color-cta) 50%, transparent);
+    border-color: var(--color-cta);
   }
 </style>

@@ -33,14 +33,16 @@ const { pricing, cta = '/#registro' } = Astro.props;
           {pricing.label}
         </span>
 
-        <div class="flex items-start justify-center gap-2 mb-8">
+        <div class="flex items-start justify-center gap-2 mb-6">
           <span class="text-2xl font-body font-bold text-text-variant mt-2">$</span>
-          <span class="font-heading text-[80px] leading-none text-white">{pricing.amount}</span>
+          <span class="font-heading text-[80px] leading-none text-white">
+            {pricing.singleAmount}
+          </span>
           <span class="text-xl font-body font-bold text-text-variant mt-12">{pricing.currency}</span
           >
         </div>
 
-        <ul class="text-left space-y-4 mb-10 w-full max-w-sm mx-auto">
+        <ul class="text-left space-y-4 mb-8 w-full max-w-sm mx-auto">
           {
             pricing.checklist.map((item) => (
               <li class="flex items-center gap-3 text-white">
@@ -56,6 +58,19 @@ const { pricing, cta = '/#registro' } = Astro.props;
             ))
           }
         </ul>
+
+        <div class="w-full max-w-sm mx-auto bg-black/60 border border-line/60 rounded-lg p-4 mb-8">
+          <p class="font-body text-xs uppercase tracking-widest font-bold text-accent-soft mb-3">
+            Plan Financiado
+          </p>
+          <p class="font-body text-sm text-white mb-2">
+            Reservá tu vacante con{' '}
+            <strong>${pricing.reservationAmount} USD</strong> y pagá el resto en{' '}
+            <strong>{pricing.installments} cuotas mensuales de ${pricing.monthlyAmount} USD</strong
+            >.
+          </p>
+          <p class="font-body text-xs text-text-variant opacity-80">{pricing.paymentConditions}</p>
+        </div>
 
         <Button href={cta} class="w-full">{pricing.ctaLabel}</Button>
       </div>

@@ -2,14 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavigationBlock from '../components/blocks/NavigationBlock.astro';
 import HeroBlock from '../components/blocks/HeroBlock.astro';
+// import ParticleFigureBlock from '../components/blocks/ParticleFigureBlock.astro'; // efecto de partículas desactivado temporalmente
+import FilosofiaBlock from '../components/blocks/FilosofiaBlock.astro';
 import DiplomadosGrid from '../components/blocks/DiplomadosGrid.astro';
+import AdmisionProcesoBlock from '../components/blocks/AdmisionProcesoBlock.astro';
+import AutoridadBlock from '../components/blocks/AutoridadBlock.astro';
+import InversionBlock from '../components/blocks/InversionBlock.astro';
 import AdmissionBlock from '../components/blocks/AdmissionBlock.astro';
 import FooterBlock from '../components/blocks/FooterBlock.astro';
 ---
 
 <BaseLayout
-  title="PUEDES SER MÁS — Diplomados de Transformación Personal y Profesional"
-  description="Diplomados en Coaching y Liderazgo y en Comunicación y Oratoria. Transformá tu vida: registrate hoy."
+  title="PUEDES SER MÁS — Transformación Personal y Profesional"
+  description="Diplomados de Coaching para la Superación Personal y Comunicación y Oratoria. Transformá tu vida: solicitá tu entrevista de admisión hoy."
   ogImage="/assets/logo.png"
 >
   <NavigationBlock />
@@ -17,7 +22,15 @@ import FooterBlock from '../components/blocks/FooterBlock.astro';
   <main>
     <HeroBlock />
 
+    <FilosofiaBlock />
+
     <DiplomadosGrid />
+
+    <AdmisionProcesoBlock />
+
+    <AutoridadBlock />
+
+    <InversionBlock />
 
     <AdmissionBlock />
   </main>

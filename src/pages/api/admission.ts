@@ -4,9 +4,15 @@ import { admissionSchema } from '@/lib/validators/admission';
 import { db } from '@/db/client';
 import { admissions } from '@/db/schema';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { eq } from 'drizzle-orm';
 
 export const prerender = false;
+
+// Mapea el desafío principal a la columna diplomado existente.
+const DIPLOMADO_FROM_DESAFIO: Record<string, string> = {
+  mentalidad: 'liderazgo',
+  comunicacion: 'comunicacion',
+  ambos: 'ambos',
+};
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Rate limit check
@@ -38,30 +44,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   try {
-    // Check for duplicate email
-    const existing = await db
-      .select({ id: admissions.id })
-      .from(admissions)
-      .where(eq(admissions.email, parsed.data.email))
-      .limit(1);
-
-    if (existing.length > 0) {
-      return Response.json(
-        { ok: false, error: 'duplicate_email', message: 'Este email ya fue registrado.' },
-        { status: 400 },
-      );
-    }
-
-    // Insert
     const ipHash = clientAddress ? createHash('sha256').update(clientAddress).digest('hex') : null;
 
     const [row] = await db
       .insert(admissions)
       .values({
         name: parsed.data.name,
-        email: parsed.data.email,
         phone: parsed.data.phone,
-        diplomado: parsed.data.diplomado,
+        diplomado: DIPLOMADO_FROM_DESAFIO[parsed.data.desafioPrincipal] ?? 'liderazgo',
+        desafioPrincipal: parsed.data.desafioPrincipal,
+        porQueSerSeleccionado: parsed.data.porQueSerSeleccionado,
         ipHash: ipHash ?? undefined,
         userAgent: request.headers.get('user-agent') ?? undefined,
       })

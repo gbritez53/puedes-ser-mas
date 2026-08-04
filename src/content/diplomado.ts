@@ -15,6 +15,16 @@ export interface DiplomadoPricing {
   checklist: string[];
   ctaLabel: string;
   ctaHref: string;
+  /** Matrícula Preferencial (pago único) en USD */
+  singleAmount: string;
+  /** Reserva de vacante del plan financiado en USD */
+  reservationAmount: string;
+  /** Valor de cada cuota mensual en USD */
+  monthlyAmount: string;
+  /** Cantidad de cuotas */
+  installments: number;
+  /** Condiciones de pago en texto plano */
+  paymentConditions: string;
 }
 
 export interface DiplomadoMeta {
@@ -38,4 +48,12 @@ export interface DiplomadoDetail {
   skills: DiplomadoSkill[];
   pricing: DiplomadoPricing;
   meta: DiplomadoMeta;
+  /** Enfoque del diplomado (para la grilla de la home) */
+  enfoque: string[];
+  /** Promesa principal (para la grilla de la home) */
+  promesa: string;
+  /** Fecha de inicio (para la grilla de la home) */
+  fechaInicio: string;
+  /** Condición de cupo (para la grilla de la home) */
+  plazas: string;
 }

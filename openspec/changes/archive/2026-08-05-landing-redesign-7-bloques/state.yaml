@@ -1,0 +1,16 @@
+change: landing-redesign-7-bloques
+status: archived
+archived_date: 2026-08-05
+artifact_store: openspec
+execution_mode: automatic
+
+phases:
+  proposal: completed
+  specs: completed
+  design: completed
+  tasks: completed
+  apply: completed
+  verify: completed
+  archive: completed
+
+current_phase: archived

@@ -5,13 +5,13 @@
   --color-bg: #000000;
   --color-surface: #121212;
   --color-surface-lowest: #0e0e0e;
-  --color-cta: #d32f2f;
-  --color-cta-hover: #b02626;
+  --color-cta: #c41718;
+  --color-cta-hover: #a01313;
   --color-text: #ffffff;
   --color-text-muted: #e5e2e1;
   --color-text-variant: #e4beba;
-  --color-accent: #005db7;
-  --color-accent-soft: #7bd1f8;
+  --color-accent: #1f3c87;
+  --color-accent-soft: #7ba4e8;
   --color-line: #353534;
 
   /* Typography */
@@ -83,14 +83,16 @@
 
 @layer components {
   .text-gradient-cta {
-    background: linear-gradient(90deg, #ffffff, #d32f2f);
+    background: linear-gradient(90deg, #ffffff, var(--color-cta));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .glass-card {
-    background: var(--color-surface);
+    background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
     transition:
       border-color 0.3s,
@@ -99,6 +101,18 @@
 
   .glass-card:hover {
     border-color: var(--color-accent);
-    filter: drop-shadow(0 0 15px rgba(0, 93, 183, 0.5));
+    filter: drop-shadow(0 0 15px color-mix(in srgb, var(--color-accent) 50%, transparent));
+  }
+
+  .btn-lift {
+    box-shadow: 0 4px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
+    transition:
+      transform 0.2s var(--ease-out),
+      box-shadow 0.2s var(--ease-out);
+  }
+
+  .btn-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
   }
 }

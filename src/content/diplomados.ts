@@ -3,13 +3,42 @@ import type { DiplomadoDetail } from './diplomado';
 const heroImageUrl =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDEIBmuRpwt7L9kSkBerPF5uNqSaG4K8wHCFZJVi-4EBT9KbEAPRSI2E31egbKxlpsCLz2jxMqh52JHehGLizzuKr-z9ABx1ombb63EqGs372Wffhpqzg5IYMJ7aObfxpCbk1JUoSjOuaMSlMaxckPntCDPSN4WpSzSkklEeu7ySJn2aEBb0BIduX7hDujpyq7q4vBb7S-Qc6rMvppEbUCFYeENBp9aPk4EsLG2TXbuQS85nDfBA0OA';
 
+const pricingCoaching = {
+  amount: '397',
+  currency: 'USD',
+  label: 'Matrícula Preferencial (Pago Único)',
+  headline: 'Inversión',
+  headlineAccent: 'Seleccionada',
+  tagline:
+    'Asegurá tu lugar en la próxima generación de líderes. Elegí el pago único preferencial o financiá tu transformación en cuotas.',
+  checklist: [
+    'Acceso de por vida al material',
+    'Certificación oficial validada',
+    'Mentor Coach personalizado',
+  ],
+  ctaLabel: 'COMENZAR TRANSFORMACIÓN',
+  ctaHref: '/#registro',
+  singleAmount: '397',
+  reservationAmount: '35',
+  monthlyAmount: '65',
+  installments: 6,
+  paymentConditions:
+    'Las cuotas se abonan del 1 al 10 de cada mes. Los pagos realizados fuera de este plazo tienen un 10% de recargo.',
+};
+
+const pricingComunicacion = {
+  ...pricingCoaching,
+  tagline:
+    'Asegurá tu lugar en la próxima generación de oradores. Elegí el pago único preferencial o financiá tu transformación en cuotas.',
+};
+
 export const diplomados: Record<string, DiplomadoDetail> = {
   'coaching-y-liderazgo': {
     slug: 'coaching-y-liderazgo',
     chip: 'Liderazgo',
-    title: 'Diplomado en Coaching y Liderazgo',
-    headline: 'DIPLOMADO EN',
-    headlineAccent: 'COACHING Y LIDERAZGO',
+    title: 'Diplomado de Coaching para la Superación Personal',
+    headline: 'DIPLOMADO DE',
+    headlineAccent: 'COACHING PARA LA SUPERACIÓN PERSONAL',
     heroDescription:
       'Desata tu potencial oculto. Este programa intensivo está diseñado para forjar líderes inquebrantables, capaces de transformar su entorno personal y profesional con autoridad, visión y resiliencia absoluta.',
     heroImageUrl,
@@ -45,24 +74,18 @@ export const diplomados: Record<string, DiplomadoDetail> = {
         size: 'large',
       },
     ],
-    pricing: {
-      amount: '997',
-      currency: 'USD',
-      label: 'Inversión Total',
-      headline: 'El Momento es',
-      headlineAccent: 'Ahora',
-      tagline:
-        'La inversión en tu capacidad de liderazgo es la única que garantiza un retorno infinito. Asegura tu lugar en la próxima generación de líderes.',
-      checklist: ['Acceso de por vida al material', 'Certificación oficial validada'],
-      ctaLabel: 'COMENZAR TRANSFORMACIÓN',
-      ctaHref: '/#registro',
-    },
+    pricing: pricingCoaching,
     meta: {
-      title: 'Diplomado en Coaching y Liderazgo - PUEDES SER MÁS',
+      title: 'Diplomado de Coaching para la Superación Personal - PUEDES SER MÁS',
       description:
-        'Diplomado en Coaching y Liderazgo. Forja líderes inquebrantables con dirección, valor y estructura. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
+        'Diplomado de Coaching para la Superación Personal. Forja una mentalidad inquebrantable, dominio emocional absoluto y liderazgo con propósito. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
       canonical: '/diplomados/coaching-y-liderazgo',
     },
+    enfoque: ['Liderazgo Interno', 'Gestión Emocional', 'Propósito'],
+    promesa:
+      'Forjarás una mentalidad inquebrantable, dominio emocional absoluto y un liderazgo con propósito.',
+    fechaInicio: 'Martes 15 de Septiembre 2026',
+    plazas: 'Aulas Exclusivas (Máximo 15 plazas por entrevista)',
   },
 
   'comunicacion-y-oratoria': {
@@ -109,23 +132,17 @@ export const diplomados: Record<string, DiplomadoDetail> = {
         size: 'large',
       },
     ],
-    pricing: {
-      amount: '997',
-      currency: 'USD',
-      label: 'Inversión Total',
-      headline: 'El Momento es',
-      headlineAccent: 'Ahora',
-      tagline:
-        'La inversión en tu capacidad de comunicar es la única que garantiza un retorno infinito. Asegurá tu lugar en la próxima generación de oradores.',
-      checklist: ['Acceso de por vida al material', 'Certificación oficial validada'],
-      ctaLabel: 'COMENZAR TRANSFORMACIÓN',
-      ctaHref: '/#registro',
-    },
+    pricing: pricingComunicacion,
     meta: {
       title: 'Diplomado en Comunicación y Oratoria - PUEDES SER MÁS',
       description:
-        'Diplomado en Comunicación y Oratoria. Hacé que tu voz se escuche con poder, aplomo e impacto. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
+        'Diplomado en Comunicación y Oratoria. Destruí la timidez, eliminá las máscaras y dominá el arte de la presencia escénica. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
       canonical: '/diplomados/comunicacion-y-oratoria',
     },
+    enfoque: ['Presencia Escénica', 'Storytelling', 'Dominio Oral'],
+    promesa:
+      'Destruirás la timidez, eliminarás las máscaras y dominarás el arte de la presencia escénica.',
+    fechaInicio: 'Miércoles 16 de Septiembre 2026',
+    plazas: 'Aulas Exclusivas (Máximo 15 plazas por entrevista)',
   },
 };

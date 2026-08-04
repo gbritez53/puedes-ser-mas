@@ -8,11 +8,11 @@ export interface SeoMeta {
 }
 
 export const defaultSeo: SeoMeta = {
-  title: 'Diplomado Coach Emprendedor — PUEDES SER MÁS',
+  title: 'PUEDES SER MÁS — Transformación Personal y Profesional',
   description:
-    'En 90 días, transformate en un emprendedor con dirección, valor y estructura. Programa online en vivo. Cohorte Mayo 2026. Máximo 15 alumnos.',
-  ogTitle: 'Diplomado Coach Emprendedor',
+    'Diplomados de Coaching para la Superación Personal y Comunicación y Oratoria. Cupo limitado, entrevista de admisión, inicio Septiembre 2026.',
+  ogTitle: 'PUEDES SER MÁS — Diplomados de Transformación',
   ogDescription:
-    'El programa de transformación ontológica para emprendedores que quieren dejar de improvisar y construir un negocio sostenible.',
+    'No entrenamos proyectos; transformamos a la persona que los lidera. Forja un carácter inquebrantable, domina tu mundo emocional y comunica con presencia absoluta.',
   ogImage: '/assets/logo.png',
 };

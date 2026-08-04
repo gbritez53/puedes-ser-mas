@@ -1,0 +1,16 @@
+change: landing-html-astro
+status: archived
+archived_date: 2026-08-04
+artifact_store: openspec
+execution_mode: automatic
+
+phases:
+  proposal: completed
+  specs: completed
+  design: completed
+  tasks: completed
+  apply: completed
+  verify: completed
+archive: in_progress
+
+current_phase: archive

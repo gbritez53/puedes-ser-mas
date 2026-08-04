@@ -1,0 +1,63 @@
+---
+const pillars = [
+  {
+    icon: 'psychology',
+    title: 'Identidad & Mentalidad',
+    description:
+      'Destrucción de creencias limitantes, eliminación de la zona de confort y reprogramación hacia la grandeza.',
+  },
+  {
+    icon: 'self_improvement',
+    title: 'Dominio Emocional',
+    description:
+      'Autorregulación en vivo bajo alta presión, serenidad e inteligencia emocional aplicada.',
+  },
+  {
+    icon: 'record_voice_over',
+    title: 'Liderazgo Humano & Comunicación',
+    description:
+      'Expresión desde la verdad, superación del miedo al ridículo y capacidad de movilizar vidas.',
+  },
+];
+---
+
+<section
+  class="py-20 px-4 md:px-20 bg-black border-t border-line/30"
+  id="filosofia"
+  aria-label="La Filosofía PUEDES SER MÁS"
+>
+  <div class="max-w-[1280px] mx-auto text-center mb-16">
+    <h2 class="font-heading text-[48px] leading-[48px] uppercase mb-4 text-white">
+      La persona precede al resultado
+    </h2>
+    <div class="w-24 h-1 bg-cta mx-auto"></div>
+  </div>
+
+  <blockquote class="max-w-3xl mx-auto text-center mb-16">
+    <p class="font-heading text-[28px] leading-[38px] uppercase text-white sm:text-[36px]">
+      "El mayor descubrimiento de mi generación es que un ser humano puede
+      <span class="text-cta">cambiar su vida</span> cambiando su actitud mental."
+    </p>
+    <footer class="mt-6 font-body text-text-variant tracking-widest uppercase text-sm">
+      — William James
+    </footer>
+  </blockquote>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {
+      pillars.map((pillar) => (
+        <article class="glass-card rounded-xl p-8 flex flex-col gap-4">
+          <span
+            class="material-symbols-outlined text-accent-soft text-4xl"
+            style="font-variation-settings: 'FILL' 1;"
+            aria-hidden="true"
+          >
+            {pillar.icon}
+          </span>
+          <h3 class="font-heading text-[28px] uppercase text-white">{pillar.title}</h3>
+          <p class="font-body text-[16px] leading-[26px] text-text-variant">{pillar.description}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

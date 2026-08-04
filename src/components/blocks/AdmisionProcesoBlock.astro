@@ -1,0 +1,64 @@
+---
+const steps = [
+  {
+    icon: 'edit_note',
+    title: 'Postulación',
+    description: 'Completa el formulario de evaluación de perfil.',
+  },
+  {
+    icon: 'support_agent',
+    title: 'Entrevista Privada',
+    description: 'Evaluación 1 a 1 para verificar tu nivel de compromiso.',
+  },
+  {
+    icon: 'verified',
+    title: 'Admisión Directa',
+    description: 'Confirmación de vacante y asignación de Matrícula Preferencial.',
+  },
+];
+---
+
+<section
+  class="py-20 px-4 md:px-20 bg-surface-lowest border-t border-line/30"
+  id="admision"
+  aria-label="Proceso de Selección y Admisión"
+>
+  <div class="max-w-[1280px] mx-auto">
+    <div class="text-center mb-6">
+      <h2 class="font-heading text-[48px] leading-[48px] uppercase mb-4 text-cta">
+        Proceso de Selección y Admisión
+      </h2>
+    </div>
+
+    <p
+      class="max-w-2xl mx-auto text-center font-body text-[18px] leading-[28px] text-text-variant mb-16"
+    >
+      No vendemos cursos masivos. Buscamos personas en constante evolución que rechacen el
+      conformismo y la mediocridad.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        steps.map((step, index) => (
+          <article class="glass-card rounded-xl p-8 flex flex-col items-center text-center gap-4 relative">
+            <span
+              class="absolute top-4 right-6 font-heading text-[64px] leading-none text-accent/30"
+              aria-hidden="true"
+            >
+              {index + 1}
+            </span>
+            <span
+              class="material-symbols-outlined text-cta text-5xl"
+              style="font-variation-settings: 'FILL' 1;"
+              aria-hidden="true"
+            >
+              {step.icon}
+            </span>
+            <h3 class="font-heading text-[28px] uppercase text-white">{step.title}</h3>
+            <p class="font-body text-[16px] leading-[26px] text-text-variant">{step.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

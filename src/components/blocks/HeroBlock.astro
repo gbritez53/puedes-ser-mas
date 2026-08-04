@@ -1,19 +1,19 @@
 ---
-const bgImageUrl =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuBhC4yVxkm_Zq3pBZWhaiUb6mpphk-gb4_hpgolEua4va0MGuc6rpygSW8B9-yTd1E9GZfQr96kgZEqc6xSnW5Eap3Hh1NF5HCzzwPEY8_W5edwaGIFDx9X6mJstI-sj0ycaVebH7ECZQ40LLEBzZYBdq4Doaxr6ePLK3iAbWw6pkfCYqkZxdLPFBcG5uj6Trlo8z4cXZ6SCMdq0ymSgKf7H6vLf6STthfTI1PZbJk65cNMNsCpxj7Y';
+const isotypeUrl = '/assets/isotype.png';
 ---
 
 <header
-  class="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-black"
-  aria-label="Hero — Diplomados PUEDES SER MÁS"
+  class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-black"
+  aria-label="Hero — PUEDES SER MÁS"
 >
-  <!-- Background image + gradient -->
-  <div class="absolute inset-0 z-0">
+  <!-- Isotype decorativo flotante -->
+  <div class="absolute inset-0 z-0 flex items-center justify-center">
     <img
-      src={bgImageUrl}
+      src={isotypeUrl}
       alt=""
-      class="w-full h-full object-cover opacity-40"
+      class="w-[70%] max-w-[700px] opacity-[0.07] hero-isotype"
       loading="eager"
+      decoding="async"
       aria-hidden="true"
     />
     <div class="absolute inset-0 hero-gradient"></div>
@@ -23,25 +23,25 @@ const bgImageUrl =
     class="relative z-10 text-center px-4 md:px-20 max-w-4xl mx-auto flex flex-col items-center gap-6"
   >
     <h1
-      class="font-heading text-[clamp(36px,8vw,72px)] leading-[0.95] tracking-[0.05em] uppercase text-white"
+      class="font-heading text-[clamp(40px,8vw,84px)] leading-[0.95] tracking-[0.05em] uppercase text-white"
     >
-      ¡ROMPE TUS LÍMITES Y{' '}
-      <span class="text-cta">DESATANCA TU POTENCIAL!</span>
+      EL LÍMITE DE TU CRECIMIENTO NUNCA ES TU NEGOCIO,
+      <span class="text-cta">ES TU MENTALIDAD.</span>
     </h1>
 
     <p
       class="font-body text-[18px] leading-[28px] text-text-variant max-w-2xl"
       style="color: var(--color-text-variant);"
     >
-      Descubre los 2 diplomados de transformación personal y profesional diseñados para llevarte al
-      siguiente nivel de liderazgo y comunicación.
+      En Puede Ser Más no entrenamos proyectos; transformamos a la persona que los lidera. Forja un
+      carácter inquebrantable, domina tu mundo emocional y comunica con presencia absoluta.
     </p>
 
     <a
       href="#registro"
-      class="btn-primary font-heading text-[32px] px-8 py-4 rounded-lg mt-8 flex items-center gap-2 bg-cta text-white uppercase transition-transform hover:scale-[1.02]"
+      class="btn-lift font-heading text-[24px] px-8 py-4 rounded-lg mt-8 flex items-center gap-2 bg-cta text-white uppercase hover:bg-cta-hover transition-colors"
     >
-      ¡DA EL PRIMER PASO AHORA!
+      SOLICITAR ENTREVISTA DE ADMISIÓN
       <span
         class="material-symbols-outlined"
         style="font-variation-settings: 'FILL' 1;"
@@ -51,10 +51,38 @@ const bgImageUrl =
       </span>
     </a>
   </div>
+
+  <!-- Línea diagonal roja de ruptura -->
+  <div
+    class="absolute bottom-8 left-[-5%] w-[110%] h-[4px] bg-cta hero-diagonal"
+    aria-hidden="true"
+  >
+  </div>
 </header>
 
 <style>
   .hero-gradient {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, #000000 100%);
+  }
+
+  .hero-diagonal {
+    transform: rotate(-1.5deg);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-cta) 50%, transparent);
+  }
+
+  .hero-isotype {
+    animation: hero-float 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-cta) 30%, transparent))
+      drop-shadow(0 0 40px color-mix(in srgb, var(--color-accent) 30%, transparent));
+  }
+
+  @keyframes hero-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-16px);
+    }
   }
 </style>

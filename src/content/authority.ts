@@ -9,23 +9,29 @@ export interface AuthorityProfile {
   endorsements: readonly AuthorityCredential[];
 }
 
+export interface FacultyMember {
+  name: string;
+  role: string;
+  bio: string;
+}
+
 export const authority: AuthorityProfile = {
   name: 'Claudio Español',
-  role: 'Coach Profesional & Conferencista Internacional',
+  role: 'CEO y Fundador de PUEDES SER MÁS · Director de la Academia de Superación',
   company: 'PUEDES SER MÁS',
-  bio: 'Con más de 15 años acompañando emprendedores y líderes en Latinoamérica, Claudio Español transformó su propia historia de adversidad en un método probado para que otros puedan hacer lo mismo. CEO de PUEDES SER MÁS y formador certificado por las principales organizaciones internacionales de coaching.',
+  bio: 'Coach Ontológico con más de 7 años acompañando a líderes en +7 países de Latinoamérica. CEO y Fundador de PUEDES SER MÁS y Director de la Academia de Superación, dedicado a la transformación del SER como base del crecimiento profesional.',
   credentials: [
     {
       id: 'ceo',
       label: 'CEO — PUEDES SER MÁS',
     },
     {
-      id: 'coach-profesional',
-      label: 'Coach Profesional Certificado',
+      id: 'coach-ontologico',
+      label: 'Coach Ontológico',
     },
     {
-      id: 'conferencista',
-      label: 'Conferencista Internacional',
+      id: 'director-academia',
+      label: 'Director — Academia de Superación',
     },
   ],
   endorsements: [
@@ -46,3 +52,31 @@ export const authority: AuthorityProfile = {
     },
   ],
 };
+
+export const faculty: FacultyMember[] = [
+  {
+    name: 'Fernando Kolbo',
+    role: 'Facilitador',
+    bio: 'Acompaña procesos de transformación personal y profesional con foco en liderazgo y mentalidad.',
+  },
+  {
+    name: 'Gastón Molina',
+    role: 'Facilitador',
+    bio: 'Especialista en comunicación y expresión, ayuda a los alumnos a conquistar la presencia escénica.',
+  },
+  {
+    name: 'Malena Holzman',
+    role: 'Facilitadora',
+    bio: 'Trabaja el dominio emocional y la inteligencia aplicada en contextos de alta exigencia.',
+  },
+  {
+    name: 'Carlos Monnery',
+    role: 'Facilitador',
+    bio: 'Acompaña la construcción de propósito, visión y marca personal de cada participante.',
+  },
+  {
+    name: 'Daniel Pereira',
+    role: 'Facilitador',
+    bio: 'Guía el desarrollo de liderazgo humano y gestión de equipos orientados a resultados.',
+  },
+];

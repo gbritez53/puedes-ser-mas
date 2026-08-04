@@ -1,0 +1,182 @@
+---
+const arsRate = 957;
+const copRate = 4283;
+const arsEstimate = Math.round(397 * arsRate).toLocaleString('es-AR');
+const copEstimate = Math.round(397 * copRate).toLocaleString('es-CO');
+---
+
+<section
+  class="py-20 px-4 md:px-20 bg-surface-lowest border-t border-line/30"
+  id="inversion"
+  aria-label="Inversión y Planes Preferenciales"
+>
+  <div class="max-w-[1280px] mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-[48px] leading-[48px] uppercase mb-4 text-white">
+        Inversión <span class="text-cta">Seleccionada</span>
+      </h2>
+      <div class="w-24 h-1 bg-cta mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Matrícula Preferencial (Pago Único) -->
+      <article
+        class="glass-card rounded-xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden"
+      >
+        <div
+          class="absolute -top-16 -right-16 w-48 h-48 bg-accent/20 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative">
+          <span
+            class="inline-block font-body text-[11px] uppercase tracking-widest font-bold px-3 py-1 rounded-sm bg-cta text-white mb-4"
+          >
+            Pago Único
+          </span>
+          <h3 class="font-heading text-[32px] uppercase text-white mb-2">Matrícula Preferencial</h3>
+
+          <div class="flex items-start gap-2 mb-4">
+            <span class="text-2xl font-body font-bold text-text-variant mt-2">$</span>
+            <span class="font-heading text-[80px] leading-none text-white">397</span>
+            <span class="text-xl font-body font-bold text-text-variant mt-12">USD</span>
+          </div>
+
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center gap-3 text-white font-body text-sm">
+              <span
+                class="material-symbols-outlined text-cta text-sm"
+                style="font-variation-settings: 'FILL' 1;"
+                aria-hidden="true"
+              >
+                check_circle
+              </span>
+              Reserva tu vacante de una sola vez
+            </li>
+            <li class="flex items-center gap-3 text-white font-body text-sm">
+              <span
+                class="material-symbols-outlined text-cta text-sm"
+                style="font-variation-settings: 'FILL' 1;"
+                aria-hidden="true"
+              >
+                check_circle
+              </span>
+              Mejor valor por tu inversión
+            </li>
+            <li class="flex items-center gap-3 text-white font-body text-sm">
+              <span
+                class="material-symbols-outlined text-cta text-sm"
+                style="font-variation-settings: 'FILL' 1;"
+                aria-hidden="true"
+              >
+                check_circle
+              </span>
+              Aplica a cualquiera de los dos diplomados
+            </li>
+          </ul>
+
+          <details class="group mb-2">
+            <summary
+              class="cursor-pointer list-none font-body text-xs uppercase tracking-widest font-bold text-accent-soft hover:text-white transition-colors flex items-center gap-2"
+            >
+              <span
+                class="material-symbols-outlined text-sm transition-transform group-open:rotate-90"
+              >
+                chevron_right
+              </span>
+              Ver conversión estimada
+            </summary>
+            <div class="mt-4 grid grid-cols-2 gap-3">
+              <div class="bg-black/60 border border-line/60 rounded-lg p-4 text-center">
+                <p class="font-body text-[10px] uppercase tracking-widest text-text-variant mb-1">
+                  Pesos Argentinos (ARS)
+                </p>
+                <p class="font-heading text-[24px] text-white">≈ ${arsEstimate} ARS</p>
+              </div>
+              <div class="bg-black/60 border border-line/60 rounded-lg p-4 text-center">
+                <p class="font-body text-[10px] uppercase tracking-widest text-text-variant mb-1">
+                  Pesos Colombianos (COP)
+                </p>
+                <p class="font-heading text-[24px] text-white">≈ ${copEstimate} COP</p>
+              </div>
+              <p class="col-span-2 font-body text-[11px] text-text-variant opacity-60">
+                Valores estimados a la fecha. La conversión final se confirma al momento del pago.
+              </p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- Plan Financiado -->
+      <article
+        class="glass-card rounded-xl p-8 md:p-10 flex flex-col gap-6 relative overflow-hidden"
+      >
+        <div
+          class="absolute -top-16 -right-16 w-48 h-48 bg-cta/10 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative">
+          <span
+            class="inline-block font-body text-[11px] uppercase tracking-widest font-bold px-3 py-1 rounded-sm bg-accent text-white mb-4"
+          >
+            Aplica para ambos diplomados
+          </span>
+          <h3 class="font-heading text-[32px] uppercase text-white mb-2">Plan Financiado</h3>
+
+          <div class="flex flex-col gap-4 mb-6">
+            <div class="flex items-center justify-between border-b border-line/50 pb-4">
+              <div>
+                <p class="font-body text-xs uppercase tracking-widest text-text-variant mb-1">
+                  Reserva de Vacante
+                </p>
+                <p class="font-heading text-[32px] text-white">
+                  $35 <span class="font-body text-sm text-text-variant">USD</span>
+                </p>
+              </div>
+              <p class="font-body text-xs text-text-variant">Matrícula para asegurar lugar</p>
+            </div>
+
+            <div class="flex items-center justify-between border-b border-line/50 pb-4">
+              <div>
+                <p class="font-body text-xs uppercase tracking-widest text-text-variant mb-1">
+                  Cuotas
+                </p>
+                <p class="font-heading text-[32px] text-white">
+                  6 × $65 <span class="font-body text-sm text-text-variant">USD</span>
+                </p>
+              </div>
+              <p class="font-body text-xs text-text-variant">Cuotas mensuales</p>
+            </div>
+          </div>
+
+          <div class="bg-black/60 border border-line/60 rounded-lg p-4 mb-2">
+            <p class="font-body text-xs uppercase tracking-widest font-bold text-accent-soft mb-2">
+              Condiciones de Pago
+            </p>
+            <ul class="space-y-2 font-body text-sm text-text-variant">
+              <li class="flex items-start gap-2">
+                <span class="text-cta">•</span>
+                Las cuotas se abonan del 1 al 10 de cada mes.
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-cta">•</span>
+                Los pagos realizados fuera de este plazo tienen un 10% de recargo.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="#registro"
+        class="btn-lift inline-flex items-center gap-2 font-heading text-[24px] px-10 py-4 rounded-lg bg-cta text-white uppercase hover:bg-cta-hover transition-colors"
+      >
+        SOLICITAR ENTREVISTA DE ADMISIÓN
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</section>

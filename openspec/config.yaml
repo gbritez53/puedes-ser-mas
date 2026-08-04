@@ -1,0 +1,31 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Astro 6.x (SSR, @astrojs/vercel), Tailwind CSS v4.3 (CSS-first @theme), React 18 + TS islands, Turso (Edge SQLite) via Drizzle ORM, Zod validators. Package manager: pnpm (mandatory).
+  Architecture: Component-based. Static blocks in src/components/blocks/*.astro, interactive islands in src/components/islands/*.tsx, layout in src/layouts/BaseLayout.astro.
+  Design: Dark "void" theme (#000000 bg, #D32F2F Energy Red CTA, #005db7 Progress Blue accents, #121212 cards). Bebas Neue headings + Montserrat body. Design tokens live in src/styles/global.css @theme.
+  Testing: none configured.
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    - Always run pnpm, never npm/yarn
+    - Never run pnpm build as a check (project rule: never build after changes)
+    - tdd: false
+    - test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

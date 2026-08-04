@@ -1,0 +1,103 @@
+---
+import { authority, faculty } from '../../content/authority';
+
+const portraitUrl = '/assets/claudio-portrait.webp';
+---
+
+<section
+  class="py-20 px-4 md:px-20 bg-black border-t border-line/30"
+  aria-label="Autoridad y Cuerpo Docente"
+>
+  <div class="max-w-[1280px] mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-[48px] leading-[48px] uppercase mb-4 text-white">
+        Facilitadores de <span class="text-cta">Impacto Internacional</span>
+      </h2>
+      <div class="w-24 h-1 bg-cta mx-auto"></div>
+    </div>
+
+    <article class="glass-card rounded-xl overflow-hidden mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-0">
+        <div
+          class="relative h-72 md:h-auto bg-accent/10 flex items-center justify-center overflow-hidden"
+        >
+          <img
+            src={portraitUrl}
+            alt={`Fotografía de ${authority.name}`}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:bg-gradient-to-r"
+          >
+          </div>
+        </div>
+
+        <div class="p-8 md:p-12 flex flex-col justify-center gap-4">
+          <div class="flex items-center gap-3">
+            <span
+              class="material-symbols-outlined text-cta text-3xl"
+              style="font-variation-settings: 'FILL' 1;"
+              aria-hidden="true"
+            >
+              verified
+            </span>
+            <h3 class="font-heading text-[36px] uppercase text-white">{authority.name}</h3>
+          </div>
+          <p class="font-body text-sm uppercase tracking-widest text-accent-soft font-bold">
+            {authority.role}
+          </p>
+          <p class="font-body text-[16px] leading-[26px] text-text-variant">{authority.bio}</p>
+
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              authority.credentials.map((credential) => (
+                <span class="font-body text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded-full bg-accent/20 border border-accent/40 text-accent-soft">
+                  {credential.label}
+                </span>
+              ))
+            }
+          </div>
+
+          <div class="flex flex-wrap gap-2 mt-2">
+            {
+              authority.endorsements.map((endorsement) => (
+                <span class="font-body text-[11px] uppercase tracking-wider px-3 py-1 rounded-sm bg-black border border-line/60 text-text-variant">
+                  {endorsement.label}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <h3 class="font-heading text-[24px] uppercase text-white text-center mb-6">
+      Equipo de Soporte
+    </h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+        faculty.map((member) => (
+          <article class="glass-card rounded-xl p-6 flex flex-col gap-2">
+            <div
+              class="w-12 h-12 rounded-full bg-accent/30 border border-accent/50 flex items-center justify-center font-heading text-xl text-white uppercase"
+              aria-hidden="true"
+            >
+              {member.name
+                .split(' ')
+                .map((part) => part[0])
+                .slice(0, 2)
+                .join('')}
+            </div>
+            <h4 class="font-heading text-[22px] uppercase text-white">{member.name}</h4>
+            <p class="font-body text-xs uppercase tracking-widest text-accent-soft font-bold">
+              {member.role}
+            </p>
+            <p class="font-body text-sm leading-[22px] text-text-variant">{member.bio}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

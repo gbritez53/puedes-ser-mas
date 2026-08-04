@@ -6,17 +6,17 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 interface FormValues {
   name: string;
-  email: string;
   phone: string;
-  diplomado: string;
+  desafioPrincipal: string;
+  porQueSerSeleccionado: string;
   honeypot: string;
 }
 
 const initialValues: FormValues = {
   name: '',
-  email: '',
   phone: '',
-  diplomado: '',
+  desafioPrincipal: '',
+  porQueSerSeleccionado: '',
   honeypot: '',
 };
 
@@ -32,10 +32,11 @@ export function AdmissionForm() {
   const [serverError, setServerError] = useState<string>();
 
   const handleChange = useCallback(
-    (field: keyof FormValues) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setValues((prev) => ({ ...prev, [field]: e.target.value }));
-      setErrors((prev) => ({ ...prev, [field]: undefined }));
-    },
+    (field: keyof FormValues) =>
+      (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        setValues((prev) => ({ ...prev, [field]: e.target.value }));
+        setErrors((prev) => ({ ...prev, [field]: undefined }));
+      },
     [],
   );
 
@@ -67,9 +68,9 @@ export function AdmissionForm() {
 
     const payload = {
       name: values.name,
-      email: values.email,
       phone: values.phone,
-      diplomado: values.diplomado,
+      desafioPrincipal: values.desafioPrincipal,
+      porQueSerSeleccionado: values.porQueSerSeleccionado,
       honeypot: values.honeypot,
     };
 
@@ -119,7 +120,7 @@ export function AdmissionForm() {
           ¡Gracias, {values.name?.split(' ')[0]}!
         </h3>
         <p className="font-body text-[#e4beba]">
-          Tu solicitud fue registrada. Te contactaremos con la información detallada del diplomado.
+          Tu postulación fue registrada. Te contactaremos para coordinar tu entrevista de admisión.
         </p>
       </div>
     );
@@ -140,12 +141,12 @@ export function AdmissionForm() {
 
       <div className="flex flex-col gap-2">
         <label htmlFor="name" className={labelClass}>
-          Nombre Completo
+          Nombre completo
         </label>
         <input
           id="name"
           type="text"
-          placeholder="Tu nombre"
+          placeholder="Tu nombre y apellido"
           value={values.name}
           onChange={handleChange('name')}
           className={inputClass}
@@ -160,34 +161,13 @@ export function AdmissionForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="email" className={labelClass}>
-          Correo Electrónico
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="tu@email.com"
-          value={values.email}
-          onChange={handleChange('email')}
-          className={inputClass}
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-        />
-        {errors.email && (
-          <p id="email-error" className="font-body text-sm text-cta" role="alert">
-            {errors.email}
-          </p>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-2">
         <label htmlFor="phone" className={labelClass}>
           WhatsApp
         </label>
         <input
           id="phone"
           type="tel"
-          placeholder="+123456789"
+          placeholder="+5491123456789"
           value={values.phone}
           onChange={handleChange('phone')}
           className={inputClass}
@@ -202,26 +182,50 @@ export function AdmissionForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="diplomado" className={labelClass}>
-          Elige tu camino
+        <label htmlFor="desafioPrincipal" className={labelClass}>
+          ¿Cuál es tu desafío principal hoy?
         </label>
         <select
-          id="diplomado"
-          value={values.diplomado}
-          onChange={handleChange('diplomado')}
+          id="desafioPrincipal"
+          value={values.desafioPrincipal}
+          onChange={handleChange('desafioPrincipal')}
           className={inputClass}
-          aria-invalid={!!errors.diplomado}
-          aria-describedby={errors.diplomado ? 'diplomado-error' : undefined}
+          aria-invalid={!!errors.desafioPrincipal}
+          aria-describedby={errors.desafioPrincipal ? 'desafioPrincipal-error' : undefined}
         >
           <option value="" disabled>
-            Selecciona un diplomado...
+            Selecciona tu desafío...
           </option>
-          <option value="liderazgo">Coaching y Liderazgo</option>
-          <option value="comunicacion">Comunicación y Oratoria</option>
+          <option value="mentalidad">Mentalidad y Liderazgo</option>
+          <option value="comunicacion">Comunicación y Exposición</option>
+          <option value="ambos">Ambos</option>
         </select>
-        {errors.diplomado && (
-          <p id="diplomado-error" className="font-body text-sm text-cta" role="alert">
-            {errors.diplomado}
+        {errors.desafioPrincipal && (
+          <p id="desafioPrincipal-error" className="font-body text-sm text-cta" role="alert">
+            {errors.desafioPrincipal}
+          </p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="porQueSerSeleccionado" className={labelClass}>
+          ¿Por qué consideras que debes ser seleccionado?
+        </label>
+        <textarea
+          id="porQueSerSeleccionado"
+          rows={4}
+          placeholder="Contanos tu motivación para transformar tu vida..."
+          value={values.porQueSerSeleccionado}
+          onChange={handleChange('porQueSerSeleccionado')}
+          className={inputClass}
+          aria-invalid={!!errors.porQueSerSeleccionado}
+          aria-describedby={
+            errors.porQueSerSeleccionado ? 'porQueSerSeleccionado-error' : undefined
+          }
+        />
+        {errors.porQueSerSeleccionado && (
+          <p id="porQueSerSeleccionado-error" className="font-body text-sm text-cta" role="alert">
+            {errors.porQueSerSeleccionado}
           </p>
         )}
       </div>
@@ -245,9 +249,9 @@ export function AdmissionForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="bg-cta text-white font-heading text-2xl py-4 rounded-lg mt-4 w-full uppercase shadow-[0_0_20px_rgba(211,47,47,0.4)] hover:bg-cta-hover hover:shadow-[0_0_30px_rgba(211,47,47,0.6)] transition-all disabled:opacity-60"
+        className="btn-lift bg-cta text-white font-heading text-2xl py-4 rounded-lg mt-4 w-full uppercase hover:bg-cta-hover transition-colors disabled:opacity-60"
       >
-        {status === 'submitting' ? 'ENVIANDO...' : '¡QUIERO SER MÁS!'}
+        {status === 'submitting' ? 'EVALUANDO...' : 'EVALUAR MI PERFIL DE ADMISIÓN'}
       </button>
     </form>
   );
