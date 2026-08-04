@@ -1,0 +1,69 @@
+---
+import type { DiplomadoDetail } from '../../content/diplomado';
+
+interface Props {
+  diplomado: DiplomadoDetail;
+}
+
+const { diplomado } = Astro.props;
+
+const skillsTitleParts = diplomado.skillsTitle.split(diplomado.skillsAccent);
+---
+
+<section class="py-20 px-4 md:px-20 bg-bg" aria-label={diplomado.skillsTitle}>
+  <div class="max-w-[1280px] mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-heading text-4xl md:text-6xl uppercase text-white leading-none">
+        {skillsTitleParts[0]}
+        <span class="text-cta">{diplomado.skillsAccent}</span>
+        {skillsTitleParts[1]}
+      </h2>
+      <p class="font-body text-text-variant mt-4 max-w-2xl mx-auto">{diplomado.skillsSubtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(250px,auto)]">
+      {
+        diplomado.skills.map((skill) => {
+          const isLarge = skill.size === 'large';
+          const spanClass = isLarge ? 'md:col-span-8' : 'md:col-span-4';
+          return (
+            <div
+              class:list={[
+                'glass-card rounded p-8 flex flex-col justify-between group overflow-hidden relative',
+                spanClass,
+              ]}
+            >
+              {isLarge && (
+                <div
+                  class="absolute -right-10 -top-10 opacity-5 group-hover:opacity-10 transition-opacity duration-500"
+                  aria-hidden="true"
+                >
+                  <span
+                    class="material-symbols-outlined text-[200px]"
+                    style="font-variation-settings: 'FILL' 1;"
+                  >
+                    {skill.icon}
+                  </span>
+                </div>
+              )}
+              <div>
+                <span
+                  class:list={[
+                    'material-symbols-outlined text-4xl mb-4',
+                    isLarge ? 'text-cta' : 'text-accent',
+                  ]}
+                  style="font-variation-settings: 'FILL' 1;"
+                  aria-hidden="true"
+                >
+                  {skill.icon}
+                </span>
+                <h3 class="font-heading uppercase text-white leading-none mb-2">{skill.title}</h3>
+              </div>
+              <p class="font-body text-text-variant mt-4 z-10 relative">{skill.description}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+import type { DiplomadoPricing } from '../../content/diplomado';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  pricing: DiplomadoPricing;
+  cta?: string;
+}
+
+const { pricing, cta = '/#registro' } = Astro.props;
+---
+
+<section
+  class="py-20 px-4 md:px-20 bg-surface-lowest border-t border-line/40 relative overflow-hidden"
+  aria-label="Inversión"
+>
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-cta/5 blur-[120px] rounded-full pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    <h2 class="font-heading text-4xl md:text-[64px] uppercase text-white leading-none mb-6">
+      {pricing.headline}
+      <span class="text-cta">{pricing.headlineAccent}</span>
+    </h2>
+    <p class="font-body text-text-variant mb-10">{pricing.tagline}</p>
+
+    <div class="glass-card rounded p-10 md:p-14">
+      <div class="flex flex-col items-center">
+        <span class="font-body text-accent uppercase tracking-widest font-bold mb-4">
+          {pricing.label}
+        </span>
+
+        <div class="flex items-start justify-center gap-2 mb-8">
+          <span class="text-2xl font-body font-bold text-text-variant mt-2">$</span>
+          <span class="font-heading text-[80px] leading-none text-white">{pricing.amount}</span>
+          <span class="text-xl font-body font-bold text-text-variant mt-12">{pricing.currency}</span
+          >
+        </div>
+
+        <ul class="text-left space-y-4 mb-10 w-full max-w-sm mx-auto">
+          {
+            pricing.checklist.map((item) => (
+              <li class="flex items-center gap-3 text-white">
+                <span
+                  class="material-symbols-outlined text-cta text-sm"
+                  style="font-variation-settings: 'FILL' 1;"
+                  aria-hidden="true"
+                >
+                  check_circle
+                </span>
+                <span class="font-body">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <Button href={cta} class="w-full">{pricing.ctaLabel}</Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavigationBlock from '../../components/blocks/NavigationBlock.astro';
+import DetailHeroBlock from '../../components/blocks/DetailHeroBlock.astro';
+import DetailSkillsBlock from '../../components/blocks/DetailSkillsBlock.astro';
+import DetailPricingBlock from '../../components/blocks/DetailPricingBlock.astro';
+import FooterBlock from '../../components/blocks/FooterBlock.astro';
+import { diplomados } from '../../content/diplomados';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+const diplomado = diplomados[slug];
+
+if (!diplomado) {
+  return new Response('Not Found', { status: 404 });
+}
+---
+
+<BaseLayout
+  title={diplomado.meta.title}
+  description={diplomado.meta.description}
+  canonical={diplomado.meta.canonical}
+>
+  <NavigationBlock />
+
+  <main>
+    <DetailHeroBlock diplomado={diplomado} />
+    <DetailSkillsBlock diplomado={diplomado} />
+    <DetailPricingBlock pricing={diplomado.pricing} cta={diplomado.pricing.ctaHref} />
+  </main>
+
+  <FooterBlock />
+</BaseLayout>

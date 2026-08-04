@@ -1,0 +1,64 @@
+---
+import type { DiplomadoDetail } from '../../content/diplomado';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  diplomado: DiplomadoDetail;
+}
+
+const { diplomado } = Astro.props;
+---
+
+<section
+  class="relative min-h-[80vh] flex items-center pt-20 px-4 md:px-20 overflow-hidden"
+  aria-label={`Diplomado en ${diplomado.headlineAccent}`}
+>
+  <div class="absolute inset-0 z-0" aria-hidden="true">
+    <img
+      src={diplomado.heroImageUrl}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover opacity-40"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div class="md:col-span-8 flex flex-col items-start gap-6">
+      <div class="flex gap-2 mb-2">
+        {
+          diplomado.chips.map((chip) => (
+            <span class="inline-block bg-black border border-accent text-accent-soft font-body text-xs px-3 py-1 rounded-sm uppercase tracking-wider font-bold">
+              {chip}
+            </span>
+          ))
+        }
+      </div>
+
+      <h1 class="font-heading text-[clamp(3rem,8vw,5rem)] leading-none uppercase text-white">
+        {diplomado.headline}
+        <br />
+        <span class="text-gradient-cta">{diplomado.headlineAccent}</span>
+      </h1>
+
+      <p class="font-body text-text-variant text-[18px] leading-7 max-w-2xl">
+        {diplomado.heroDescription}
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+        <Button href="/#registro">¡INSCRÍBETE AHORA!</Button>
+        <Button variant="ghost" type="button">
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;"
+            aria-hidden="true"
+          >
+            play_circle
+          </span>
+          VER INTRODUCCIÓN
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

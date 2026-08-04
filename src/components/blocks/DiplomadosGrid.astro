@@ -9,6 +9,7 @@ const card2ImageUrl =
 const diplomados = [
   {
     chip: 'Liderazgo',
+    slug: 'coaching-y-liderazgo',
     title: 'Diplomado en Coaching y Liderazgo',
     description: 'Aprende a dirigirte a ti mismo para liderar a otros hacia el éxito.',
     features: ['Autodominio', 'Gestión emocional', 'Metas claras', 'Equipos de alto rendimiento'],
@@ -17,6 +18,7 @@ const diplomados = [
   },
   {
     chip: 'Comunicación',
+    slug: 'comunicacion-y-oratoria',
     title: 'Diplomado en Comunicación y Oratoria',
     description: 'Haz que tu voz se escuche con poder, aplomo e impacto.',
     features: ['Lenguaje corporal', 'Miedo escénico', 'Discursos memorables'],
@@ -44,6 +46,7 @@ const diplomados = [
           features={diplomado.features}
           cta={diplomado.cta}
           imageUrl={diplomado.imageUrl}
+          href={'/diplomados/' + diplomado.slug}
         />
       ))
     }

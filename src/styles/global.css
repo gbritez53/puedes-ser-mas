@@ -80,3 +80,25 @@
     outline-offset: 3px;
   }
 }
+
+@layer components {
+  .text-gradient-cta {
+    background: linear-gradient(90deg, #ffffff, #d32f2f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glass-card {
+    background: var(--color-surface);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+    transition:
+      border-color 0.3s,
+      filter 0.3s;
+  }
+
+  .glass-card:hover {
+    border-color: var(--color-accent);
+    filter: drop-shadow(0 0 15px rgba(0, 93, 183, 0.5));
+  }
+}

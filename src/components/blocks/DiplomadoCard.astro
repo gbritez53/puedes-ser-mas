@@ -6,9 +6,10 @@ interface Props {
   features: string[];
   cta: string;
   imageUrl: string;
+  href: string;
 }
 
-const { chip, title, description, features, cta, imageUrl } = Astro.props;
+const { chip, title, description, features, cta, imageUrl, href } = Astro.props;
 ---
 
 <article
@@ -54,7 +55,7 @@ const { chip, title, description, features, cta, imageUrl } = Astro.props;
     </ul>
 
     <a
-      href="#registro"
+      href={href}
       class="text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
     >
       {cta}
