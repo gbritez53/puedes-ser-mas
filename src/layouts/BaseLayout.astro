@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Diplomado Coach Emprendedor — PUEDES SER MÁS',
-  description = 'En 90 días, vas a dejar de improvisar y transformarte en un emprendedor con dirección, valor y estructura. Programa online en vivo. Cohorte Mayo 2026.',
+  title = 'PUEDES SER MÁS — Diplomados de Transformación Personal y Profesional',
+  description = 'Diplomados en Coaching y Liderazgo y en Comunicación y Oratoria. Transformá tu vida: registrate hoy.',
   ogImage = '/assets/logo.png',
   canonical = Astro.site?.toString() ?? 'https://puedessermas.com',
 } = Astro.props;
@@ -61,6 +61,14 @@ const canonicalUrl = canonical.startsWith('http') ? canonical : `${siteUrl}${can
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&display=swap"
+    />
+
+    <!-- Material Symbols -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     />
 
     <!-- GA4 stub (gated by consent in production) -->
