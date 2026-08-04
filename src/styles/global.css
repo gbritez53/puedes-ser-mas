@@ -79,6 +79,26 @@
     outline: 2px solid var(--color-cta);
     outline-offset: 3px;
   }
+
+  /* Elementos clickeables: cursor pointer en todo lo interactivo */
+  a[href],
+  button:not(:disabled),
+  [role='button'],
+  summary,
+  select:not(:disabled),
+  label[for],
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  [onclick] {
+    cursor: pointer;
+  }
+
+  /* Estados deshabilitados: cursor not-allowed */
+  button:disabled,
+  select:disabled,
+  [role='button'][aria-disabled='true'] {
+    cursor: not-allowed;
+  }
 }
 
 @layer components {
