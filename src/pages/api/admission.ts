@@ -61,9 +61,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         name: parsed.data.name,
         email: parsed.data.email,
         phone: parsed.data.phone,
-        profession: parsed.data.profession,
-        motivation: parsed.data.motivation,
-        cohort: parsed.data.cohort,
+        diplomado: parsed.data.diplomado,
         ipHash: ipHash ?? undefined,
         userAgent: request.headers.get('user-agent') ?? undefined,
       })

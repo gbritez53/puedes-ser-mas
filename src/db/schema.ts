@@ -6,9 +6,7 @@ export const admissions = sqliteTable('admissions', {
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   phone: text('phone').notNull(),
-  profession: text('profession').notNull(),
-  motivation: text('motivation').notNull(),
-  cohort: text('cohort').notNull(),
+  diplomado: text('diplomado').notNull(),
   ipHash: text('ip_hash'),
   userAgent: text('user_agent'),
   createdAt: integer('created_at', { mode: 'timestamp' })

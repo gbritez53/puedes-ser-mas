@@ -1,135 +1,76 @@
-import { useReducer, useCallback, type ChangeEvent } from 'react';
+import { useCallback, useState, type ChangeEvent, type FormEvent } from 'react';
 import { admissionSchema } from '../../lib/validators/admission';
-import type { AdmissionInput, AdmissionFieldErrors } from '../../lib/validators/admission';
-import { StepPersonal } from './StepPersonal';
-import { StepProfessional } from './StepProfessional';
-import { StepMotivation } from './StepMotivation';
-import { StepConfirmation } from './StepConfirmation';
+import type { AdmissionFieldErrors } from '../../lib/validators/admission';
 
-type Step = 'personal' | 'professional' | 'motivation' | 'confirmation';
+type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-interface FormState {
-  step: Step;
-  values: Partial<AdmissionInput>;
-  errors: AdmissionFieldErrors;
-  status: 'idle' | 'submitting' | 'success' | 'error';
-  serverError?: string;
+interface FormValues {
+  name: string;
+  email: string;
+  phone: string;
+  diplomado: string;
+  honeypot: string;
 }
 
-type FormAction =
-  | { type: 'SET_FIELD'; field: keyof AdmissionInput; value: string }
-  | { type: 'SET_ERRORS'; errors: AdmissionFieldErrors }
-  | { type: 'NEXT_STEP'; nextStep: Step }
-  | { type: 'PREV_STEP'; prevStep: Step }
-  | { type: 'SUBMIT_START' }
-  | { type: 'SUBMIT_SUCCESS' }
-  | { type: 'SUBMIT_ERROR'; error: string }
-  | { type: 'RETRY' };
-
-function formReducer(state: FormState, action: FormAction): FormState {
-  switch (action.type) {
-    case 'SET_FIELD':
-      return {
-        ...state,
-        values: { ...state.values, [action.field]: action.value },
-        errors: { ...state.errors, [action.field]: undefined },
-      };
-    case 'SET_ERRORS':
-      return { ...state, errors: action.errors };
-    case 'NEXT_STEP':
-      return { ...state, step: action.nextStep, errors: {} };
-    case 'PREV_STEP':
-      return { ...state, step: action.prevStep, errors: {} };
-    case 'SUBMIT_START':
-      return { ...state, status: 'submitting', errors: {} };
-    case 'SUBMIT_SUCCESS':
-      return { ...state, status: 'success', step: 'confirmation' };
-    case 'SUBMIT_ERROR':
-      return { ...state, status: 'error', step: 'confirmation', serverError: action.error };
-    case 'RETRY':
-      return { ...state, status: 'idle', step: 'motivation', serverError: undefined };
-    default:
-      return state;
-  }
-}
-
-const initialState: FormState = {
-  step: 'personal',
-  values: { cohort: 'COHORTE 01 — MAYO 2026' },
-  errors: {},
-  status: 'idle',
+const initialValues: FormValues = {
+  name: '',
+  email: '',
+  phone: '',
+  diplomado: '',
+  honeypot: '',
 };
 
-// Validate fields for a given step
-function validateStep(step: Step, values: Partial<AdmissionInput>): AdmissionFieldErrors {
-  const errors: AdmissionFieldErrors = {};
+const inputClass =
+  'w-full bg-black border border-white/40 rounded px-4 py-3 text-white font-body focus:border-cta focus:ring-1 focus:ring-cta/50 focus:outline-none transition-all';
 
-  if (step === 'personal') {
-    const nameResult = admissionSchema.shape.name.safeParse(values.name);
-    if (!nameResult.success) errors.name = nameResult.error.issues[0]?.message ?? 'Inválido';
-
-    const emailResult = admissionSchema.shape.email.safeParse(values.email);
-    if (!emailResult.success) errors.email = emailResult.error.issues[0]?.message ?? 'Inválido';
-
-    const phoneResult = admissionSchema.shape.phone.safeParse(values.phone);
-    if (!phoneResult.success) errors.phone = phoneResult.error.issues[0]?.message ?? 'Inválido';
-  }
-
-  if (step === 'professional') {
-    const profResult = admissionSchema.shape.profession.safeParse(values.profession);
-    if (!profResult.success) errors.profession = profResult.error.issues[0]?.message ?? 'Inválido';
-  }
-
-  if (step === 'motivation') {
-    const motResult = admissionSchema.shape.motivation.safeParse(values.motivation);
-    if (!motResult.success) errors.motivation = motResult.error.issues[0]?.message ?? 'Inválido';
-  }
-
-  return errors;
-}
+const labelClass = 'font-body text-sm font-bold uppercase tracking-wider text-white';
 
 export function AdmissionForm() {
-  const [state, dispatch] = useReducer(formReducer, initialState);
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [errors, setErrors] = useState<AdmissionFieldErrors>({});
+  const [status, setStatus] = useState<Status>('idle');
+  const [serverError, setServerError] = useState<string>();
 
-  const handleChange = useCallback((field: keyof AdmissionInput, value: string) => {
-    dispatch({ type: 'SET_FIELD', field, value });
-  }, []);
+  const handleChange = useCallback(
+    (field: keyof FormValues) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setValues((prev) => ({ ...prev, [field]: e.target.value }));
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    },
+    [],
+  );
 
-  function handleNextFromPersonal() {
-    const errors = validateStep('personal', state.values);
-    if (Object.keys(errors).length > 0) {
-      dispatch({ type: 'SET_ERRORS', errors });
-      return;
+  function validateForm(form: FormValues): AdmissionFieldErrors {
+    const result = admissionSchema.safeParse(form);
+    if (result.success) return {};
+
+    const fieldErrors: AdmissionFieldErrors = {};
+    for (const issue of result.error.issues) {
+      const key = issue.path[0] as keyof AdmissionFieldErrors;
+      if (key && !fieldErrors[key]) {
+        fieldErrors[key] = issue.message;
+      }
     }
-    dispatch({ type: 'NEXT_STEP', nextStep: 'professional' });
+    return fieldErrors;
   }
 
-  function handleNextFromProfessional() {
-    const errors = validateStep('professional', state.values);
-    if (Object.keys(errors).length > 0) {
-      dispatch({ type: 'SET_ERRORS', errors });
-      return;
-    }
-    dispatch({ type: 'NEXT_STEP', nextStep: 'motivation' });
-  }
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  async function handleSubmit() {
-    const errors = validateStep('motivation', state.values);
-    if (Object.keys(errors).length > 0) {
-      dispatch({ type: 'SET_ERRORS', errors });
+    const fieldErrors = validateForm(values);
+    if (Object.keys(fieldErrors).length > 0) {
+      setErrors(fieldErrors);
       return;
     }
 
-    dispatch({ type: 'SUBMIT_START' });
+    setStatus('submitting');
+    setServerError(undefined);
 
-    const payload: AdmissionInput = {
-      name: state.values.name ?? '',
-      email: state.values.email ?? '',
-      phone: state.values.phone ?? '',
-      profession: state.values.profession ?? '',
-      motivation: state.values.motivation ?? '',
-      cohort: state.values.cohort ?? 'COHORTE 01 — MAYO 2026',
-      honeypot: state.values.honeypot ?? '',
+    const payload = {
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      diplomado: values.diplomado,
+      honeypot: values.honeypot,
     };
 
     try {
@@ -140,69 +81,52 @@ export function AdmissionForm() {
       });
 
       if (res.ok) {
-        dispatch({ type: 'SUBMIT_SUCCESS' });
+        setStatus('success');
       } else if (res.status === 429) {
-        dispatch({
-          type: 'SUBMIT_ERROR',
-          error: 'Demasiadas aplicaciones desde tu IP. Intentá más tarde.',
-        });
+        setStatus('error');
+        setServerError('Demasiadas aplicaciones desde tu IP. Intentá más tarde.');
       } else if (res.status === 422) {
         const body = (await res.json().catch(() => null)) as {
-          ok: false;
           issues?: Array<{ path: string[]; message: string }>;
         } | null;
-        const firstIssue = body?.issues?.[0]?.message;
-        dispatch({
-          type: 'SUBMIT_ERROR',
-          error: firstIssue ?? 'Datos inválidos. Revisá el formulario.',
-        });
+        setStatus('error');
+        setServerError(body?.issues?.[0]?.message ?? 'Datos inválidos. Revisá el formulario.');
       } else {
-        dispatch({
-          type: 'SUBMIT_ERROR',
-          error: 'Error del servidor. Por favor, intentá de nuevo.',
-        });
+        setStatus('error');
+        setServerError('Error del servidor. Por favor, intentá de nuevo.');
       }
     } catch {
-      dispatch({
-        type: 'SUBMIT_ERROR',
-        error: 'Sin conexión. Verificá tu internet e intentá de nuevo.',
-      });
+      setStatus('error');
+      setServerError('Sin conexión. Verificá tu internet e intentá de nuevo.');
     }
   }
 
-  return (
-    <div
-      className="max-w-xl mx-auto p-8 border"
-      style={{
-        borderColor: 'var(--color-line)',
-        borderRadius: 'var(--radius-card)',
-        background: 'rgba(255,255,255,0.02)',
-      }}
-    >
-      {/* Progress indicator */}
-      {state.step !== 'confirmation' && (
-        <div className="flex gap-2 mb-8" aria-label="Progreso del formulario" role="progressbar">
-          {(['personal', 'professional', 'motivation'] as const).map((step, index) => {
-            const stepOrder = { personal: 0, professional: 1, motivation: 2 };
-            const currentOrder = stepOrder[state.step as keyof typeof stepOrder] ?? 0;
-            const isCompleted = index < currentOrder;
-            const isCurrent = step === state.step;
-            return (
-              <div
-                key={step}
-                className="flex-1 h-1 transition-all duration-300"
-                style={{
-                  background: isCompleted || isCurrent ? 'var(--color-cta)' : 'var(--color-line)',
-                  opacity: isCurrent ? 1 : isCompleted ? 0.6 : 0.3,
-                  borderRadius: '1px',
-                }}
-                aria-hidden="true"
-              />
-            );
-          })}
-        </div>
-      )}
+  function handleRetry() {
+    setStatus('idle');
+    setServerError(undefined);
+    setErrors({});
+  }
 
+  if (status === 'success') {
+    return (
+      <div
+        className="flex flex-col items-center gap-4 text-center"
+        role="status"
+        aria-live="polite"
+      >
+        <span className="material-symbols-outlined text-cta text-5xl">check_circle</span>
+        <h3 className="font-heading text-3xl uppercase text-white">
+          ¡Gracias, {values.name?.split(' ')[0]}!
+        </h3>
+        <p className="font-body text-[#e4beba]">
+          Tu solicitud fue registrada. Te contactaremos con la información detallada del diplomado.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
       {/* Honeypot — hidden from real users, filled by bots */}
       <input
         type="text"
@@ -210,55 +134,121 @@ export function AdmissionForm() {
         autoComplete="off"
         tabIndex={-1}
         aria-hidden="true"
-        style={{
-          position: 'absolute',
-          opacity: 0,
-          pointerEvents: 'none',
-          width: '1px',
-          height: '1px',
-        }}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('honeypot', e.target.value)}
+        onChange={handleChange('honeypot')}
+        style={{ position: 'absolute', opacity: 0, width: '1px', height: '1px' }}
       />
 
-      {/* Step rendering */}
-      {state.step === 'personal' && (
-        <StepPersonal
-          values={state.values}
-          errors={state.errors}
-          onChange={handleChange}
-          onNext={handleNextFromPersonal}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className={labelClass}>
+          Nombre Completo
+        </label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Tu nombre"
+          value={values.name}
+          onChange={handleChange('name')}
+          className={inputClass}
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? 'name-error' : undefined}
         />
+        {errors.name && (
+          <p id="name-error" className="font-body text-sm text-cta" role="alert">
+            {errors.name}
+          </p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="email" className={labelClass}>
+          Correo Electrónico
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="tu@email.com"
+          value={values.email}
+          onChange={handleChange('email')}
+          className={inputClass}
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? 'email-error' : undefined}
+        />
+        {errors.email && (
+          <p id="email-error" className="font-body text-sm text-cta" role="alert">
+            {errors.email}
+          </p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="phone" className={labelClass}>
+          WhatsApp
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          placeholder="+123456789"
+          value={values.phone}
+          onChange={handleChange('phone')}
+          className={inputClass}
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? 'phone-error' : undefined}
+        />
+        {errors.phone && (
+          <p id="phone-error" className="font-body text-sm text-cta" role="alert">
+            {errors.phone}
+          </p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="diplomado" className={labelClass}>
+          Elige tu camino
+        </label>
+        <select
+          id="diplomado"
+          value={values.diplomado}
+          onChange={handleChange('diplomado')}
+          className={inputClass}
+          aria-invalid={!!errors.diplomado}
+          aria-describedby={errors.diplomado ? 'diplomado-error' : undefined}
+        >
+          <option value="" disabled>
+            Selecciona un diplomado...
+          </option>
+          <option value="liderazgo">Coaching y Liderazgo</option>
+          <option value="comunicacion">Comunicación y Oratoria</option>
+        </select>
+        {errors.diplomado && (
+          <p id="diplomado-error" className="font-body text-sm text-cta" role="alert">
+            {errors.diplomado}
+          </p>
+        )}
+      </div>
+
+      {status === 'error' && serverError && (
+        <div
+          className="font-body text-sm text-cta border border-cta/40 rounded p-4 flex flex-col gap-3"
+          role="alert"
+        >
+          <span>{serverError}</span>
+          <button
+            type="button"
+            onClick={handleRetry}
+            className="self-start font-body text-sm font-bold uppercase tracking-wider underline underline-offset-2"
+          >
+            Reintentar
+          </button>
+        </div>
       )}
 
-      {state.step === 'professional' && (
-        <StepProfessional
-          values={state.values}
-          errors={state.errors}
-          onChange={handleChange}
-          onNext={handleNextFromProfessional}
-          onBack={() => dispatch({ type: 'PREV_STEP', prevStep: 'personal' })}
-        />
-      )}
-
-      {state.step === 'motivation' && (
-        <StepMotivation
-          values={state.values}
-          errors={state.errors}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          onBack={() => dispatch({ type: 'PREV_STEP', prevStep: 'professional' })}
-          isSubmitting={state.status === 'submitting'}
-        />
-      )}
-
-      {state.step === 'confirmation' && (
-        <StepConfirmation
-          status={state.status === 'success' ? 'success' : 'error'}
-          serverError={state.serverError}
-          onRetry={state.status === 'error' ? () => dispatch({ type: 'RETRY' }) : undefined}
-          name={state.values.name}
-        />
-      )}
-    </div>
+      <button
+        type="submit"
+        disabled={status === 'submitting'}
+        className="bg-cta text-white font-heading text-2xl py-4 rounded-lg mt-4 w-full uppercase shadow-[0_0_20px_rgba(211,47,47,0.4)] hover:bg-cta-hover hover:shadow-[0_0_30px_rgba(211,47,47,0.6)] transition-all disabled:opacity-60"
+      >
+        {status === 'submitting' ? 'ENVIANDO...' : '¡QUIERO SER MÁS!'}
+      </button>
+    </form>
   );
 }
