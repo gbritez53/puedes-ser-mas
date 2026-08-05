@@ -90,10 +90,10 @@ const SIM_TUNING = {
 };
 
 const POINTER_TUNING = {
-  radius: 0.28,
-  push: 1.1,
+  radius: 0.4,
+  push: 3.5,
   /** Tangential drag along pointer velocity — set to 0 for a purely radial push (no sideways drift). */
-  velScale: 0.35,
+  velScale: 1.5,
 };
 
 function buildOriginData(simSize: number): Float32Array {
