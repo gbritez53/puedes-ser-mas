@@ -12,7 +12,7 @@ import { clampVec2Length, expLerp, smoothstep, worldHalfHeight } from './lib/uti
 
 const POINTER_LERP = 12;
 const ACTIVE_LERP = 7.5;
-const MAX_POINTER_VEL = 10;
+const MAX_POINTER_VEL = 8;
 const WARP_THRUST = 1.4;
 const STREAK_LENGTH = 0.6;
 // Continuous "particles converge" effect — the warp never drops to zero, it

@@ -28,7 +28,9 @@ void main() {
   vec4 mvPosition = modelViewMatrix * vec4(posData.xyz, 1.0);
   gl_Position = projectionMatrix * mvPosition;
 
-  float sizeVariance = 0.6 + random.x * 0.8;
+  // Bigger, tighter size distribution: floor at 1.0x removes the tiny
+  // particles that read as visual noise, keeping a uniform "large dots" field.
+  float sizeVariance = 1.0 + random.x * 0.5;
   gl_PointSize = clamp(
     uPointSize * sizeVariance * uDpr * vFade / gl_Position.w,
     1.0,
