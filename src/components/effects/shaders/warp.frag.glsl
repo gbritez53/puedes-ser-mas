@@ -14,6 +14,10 @@ uniform float uWarpAmount;
 uniform float uStreakLength;
 uniform float uStreakIntensity;
 
+// --color-cta #c41718 and --color-accent #1f3c87 (binary brand palette).
+const vec3 COLOR_RED = vec3(0.769, 0.090, 0.094);
+const vec3 COLOR_BLUE = vec3(0.122, 0.235, 0.529);
+
 float hash12(vec2 p) {
   vec3 p3 = fract(vec3(p.xyx) * 0.1031);
   p3 += dot(p3, p3.yzx + 33.33);
@@ -36,19 +40,15 @@ void main() {
   }
   vec3 col = acc / max(wsum, 0.0001);
 
-  // Chromatic split, only when the warp is visually significant.
-  if (amt > 0.3) {
-    float split = (amt - 0.3) * 0.004;
-    float sBase = 1.0 - amt * uStreakLength * jitter;
-    float r = texture(tScene, uVanish + dir * sBase + dir * split).r;
-    float b = texture(tScene, uVanish + dir * sBase - dir * split).b;
-    col.r = mix(col.r, r, 0.6);
-    col.b = mix(col.b, b, 0.6);
-  }
-
   float vignette = smoothstep(0.9, 0.2, length(vUv - 0.5));
   col *= mix(1.0, vignette, amt * 0.5);
   col *= 1.0 + amt * uStreakIntensity * 0.4;
 
-  fragColor = vec4(col, 1.0);
+  // Binary palette snap: averaging red and blue samples (and additive overlap
+  // before this pass) produces pink/purple intermediates. Resolve every pixel
+  // to the nearest brand color while keeping the dominant-channel brightness,
+  // so the warp never shows off-palette tones.
+  float intensity = max(max(col.r, col.g), col.b);
+  vec3 snap = col.r >= col.b ? COLOR_RED : COLOR_BLUE;
+  fragColor = vec4(snap * intensity, 1.0);
 }
