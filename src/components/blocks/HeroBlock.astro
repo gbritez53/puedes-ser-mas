@@ -1,23 +1,18 @@
 ---
-const isotypeUrl = '/assets/isotype.png';
+import HeroParticles from '../effects/HeroParticles';
 ---
 
 <header
   class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-black"
   aria-label="Hero — PUEDES SER MÁS"
 >
-  <!-- Isotype decorativo flotante -->
-  <div class="absolute inset-0 z-0 flex items-center justify-center">
-    <img
-      src={isotypeUrl}
-      alt=""
-      class="w-[70%] max-w-[700px] opacity-[0.07] hero-isotype"
-      loading="eager"
-      decoding="async"
-      aria-hidden="true"
-    />
-    <div class="absolute inset-0 hero-gradient"></div>
+  <!-- Fondo de partículas rojo/azul (efecto warp de acercamiento) -->
+  <div class="absolute inset-0 z-0">
+    <HeroParticles client:load />
   </div>
+
+  <!-- Overlay de legibilidad para el contenido -->
+  <div class="absolute inset-0 z-[2] hero-gradient pointer-events-none"></div>
 
   <div
     class="relative z-10 text-center px-4 md:px-20 max-w-4xl mx-auto flex flex-col items-center gap-6"
@@ -68,21 +63,5 @@ const isotypeUrl = '/assets/isotype.png';
   .hero-diagonal {
     transform: rotate(-1.5deg);
     box-shadow: 0 0 30px color-mix(in srgb, var(--color-cta) 50%, transparent);
-  }
-
-  .hero-isotype {
-    animation: hero-float 8s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-cta) 30%, transparent))
-      drop-shadow(0 0 40px color-mix(in srgb, var(--color-accent) 30%, transparent));
-  }
-
-  @keyframes hero-float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-16px);
-    }
   }
 </style>

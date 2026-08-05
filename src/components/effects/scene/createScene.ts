@@ -46,6 +46,8 @@ export interface CreateSceneOptions {
   simTuning?: Partial<typeof SIM_TUNING>;
   /** Partial override of POINTER_TUNING. */
   pointerTuning?: Partial<typeof POINTER_TUNING>;
+  /** Clear color for the default framebuffer (defaults to the hero's #05060a). */
+  clearColor?: [number, number, number, number];
 }
 
 export interface PointerFrameInput {
@@ -165,7 +167,7 @@ export function createScene(
     powerPreference: 'high-performance',
   });
   const gl = renderer.gl as WebGL2RenderingContext & OGL.OGLRenderingContext;
-  gl.clearColor(0.0, 0.0, 0.0, 1);
+  gl.clearColor(...(options.clearColor ?? [0.0196, 0.0235, 0.0392, 1]));
 
   const simType = colorBufferSupport === 'float' ? gl.FLOAT : gl.HALF_FLOAT;
   const simInternalFormat = colorBufferSupport === 'float' ? gl.RGBA32F : gl.RGBA16F;
