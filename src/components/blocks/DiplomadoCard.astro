@@ -138,8 +138,8 @@ const {
     padding: 2px;
     border-radius: 0.75rem;
     box-shadow:
-      0 0 18px color-mix(in srgb, var(--card-accent) 30%, transparent),
-      0 0 45px color-mix(in srgb, var(--card-accent) 12%, transparent);
+      0 0 18px color-mix(in srgb, var(--card-accent) 45%, transparent),
+      0 0 45px color-mix(in srgb, var(--card-accent) 22%, transparent);
   }
 
   .border-light-blue {
@@ -155,8 +155,8 @@ const {
     border-radius: inherit;
     background: linear-gradient(
       135deg,
-      color-mix(in srgb, var(--card-accent) 60%, transparent),
-      color-mix(in srgb, var(--card-accent) 25%, transparent)
+      color-mix(in srgb, var(--card-accent) 75%, transparent),
+      color-mix(in srgb, var(--card-accent) 35%, transparent)
     );
   }
 
@@ -170,17 +170,25 @@ const {
       from 0deg,
       transparent 0deg,
       transparent 280deg,
-      color-mix(in srgb, var(--card-accent) 40%, transparent) 330deg,
-      var(--card-accent) 355deg,
+      color-mix(in srgb, var(--card-accent) 45%, transparent) 325deg,
+      color-mix(in srgb, var(--card-accent) 65%, white) 348deg,
+      #ffffff 356deg,
       transparent 360deg
     );
     animation: border-light-spin 2.5s linear infinite;
   }
 
+  /* La card azul gira en sentido contrario y con otro ritmo: nunca al unísono */
+  .border-light-blue::after {
+    animation-duration: 3.4s;
+    animation-delay: -0.9s;
+    animation-direction: reverse;
+  }
+
   .card-glow:hover {
     box-shadow:
-      0 0 26px color-mix(in srgb, var(--card-accent) 55%, transparent),
-      0 0 65px color-mix(in srgb, var(--card-accent) 22%, transparent);
+      0 0 30px color-mix(in srgb, var(--card-accent) 65%, transparent),
+      0 0 70px color-mix(in srgb, var(--card-accent) 30%, transparent);
     transform: translateY(-2px);
   }
 
