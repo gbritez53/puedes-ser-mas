@@ -33,7 +33,7 @@ export const TIER_CONFIG: Record<Tier, TierConfig> = {
     sceneScale: 1.0,
     postTaps: 12,
     curl2D: false,
-    pointSizePx: 3.4,
+    pointSizePx: 5.5,
   },
   mid: {
     simSize: 192,
@@ -41,9 +41,9 @@ export const TIER_CONFIG: Record<Tier, TierConfig> = {
     sceneScale: 0.75,
     postTaps: 8,
     curl2D: false,
-    pointSizePx: 3.0,
+    pointSizePx: 5.0,
   },
-  low: { simSize: 128, dprCap: 1.5, sceneScale: 0.6, postTaps: 6, curl2D: true, pointSizePx: 2.6 },
+  low: { simSize: 128, dprCap: 1.5, sceneScale: 0.6, postTaps: 6, curl2D: true, pointSizePx: 4.2 },
 };
 
 /** Evaluated once at mount — deliberately simple heuristic (design §3.4). */

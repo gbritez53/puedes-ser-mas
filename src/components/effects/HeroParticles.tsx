@@ -15,11 +15,12 @@ const ACTIVE_LERP = 7.5;
 const MAX_POINTER_VEL = 6;
 const WARP_THRUST = 1.4;
 const STREAK_LENGTH = 0.6;
-// Autonomous "particles converge" pulse — no scroll required. Full cycle in
-// ~9s: particles drift apart, then warp toward the center (vanish point) and
-// back out, forever. The pointer adds its own push on top.
+// Continuous "particles converge" effect — the warp never drops to zero, it
+// breathes between a floor and a peak so the approach reads as an endless
+// motion instead of a repeating burst that cuts out.
 const WARP_PULSE_PERIOD = 9;
-const WARP_PULSE_MAX = 0.9;
+const WARP_PULSE_FLOOR = 0.45;
+const WARP_PULSE_PEAK = 0.9;
 const MAX_CONTEXT_LOSSES = 3;
 
 /**
@@ -210,13 +211,15 @@ export default function HeroParticles() {
         ACTIVE_LERP,
         dt,
       );
-
-      // Autonomous warp pulse: ease-in on the approach, ease-out on release.
+      // Continuous warp pulse: breathes between WARP_PULSE_FLOOR and
+      // WARP_PULSE_PEAK (ease-in on the approach, ease-out on release) so the
+      // convergence never cuts out — always some warp is active.
       const t = timeRef.current;
       const phase = (t % WARP_PULSE_PERIOD) / WARP_PULSE_PERIOD; // 0..1
       const pulse = 0.5 - 0.5 * Math.cos(phase * Math.PI * 2); // 0..1..0 (smooth cycle)
-      const warpAmount = smoothstep(0.25, 0.75, pulse) * WARP_PULSE_MAX;
-      const streakIntensity = smoothstep(0.3, 1, warpAmount);
+      const warpAmount =
+        WARP_PULSE_FLOOR + smoothstep(0.25, 0.75, pulse) * (WARP_PULSE_PEAK - WARP_PULSE_FLOOR);
+      const streakIntensity = smoothstep(0.2, 1, warpAmount);
 
       // Vanish point converges toward the center as the warp ramps.
       const vanishX =
