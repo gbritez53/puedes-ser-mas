@@ -24,6 +24,7 @@ const {
   plazas,
   features,
   cta,
+  imageUrl,
   href,
   variant = 'red',
 } = Astro.props;
@@ -31,29 +32,31 @@ const {
 
 <article
   class:list={[
-    'gradient-card',
-    'relative',
+    'border-light',
+    'card-glow',
     'rounded-xl',
-    'overflow-hidden',
     'transition-all',
     'duration-300',
-    variant === 'blue' ? 'gradient-card-blue' : '',
+    variant === 'blue' ? 'border-light-blue' : '',
   ]}
 >
-  {/* Blob de gradiente animado recorriendo las esquinas */}
-  <div class="gradient-blob" aria-hidden="true"></div>
+  <span class="light-beam" aria-hidden="true"></span>
 
-  {/* Borde de luz que recorre el perímetro (roja horaria, azul antihoraria) */}
-  <span class="card-beam" aria-hidden="true"></span>
+  <div class="relative z-10 bg-surface rounded-xl overflow-hidden flex flex-col h-full">
+    <div class="h-48 relative">
+      <img
+        src={imageUrl}
+        alt=""
+        class="w-full h-full object-cover"
+        loading="lazy"
+        aria-hidden="true"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+    </div>
 
-  {/* Contenido glassy sobre el blob, con borde del color de la card */}
-  <div
-    class="glass-panel relative z-10 bg-black/65 backdrop-blur-[24px] overflow-hidden flex flex-col h-full"
-  >
     <div class="p-6 flex-1 flex flex-col">
       <div
-        class="inline-block bg-black border text-[10px] px-2 py-1 rounded-sm mb-4 uppercase w-fit font-bold tracking-[0.1em]"
-        style="border-color: var(--card-accent); color: var(--card-accent-soft)"
+        class="inline-block bg-black border border-accent text-accent-soft font-body text-[10px] px-2 py-1 rounded-sm mb-4 uppercase w-fit font-bold tracking-[0.1em]"
       >
         {chip}
       </div>
@@ -63,19 +66,13 @@ const {
       <p class="font-body text-[16px] leading-[24px] text-text-variant mb-4">{description}</p>
 
       <div class="mb-4">
-        <p
-          class="font-body text-[11px] uppercase tracking-widest font-bold mb-2"
-          style="color: var(--card-accent-soft)"
-        >
+        <p class="font-body text-[11px] uppercase tracking-widest font-bold text-accent-soft mb-2">
           Enfoque
         </p>
         <div class="flex flex-wrap gap-2">
           {
             enfoque.map((item) => (
-              <span
-                class="font-body text-[11px] px-2 py-1 rounded-sm bg-white/5 border border-white/15 text-white"
-                style="border-color: color-mix(in srgb, var(--card-accent) 40%, transparent)"
-              >
+              <span class="font-body text-[11px] px-2 py-1 rounded-sm bg-accent/15 border border-accent/40 text-white">
                 {item}
               </span>
             ))
@@ -83,15 +80,15 @@ const {
         </div>
       </div>
 
-      <blockquote class="pl-3 mb-4" style="border-left: 2px solid var(--card-accent)">
+      <blockquote class="border-l-2 border-cta pl-3 mb-4">
         <p class="font-body text-[14px] leading-[22px] italic text-white">{promesa}</p>
       </blockquote>
 
       <ul class="space-y-2 mb-6 flex-1">
         <li class="flex items-center gap-2 font-body text-sm text-white">
           <span
-            class="material-symbols-outlined text-sm"
-            style="color: var(--card-accent)"
+            class="material-symbols-outlined text-cta text-sm"
+            style="font-variation-settings: 'FILL' 1;"
             aria-hidden="true"
           >
             event
@@ -100,8 +97,8 @@ const {
         </li>
         <li class="flex items-center gap-2 font-body text-sm text-white">
           <span
-            class="material-symbols-outlined text-sm"
-            style="color: var(--card-accent)"
+            class="material-symbols-outlined text-cta text-sm"
+            style="font-variation-settings: 'FILL' 1;"
             aria-hidden="true"
           >
             group
@@ -112,8 +109,8 @@ const {
           features.map((feature) => (
             <li class="flex items-center gap-2 font-body text-sm text-white">
               <span
-                class="material-symbols-outlined text-sm"
-                style="color: var(--card-accent)"
+                class="material-symbols-outlined text-cta text-sm"
+                style="font-variation-settings: 'FILL' 1;"
                 aria-hidden="true"
               >
                 check_circle
@@ -135,59 +132,40 @@ const {
 </article>
 
 <style>
-  .gradient-card {
+  .border-light {
     --card-accent: var(--color-cta);
-    --card-accent-soft: #ff8a80;
-    border: 1px solid color-mix(in srgb, var(--card-accent) 35%, transparent);
-    padding: 4px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 2px;
+    border-radius: 0.75rem;
+    box-shadow:
+      0 0 18px color-mix(in srgb, var(--card-accent) 45%, transparent),
+      0 0 45px color-mix(in srgb, var(--card-accent) 22%, transparent);
   }
 
-  .gradient-card-blue {
+  .border-light-blue {
     --card-accent: var(--color-accent);
-    --card-accent-soft: #7ba4e8;
   }
 
-  .gradient-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--card-accent);
-    box-shadow: 0 0 30px color-mix(in srgb, var(--card-accent) 40%, transparent);
-  }
-
-  /* Vidrio con borde del color de la card (como el outline del prompt) */
-  .glass-panel {
-    border-radius: 10px;
-    outline: 2px solid color-mix(in srgb, var(--card-accent) 70%, transparent);
-  }
-
-  .gradient-card:hover .glass-panel {
-    outline-color: var(--card-accent);
-  }
-
-  /* Blob de gradiente animado (recorre las 4 esquinas) */
-  .gradient-blob {
+  /* Marco de color: siempre visible para que la card resalte */
+  .border-light::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 220px;
-    height: 220px;
-    border-radius: 9999px;
-    filter: blur(18px);
+    inset: 0;
     z-index: 0;
-    animation: blob 5s linear infinite;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--card-accent) 75%, transparent),
+      color-mix(in srgb, var(--card-accent) 35%, transparent)
+    );
   }
 
-  /* Card roja: gradiente bold rojo */
-  .gradient-card .gradient-blob {
-    background: linear-gradient(to right, #ec4899, #ef4444, #eab308);
-  }
-
-  /* Card azul: gradiente bold azul */
-  .gradient-card-blue .gradient-blob {
-    background: linear-gradient(to right, #38bdf8, #1d4ed8, #818cf8);
-  }
-
-  /* Borde de luz que recorre el perímetro: card roja horaria, azul antihoraria */
-  .card-beam {
+  /* Haz de luz: una sola luz por card, recorre el borde a ritmo constante.
+     La card roja gira en sentido horario; la azul, antihorario: ambas a la
+     misma velocidad, así parten del mismo punto y se cruzan en el opuesto. */
+  .light-beam {
     position: absolute;
     inset: -100%;
     z-index: 0;
@@ -204,26 +182,15 @@ const {
     animation: border-light-spin-cw 2.5s linear infinite;
   }
 
-  .gradient-card-blue .card-beam {
+  .border-light-blue .light-beam {
     animation: border-light-spin-ccw 2.5s linear infinite;
   }
 
-  @keyframes blob {
-    0% {
-      transform: translate(-100%, -100%);
-    }
-    25% {
-      transform: translate(0%, -100%);
-    }
-    50% {
-      transform: translate(0%, 0%);
-    }
-    75% {
-      transform: translate(-100%, 0%);
-    }
-    100% {
-      transform: translate(-100%, -100%);
-    }
+  .card-glow:hover {
+    box-shadow:
+      0 0 30px color-mix(in srgb, var(--card-accent) 65%, transparent),
+      0 0 70px color-mix(in srgb, var(--card-accent) 30%, transparent);
+    transform: translateY(-2px);
   }
 
   @keyframes border-light-spin-cw {
@@ -239,8 +206,7 @@ const {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gradient-blob,
-    .card-beam {
+    .light-beam {
       animation: none;
     }
   }
