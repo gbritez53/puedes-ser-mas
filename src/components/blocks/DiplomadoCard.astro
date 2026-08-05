@@ -148,7 +148,7 @@ const {
     --card-accent: var(--color-accent);
   }
 
-  /* Marco de color: siempre visible para que la card resalte */
+  /* Marco de color: siempre visible pero tenue, para que la luz girando resalte */
   .border-light::before {
     content: '';
     position: absolute;
@@ -157,8 +157,8 @@ const {
     border-radius: inherit;
     background: linear-gradient(
       135deg,
-      color-mix(in srgb, var(--card-accent) 75%, transparent),
-      color-mix(in srgb, var(--card-accent) 35%, transparent)
+      color-mix(in srgb, var(--card-accent) 35%, transparent),
+      color-mix(in srgb, var(--card-accent) 12%, transparent)
     );
   }
 
@@ -168,14 +168,14 @@ const {
   .light-beam {
     position: absolute;
     inset: -100%;
-    z-index: 0;
+    z-index: 1;
     pointer-events: none;
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
-      transparent 280deg,
-      color-mix(in srgb, var(--card-accent) 45%, transparent) 325deg,
-      color-mix(in srgb, var(--card-accent) 65%, white) 348deg,
+      transparent 240deg,
+      color-mix(in srgb, var(--card-accent) 55%, transparent) 300deg,
+      color-mix(in srgb, var(--card-accent) 80%, white) 340deg,
       #ffffff 356deg,
       transparent 360deg
     );
