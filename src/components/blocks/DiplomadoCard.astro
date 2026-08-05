@@ -43,6 +43,9 @@ const {
   {/* Blob de gradiente animado recorriendo las esquinas */}
   <div class="gradient-blob" aria-hidden="true"></div>
 
+  {/* Borde de luz que recorre el perímetro (roja horaria, azul antihoraria) */}
+  <span class="card-beam" aria-hidden="true"></span>
+
   {/* Contenido glassy sobre el blob, con borde del color de la card */}
   <div
     class="glass-panel relative z-10 bg-black/65 backdrop-blur-[24px] overflow-hidden flex flex-col h-full"
@@ -183,6 +186,28 @@ const {
     background: linear-gradient(to right, #38bdf8, #1d4ed8, #818cf8);
   }
 
+  /* Borde de luz que recorre el perímetro: card roja horaria, azul antihoraria */
+  .card-beam {
+    position: absolute;
+    inset: -100%;
+    z-index: 0;
+    pointer-events: none;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 280deg,
+      color-mix(in srgb, var(--card-accent) 45%, transparent) 325deg,
+      color-mix(in srgb, var(--card-accent) 65%, white) 348deg,
+      #ffffff 356deg,
+      transparent 360deg
+    );
+    animation: border-light-spin-cw 2.5s linear infinite;
+  }
+
+  .gradient-card-blue .card-beam {
+    animation: border-light-spin-ccw 2.5s linear infinite;
+  }
+
   @keyframes blob {
     0% {
       transform: translate(-100%, -100%);
@@ -201,8 +226,21 @@ const {
     }
   }
 
+  @keyframes border-light-spin-cw {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes border-light-spin-ccw {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .gradient-blob {
+    .gradient-blob,
+    .card-beam {
       animation: none;
     }
   }
