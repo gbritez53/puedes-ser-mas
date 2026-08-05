@@ -40,6 +40,9 @@ const {
     variant === 'blue' ? 'border-light-blue' : '',
   ]}
 >
+  <span class="light-beam light-beam-a" aria-hidden="true"></span>
+  <span class="light-beam light-beam-b" aria-hidden="true"></span>
+
   <div class="relative z-10 bg-surface rounded-xl overflow-hidden flex flex-col h-full">
     <div class="h-48 relative">
       <img
@@ -160,12 +163,13 @@ const {
     );
   }
 
-  /* Cometa de luz que recorre el borde sin parar */
-  .border-light::after {
-    content: '';
+  /* Haces de luz: parten del mismo punto, giran en sentidos opuestos,
+     se encuentran en el punto opuesto y vuelven a juntarse en el origen */
+  .light-beam {
     position: absolute;
     inset: -100%;
     z-index: 0;
+    pointer-events: none;
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
@@ -175,13 +179,14 @@ const {
       #ffffff 356deg,
       transparent 360deg
     );
-    animation: border-light-spin 2.5s linear infinite;
   }
 
-  /* La card azul gira en sentido contrario pero al mismo ritmo */
-  .border-light-blue::after {
-    animation-delay: -0.9s;
-    animation-direction: reverse;
+  .light-beam-a {
+    animation: border-light-spin-cw 2.5s linear infinite;
+  }
+
+  .light-beam-b {
+    animation: border-light-spin-ccw 2.5s linear infinite;
   }
 
   .card-glow:hover {
@@ -191,14 +196,20 @@ const {
     transform: translateY(-2px);
   }
 
-  @keyframes border-light-spin {
+  @keyframes border-light-spin-cw {
     to {
       transform: rotate(360deg);
     }
   }
 
+  @keyframes border-light-spin-ccw {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .border-light::after {
+    .light-beam {
       animation: none;
     }
   }
