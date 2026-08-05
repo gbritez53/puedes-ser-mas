@@ -256,11 +256,12 @@ void main() {
     vec3 phase = hash3(vUv - uTime * 0.37);
     pos = originData.xyz + jitter;
     vel = vec3(0.0);
-    // Randomize the respawned lifetime per-particle (keyed off vUv, which is
-    // unique per texel) instead of a fixed 1.0 — otherwise every particle is
-    // zero-initialized on frame 1, dies at the same uLifeRate, and the whole
-    // field respawns in lockstep, reading as a global on/off pulse.
-    life = mix(0.6, 1.0, phase.x * 0.5 + 0.5);
+    // Randomize the respawned lifetime across the FULL [0,1] range (keyed off
+    // vUv, unique per texel), not a narrow band. On frame 1 every particle is
+    // zero-initialized and respawns together; a uniform life distribution puts
+    // them in every phase at once (fresh-invisible, alive, dying) so deaths are
+    // spread evenly in time instead of a global on/off pulse at startup.
+    life = phase.x * 0.5 + 0.5;
     seed = phase.y;
   }
 
