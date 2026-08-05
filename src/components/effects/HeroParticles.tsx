@@ -13,14 +13,15 @@ import { clampVec2Length, expLerp, smoothstep, worldHalfHeight } from './lib/uti
 const POINTER_LERP = 12;
 const ACTIVE_LERP = 7.5;
 const MAX_POINTER_VEL = 8;
-const WARP_THRUST = 1.4;
-const STREAK_LENGTH = 0.6;
+const WARP_THRUST = 1.6;
+const STREAK_LENGTH = 0.85;
 // Continuous "particles converge" effect — the warp never drops to zero, it
 // breathes between a floor and a peak so the approach reads as an endless
-// motion instead of a repeating burst that cuts out.
+// motion instead of a repeating burst that cuts out. Floor is high (0.8) so
+// the effect is always clearly visible.
 const WARP_PULSE_PERIOD = 9;
-const WARP_PULSE_FLOOR = 0.45;
-const WARP_PULSE_PEAK = 0.9;
+const WARP_PULSE_FLOOR = 0.8;
+const WARP_PULSE_PEAK = 1.0;
 const MAX_CONTEXT_LOSSES = 3;
 
 /**
