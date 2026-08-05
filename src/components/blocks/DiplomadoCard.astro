@@ -135,29 +135,53 @@ const {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: 1px;
+    padding: 2px;
+    border-radius: 0.75rem;
+    box-shadow:
+      0 0 18px color-mix(in srgb, var(--card-accent) 30%, transparent),
+      0 0 45px color-mix(in srgb, var(--card-accent) 12%, transparent);
   }
 
   .border-light-blue {
     --card-accent: var(--color-accent);
   }
 
+  /* Marco de color: siempre visible para que la card resalte */
   .border-light::before {
     content: '';
     position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--card-accent) 60%, transparent),
+      color-mix(in srgb, var(--card-accent) 25%, transparent)
+    );
+  }
+
+  /* Cometa de luz que recorre el borde sin parar */
+  .border-light::after {
+    content: '';
+    position: absolute;
     inset: -100%;
-    z-index: -1;
+    z-index: 0;
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
-      var(--card-accent) 45deg,
-      transparent 90deg
+      transparent 280deg,
+      color-mix(in srgb, var(--card-accent) 40%, transparent) 330deg,
+      var(--card-accent) 355deg,
+      transparent 360deg
     );
-    animation: border-light-spin 3s linear infinite;
+    animation: border-light-spin 2.5s linear infinite;
   }
 
   .card-glow:hover {
-    box-shadow: 0 0 15px color-mix(in srgb, var(--card-accent) 50%, transparent);
+    box-shadow:
+      0 0 26px color-mix(in srgb, var(--card-accent) 55%, transparent),
+      0 0 65px color-mix(in srgb, var(--card-accent) 22%, transparent);
+    transform: translateY(-2px);
   }
 
   @keyframes border-light-spin {
@@ -167,7 +191,7 @@ const {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .border-light::before {
+    .border-light::after {
       animation: none;
     }
   }
