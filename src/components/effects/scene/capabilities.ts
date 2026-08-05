@@ -28,22 +28,22 @@ export interface TierConfig {
 
 export const TIER_CONFIG: Record<Tier, TierConfig> = {
   high: {
-    simSize: 256,
+    simSize: 384,
     dprCap: 2.0,
     sceneScale: 1.0,
     postTaps: 12,
     curl2D: false,
-    pointSizePx: 5.5,
+    pointSizePx: 6.5,
   },
   mid: {
-    simSize: 192,
+    simSize: 256,
     dprCap: 1.5,
     sceneScale: 0.75,
     postTaps: 8,
     curl2D: false,
-    pointSizePx: 5.0,
+    pointSizePx: 6.0,
   },
-  low: { simSize: 128, dprCap: 1.5, sceneScale: 0.6, postTaps: 6, curl2D: true, pointSizePx: 4.2 },
+  low: { simSize: 160, dprCap: 1.5, sceneScale: 0.6, postTaps: 6, curl2D: true, pointSizePx: 5.0 },
 };
 
 /** Evaluated once at mount — deliberately simple heuristic (design §3.4). */

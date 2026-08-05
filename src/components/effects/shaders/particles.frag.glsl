@@ -27,5 +27,5 @@ void main() {
   vec3 color = vHue < 0.5 ? COLOR_PRIMARY : COLOR_SECONDARY;
   // Boost brightness: additive blending over a near-black clear makes small
   // points invisible at unit intensity, so scale the color up.
-  fragColor = vec4(color * 1.8, alpha * vFade);
+  fragColor = vec4(color * 2.4, alpha * vFade);
 }

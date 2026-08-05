@@ -14,13 +14,15 @@ const POINTER_LERP = 12;
 const ACTIVE_LERP = 7.5;
 const MAX_POINTER_VEL = 8;
 const WARP_THRUST = 1.6;
-const STREAK_LENGTH = 0.85;
+// Short streaks keep the particles readable as round dots instead of long
+// ray lines — the warp pulls them but the trail stays tight.
+const STREAK_LENGTH = 0.4;
 // Continuous "particles converge" effect — the warp never drops to zero, it
 // breathes between a floor and a peak so the approach reads as an endless
-// motion instead of a repeating burst that cuts out. Floor is high (0.8) so
-// the effect is always clearly visible.
+// motion instead of a repeating burst that cuts out. Floor high enough to
+// always be visible, low enough that dots don't smear into rays.
 const WARP_PULSE_PERIOD = 9;
-const WARP_PULSE_FLOOR = 0.8;
+const WARP_PULSE_FLOOR = 0.55;
 const WARP_PULSE_PEAK = 1.0;
 const MAX_CONTEXT_LOSSES = 3;
 
