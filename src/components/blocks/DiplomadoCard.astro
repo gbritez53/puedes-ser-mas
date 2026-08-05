@@ -43,9 +43,9 @@ const {
   {/* Blob de gradiente animado recorriendo las esquinas */}
   <div class="gradient-blob" aria-hidden="true"></div>
 
-  {/* Contenido glassy sobre el blob */}
+  {/* Contenido glassy sobre el blob, con borde del color de la card */}
   <div
-    class="relative z-10 bg-black/65 backdrop-blur-[24px] rounded-xl overflow-hidden flex flex-col h-full"
+    class="glass-panel relative z-10 bg-black/65 backdrop-blur-[24px] overflow-hidden flex flex-col h-full"
   >
     <div class="p-6 flex-1 flex flex-col">
       <div
@@ -136,6 +136,7 @@ const {
     --card-accent: var(--color-cta);
     --card-accent-soft: #ff8a80;
     border: 1px solid color-mix(in srgb, var(--card-accent) 35%, transparent);
+    padding: 4px;
   }
 
   .gradient-card-blue {
@@ -147,6 +148,16 @@ const {
     transform: translateY(-2px);
     border-color: var(--card-accent);
     box-shadow: 0 0 30px color-mix(in srgb, var(--card-accent) 40%, transparent);
+  }
+
+  /* Vidrio con borde del color de la card (como el outline del prompt) */
+  .glass-panel {
+    border-radius: 10px;
+    outline: 2px solid color-mix(in srgb, var(--card-accent) 70%, transparent);
+  }
+
+  .gradient-card:hover .glass-panel {
+    outline-color: var(--card-accent);
   }
 
   /* Blob de gradiente animado (recorre las 4 esquinas) */
