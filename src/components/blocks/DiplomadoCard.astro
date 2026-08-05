@@ -40,8 +40,7 @@ const {
     variant === 'blue' ? 'border-light-blue' : '',
   ]}
 >
-  <span class="light-beam light-beam-a" aria-hidden="true"></span>
-  <span class="light-beam light-beam-b" aria-hidden="true"></span>
+  <span class="light-beam" aria-hidden="true"></span>
 
   <div class="relative z-10 bg-surface rounded-xl overflow-hidden flex flex-col h-full">
     <div class="h-48 relative">
@@ -163,8 +162,9 @@ const {
     );
   }
 
-  /* Haces de luz: parten del mismo punto, giran en sentidos opuestos,
-     se encuentran en el punto opuesto y vuelven a juntarse en el origen */
+  /* Haz de luz: una sola luz por card, recorre el borde a ritmo constante.
+     La card roja gira en sentido horario; la azul, antihorario: ambas a la
+     misma velocidad, así parten del mismo punto y se cruzan en el opuesto. */
   .light-beam {
     position: absolute;
     inset: -100%;
@@ -179,13 +179,10 @@ const {
       #ffffff 356deg,
       transparent 360deg
     );
-  }
-
-  .light-beam-a {
     animation: border-light-spin-cw 2.5s linear infinite;
   }
 
-  .light-beam-b {
+  .border-light-blue .light-beam {
     animation: border-light-spin-ccw 2.5s linear infinite;
   }
 
