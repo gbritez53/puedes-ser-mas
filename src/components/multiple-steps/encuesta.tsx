@@ -37,6 +37,7 @@ const steps = [
 interface EncuestaData {
   name: string;
   email: string;
+  phone: string;
   profession: string;
   sector: string;
   saboteador: string;
@@ -49,6 +50,7 @@ interface EncuestaData {
 const initialData: EncuestaData = {
   name: '',
   email: '',
+  phone: '',
   profession: '',
   sector: '',
   saboteador: '',
@@ -150,7 +152,11 @@ export function EncuestaForm() {
   const isStepValid = () => {
     switch (currentStep) {
       case 0:
-        return data.name.trim() !== '' && /\S+@\S+\.\S+/.test(data.email);
+        return (
+          data.name.trim() !== '' &&
+          /\S+@\S+\.\S+/.test(data.email) &&
+          /^\+?[\d\s()-]{8,}$/.test(data.phone.trim())
+        );
       case 1:
         return data.profession.trim() !== '' && data.sector !== '';
       case 2:
@@ -185,7 +191,8 @@ export function EncuestaForm() {
           <CardDescription className="max-w-sm text-base">
             Tu diagnóstico quedó registrado.{' '}
             <span className="text-white">NADA CAMBIA EN LA ZONA CÓMODA.</span> El primer paso hacia
-            tu transformación ya está dado.
+            tu transformación ya está dado. Te escribiremos por WhatsApp para compartirte tu
+            resultado personalizado.
           </CardDescription>
           <Button
             onClick={() => {
@@ -300,6 +307,22 @@ export function EncuestaForm() {
                           onChange={(e) => updateData('email', e.target.value)}
                           className="transition-all duration-300 focus:ring-2 focus:ring-cta/20 focus:border-cta"
                         />
+                      </motion.div>
+                      <motion.div variants={fadeInUp} className="space-y-2">
+                        <Label htmlFor="phone">WhatsApp</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          placeholder="+5491123456789"
+                          value={data.phone}
+                          onChange={(e) => updateData('phone', e.target.value)}
+                          className="transition-all duration-300 focus:ring-2 focus:ring-cta/20 focus:border-cta"
+                        />
+                        <p className="text-xs text-text-variant">
+                          Te escribiremos por WhatsApp con tu diagnóstico personalizado.
+                        </p>
                       </motion.div>
                     </CardContent>
                   </>
