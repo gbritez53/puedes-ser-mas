@@ -21,7 +21,10 @@ void main() {
     discard;
   }
 
-  vec3 color = mix(COLOR_PRIMARY, COLOR_SECONDARY, vHue);
+  // Strictly binary brand palette — no linear mix between the two colors,
+  // which would produce purple/pink intermediate tones. Each particle is
+  // either energy red or progress blue, split on the per-particle random hue.
+  vec3 color = vHue < 0.5 ? COLOR_PRIMARY : COLOR_SECONDARY;
   // Boost brightness: additive blending over a near-black clear makes small
   // points invisible at unit intensity, so scale the color up.
   fragColor = vec4(color * 1.8, alpha * vFade);

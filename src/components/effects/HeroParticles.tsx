@@ -304,8 +304,10 @@ export default function HeroParticles() {
         <div
           className="absolute inset-0 opacity-60"
           style={{
+            // Two separate radial blobs (red / blue) instead of one gradient
+            // between them — a single mix would produce a pink center.
             backgroundImage:
-              'radial-gradient(circle at 50% 40%, rgba(196,23,24,0.28), rgba(31,60,135,0.18) 45%, transparent 75%)',
+              'radial-gradient(circle at 32% 42%, rgba(196,23,24,0.30), transparent 45%), radial-gradient(circle at 68% 55%, rgba(31,60,135,0.22), transparent 45%)',
           }}
         />
         <div
