@@ -1,16 +1,11 @@
 ---
-import HeroParticles from '../effects/HeroParticles';
+
 ---
 
 <header
   class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-black"
   aria-label="Hero — PUEDES SER MÁS"
 >
-  <!-- Fondo de partículas rojo/azul (efecto warp de acercamiento) -->
-  <div class="absolute inset-0 z-0">
-    <HeroParticles client:load />
-  </div>
-
   <!-- Overlay de legibilidad para el contenido -->
   <div class="absolute inset-0 z-[2] hero-gradient pointer-events-none"></div>
 
@@ -49,7 +44,7 @@ import HeroParticles from '../effects/HeroParticles';
 
   <!-- Línea diagonal roja de ruptura -->
   <div
-    class="absolute bottom-8 left-[-5%] w-[110%] h-[10px] bg-cta hero-diagonal"
+    class="absolute bottom-8 left-[-5%] z-[3] w-[110%] h-[6px] bg-cta hero-diagonal"
     aria-hidden="true"
   >
   </div>
@@ -62,6 +57,6 @@ import HeroParticles from '../effects/HeroParticles';
 
   .hero-diagonal {
     transform: rotate(-1.5deg);
-    box-shadow: 0 0 40px 6px color-mix(in srgb, var(--color-cta) 55%, transparent);
+    box-shadow: 0 0 20px 4px color-mix(in srgb, var(--color-cta) 40%, transparent);
   }
 </style>
