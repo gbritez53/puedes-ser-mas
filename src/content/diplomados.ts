@@ -1,7 +1,10 @@
 import type { DiplomadoDetail } from './diplomado';
 
-const heroImageUrl =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDEIBmuRpwt7L9kSkBerPF5uNqSaG4K8wHCFZJVi-4EBT9KbEAPRSI2E31egbKxlpsCLz2jxMqh52JHehGLizzuKr-z9ABx1ombb63EqGs372Wffhpqzg5IYMJ7aObfxpCbk1JUoSjOuaMSlMaxckPntCDPSN4WpSzSkklEeu7ySJn2aEBb0BIduX7hDujpyq7q4vBb7S-Qc6rMvppEbUCFYeENBp9aPk4EsLG2TXbuQS85nDfBA0OA';
+const heroImageCoaching =
+  'https://images.unsplash.com/photo-1774528205285-53a125a51983?auto=format&fit=crop&w=1600&q=80';
+
+const heroImageComunicacion =
+  'https://images.unsplash.com/photo-1762968274962-20c12e6e8ecd?auto=format&fit=crop&w=1600&q=80';
 
 const pricingCoaching = {
   amount: '397',
@@ -41,7 +44,7 @@ export const diplomados: Record<string, DiplomadoDetail> = {
     headlineAccent: 'COACHING PARA LA SUPERACIÓN PERSONAL',
     heroDescription:
       'Desata tu potencial oculto. Este programa intensivo está diseñado para forjar líderes inquebrantables, capaces de transformar su entorno personal y profesional con autoridad, visión y resiliencia absoluta.',
-    heroImageUrl,
+    heroImageUrl: heroImageCoaching,
     chips: ['Liderazgo', 'Certificado'],
     skillsTitle: 'El Arsenal del Líder',
     skillsAccent: 'Líder',
@@ -96,7 +99,7 @@ export const diplomados: Record<string, DiplomadoDetail> = {
     headlineAccent: 'COMUNICACIÓN Y ORATORIA',
     heroDescription:
       'Transformá el miedo en convicción. Este programa intensivo está diseñado para que tu voz se escuche con poder, aplomo e impacto, convirtiéndote en un comunicador capaz de movilizar audiencias y dejar huella.',
-    heroImageUrl,
+    heroImageUrl: heroImageComunicacion,
     chips: ['Comunicación', 'Certificado'],
     skillsTitle: 'El Arsenal del Comunicador',
     skillsAccent: 'Comunicador',
