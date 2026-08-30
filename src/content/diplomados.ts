@@ -44,9 +44,9 @@ export const diplomados: Record<string, DiplomadoDetail> = {
   'coaching-y-liderazgo': {
     slug: 'coaching-y-liderazgo',
     chip: 'Liderazgo',
-    title: 'Diplomado de Coaching para la Superación Personal',
+    title: 'Diplomado de Coaching para Líderes',
     headline: 'DIPLOMADO DE',
-    headlineAccent: 'COACHING PARA LA SUPERACIÓN PERSONAL',
+    headlineAccent: 'COACHING PARA LÍDERES',
     heroDescription:
       'Desata tu potencial oculto. Este programa intensivo está diseñado para forjar líderes inquebrantables, capaces de transformar su entorno personal y profesional con autoridad, visión y resiliencia absoluta.',
     heroImageUrl: heroImageCoaching,
@@ -84,9 +84,9 @@ export const diplomados: Record<string, DiplomadoDetail> = {
     ],
     pricing: pricingCoaching,
     meta: {
-      title: 'Diplomado de Coaching para la Superación Personal - PUEDES SER MÁS',
+      title: 'Diplomado de Coaching para Líderes - PUEDES SER MÁS',
       description:
-        'Diplomado de Coaching para la Superación Personal. Forja una mentalidad inquebrantable, dominio emocional absoluto y liderazgo con propósito. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
+        'Diplomado de Coaching para Líderes. Forja una mentalidad inquebrantable, dominio emocional absoluto y liderazgo con propósito. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
       canonical: '/diplomados/coaching-y-liderazgo',
     },
     enfoque: ['Liderazgo Interno', 'Gestión Emocional', 'Propósito'],
@@ -100,9 +100,9 @@ export const diplomados: Record<string, DiplomadoDetail> = {
   'comunicacion-y-oratoria': {
     slug: 'comunicacion-y-oratoria',
     chip: 'Comunicación',
-    title: 'Diplomado en Comunicación y Oratoria',
-    headline: 'DIPLOMADO EN',
-    headlineAccent: 'COMUNICACIÓN Y ORATORIA',
+    title: 'Diplomado de Oratoria para Profesionales',
+    headline: 'DIPLOMADO DE',
+    headlineAccent: 'ORATORIA PARA PROFESIONALES',
     heroDescription:
       'Transformá el miedo en convicción. Este programa intensivo está diseñado para que tu voz se escuche con poder, aplomo e impacto, convirtiéndote en un comunicador capaz de movilizar audiencias y dejar huella.',
     heroImageUrl: heroImageComunicacion,
@@ -143,9 +143,9 @@ export const diplomados: Record<string, DiplomadoDetail> = {
     ],
     pricing: pricingComunicacion,
     meta: {
-      title: 'Diplomado en Comunicación y Oratoria - PUEDES SER MÁS',
+      title: 'Diplomado de Oratoria para Profesionales - PUEDES SER MÁS',
       description:
-        'Diplomado en Comunicación y Oratoria. Destruí la timidez, eliminá las máscaras y dominá el arte de la presencia escénica. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
+        'Diplomado de Oratoria para Profesionales. Destruí la timidez, eliminá las máscaras y dominá el arte de la presencia escénica. Cupo limitado, sesiones en vivo. Conocé más y sumate hoy.',
       canonical: '/diplomados/comunicacion-y-oratoria',
     },
     enfoque: ['Presencia Escénica', 'Storytelling', 'Dominio Oral'],
