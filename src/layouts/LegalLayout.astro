@@ -1,0 +1,221 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NavigationBlock from '../components/blocks/NavigationBlock.astro';
+import FooterBlock from '../components/blocks/FooterBlock.astro';
+import { legal, legalPages } from '../content/legal';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  heading: string;
+  headingAccent: string;
+  intro: string;
+}
+
+const { title, description, canonical, heading, headingAccent, intro } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <NavigationBlock />
+
+  <main>
+    <section class="px-4 md:px-20 pt-28 pb-10 max-w-[880px] mx-auto">
+      <p class="font-body text-sm uppercase tracking-[0.3em] text-cta mb-4">Legales</p>
+
+      <h1 class="font-heading text-[clamp(2.5rem,6vw,4rem)] leading-none uppercase text-white">
+        {heading}
+        <br />
+        <span class="text-gradient-cta">{headingAccent}</span>
+      </h1>
+
+      <p class="font-body text-text-variant text-[18px] leading-7 mt-6">{intro}</p>
+
+      <p class="font-body text-sm text-text-variant/70 mt-6">
+        Última actualización: {legal.ultimaActualizacion}
+      </p>
+
+      <div class="w-24 h-1 bg-cta mt-8"></div>
+    </section>
+
+    <section class="legal-prose px-4 md:px-20 pb-20 max-w-[880px] mx-auto">
+      <slot />
+    </section>
+
+    <nav
+      class="px-4 md:px-20 pb-24 max-w-[880px] mx-auto flex flex-wrap gap-4"
+      aria-label="Otros documentos legales"
+    >
+      {
+        legalPages
+          .filter((page) => page.href !== currentPath)
+          .map((page) => (
+            <a
+              href={page.href}
+              class="font-body text-[14px] tracking-[0.1em] font-bold uppercase text-cta px-5 py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
+            >
+              {page.label}
+            </a>
+          ))
+      }
+    </nav>
+  </main>
+
+  <FooterBlock />
+</BaseLayout>
+
+<style>
+  /* Estilos de prosa propios: el proyecto no usa @tailwindcss/typography y no
+     vale la pena sumar una dependencia para tres páginas. */
+  .legal-prose :global(h2) {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+  }
+
+  .legal-prose :global(h2:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .legal-prose :global(h3) {
+    font-family: var(--font-heading);
+    font-size: 1.375rem;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .legal-prose :global(p) {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    margin-bottom: 1.125rem;
+  }
+
+  .legal-prose :global(ul),
+  .legal-prose :global(ol) {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    line-height: 1.75;
+  }
+
+  .legal-prose :global(ul) {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .legal-prose :global(ul > li) {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .legal-prose :global(ul > li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--color-cta);
+  }
+
+  .legal-prose :global(ol) {
+    list-style: decimal;
+  }
+
+  .legal-prose :global(ol > li) {
+    margin-bottom: 0.625rem;
+    padding-left: 0.25rem;
+  }
+
+  .legal-prose :global(strong) {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .legal-prose :global(a) {
+    color: var(--color-cta);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal-prose :global(a:hover) {
+    color: var(--color-text);
+  }
+
+  /* Bloque destacado para leyendas obligatorias y avisos */
+  .legal-prose :global(.legal-callout) {
+    border-left: 3px solid var(--color-cta);
+    background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    margin: 1.75rem 0;
+  }
+
+  .legal-prose :global(.legal-callout p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Tabla de cookies */
+  .legal-prose :global(.legal-table-wrap) {
+    overflow-x: auto;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+    border-radius: var(--radius-card);
+  }
+
+  .legal-prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    min-width: 560px;
+  }
+
+  .legal-prose :global(th) {
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.6875rem;
+    color: var(--color-accent-soft);
+    padding: 0.875rem 1rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+  }
+
+  .legal-prose :global(td) {
+    padding: 0.875rem 1rem;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-line) 40%, transparent);
+    vertical-align: top;
+  }
+
+  .legal-prose :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  /* Marca visual para los datos que faltan completar */
+  .legal-prose :global(.legal-todo) {
+    color: #ffd166;
+    background: rgba(255, 209, 102, 0.12);
+    padding: 0.05em 0.4em;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+</style>

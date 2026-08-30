@@ -1,0 +1,112 @@
+---
+import { COOKIE_CONSENT_KEY } from '../../lib/cookie-consent';
+---
+
+<div
+  id="cookie-banner"
+  class="fixed inset-x-0 bottom-0 z-50 border-t border-cta bg-surface-lowest/95 backdrop-blur-md"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-banner-title"
+  hidden
+>
+  <div
+    class="max-w-[1280px] mx-auto px-4 md:px-20 py-5 flex flex-col lg:flex-row lg:items-center gap-5"
+  >
+    <div class="flex-1">
+      <p
+        id="cookie-banner-title"
+        class="font-heading text-[20px] uppercase tracking-wider text-white mb-1"
+      >
+        Cookies
+      </p>
+      <p class="font-body text-[14px] leading-6 text-text-variant">
+        Usamos cookies analíticas para entender cómo se navega el sitio y mejorarlo. Son totalmente
+        opcionales: si las rechazás, el sitio funciona igual. Podés leer el detalle en nuestra <a
+          href="/politica-de-cookies"
+          class="text-cta underline underline-offset-2 hover:text-white transition-colors"
+          >Política de Cookies</a
+        >.
+      </p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+      <button
+        type="button"
+        data-cookie-action="rejected"
+        class="font-body text-[13px] tracking-[0.1em] font-bold uppercase text-text-variant px-6 py-3 border border-line rounded-lg hover:border-text-variant hover:text-white transition-colors"
+      >
+        Rechazar
+      </button>
+      <button
+        type="button"
+        data-cookie-action="accepted"
+        class="font-body text-[13px] tracking-[0.1em] font-bold uppercase text-white bg-cta px-6 py-3 rounded-lg hover:bg-cta-hover transition-colors"
+      >
+        Aceptar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ consentKey: COOKIE_CONSENT_KEY }}>
+  (function () {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    const read = () => {
+      try {
+        return localStorage.getItem(consentKey);
+      } catch {
+        return null;
+      }
+    };
+
+    const write = (value) => {
+      try {
+        localStorage.setItem(consentKey, value);
+        return true;
+      } catch {
+        // Modo incógnito o almacenamiento bloqueado: no podemos dejar constancia
+        // del consentimiento, así que tampoco cargamos analytics.
+        return false;
+      }
+    };
+
+    const show = () => banner.removeAttribute('hidden');
+    const hide = () => banner.setAttribute('hidden', '');
+
+    const decide = (value) => {
+      write(value);
+      hide();
+      if (value === 'accepted' && typeof window.__psmLoadAnalytics === 'function') {
+        window.__psmLoadAnalytics();
+      }
+      document.dispatchEvent(new CustomEvent('psm:cookie-consent', { detail: value }));
+    };
+
+    banner.querySelectorAll('[data-cookie-action]').forEach((btn) => {
+      btn.addEventListener('click', () => decide(btn.dataset.cookieAction));
+    });
+
+    // API pública para que la página de Política de Cookies pueda leer y cambiar
+    // la decisión sin duplicar la lógica de almacenamiento.
+    window.psmCookies = {
+      get current() {
+        return read();
+      },
+      accept: () => decide('accepted'),
+      reject: () => decide('rejected'),
+      reopen: () => {
+        try {
+          localStorage.removeItem(consentKey);
+        } catch {
+          /* nada que limpiar */
+        }
+        show();
+      },
+    };
+
+    if (read() === null) show();
+  })();
+</script>

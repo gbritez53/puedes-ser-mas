@@ -1,0 +1,14 @@
+---
+/**
+ * Muestra un dato del titular. Si todavía es un placeholder (`[COMPLETAR: ...]`)
+ * lo resalta en amarillo, para que sea imposible publicar el sitio sin verlo.
+ */
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+const pendiente = value.startsWith('[COMPLETAR');
+---
+
+{pendiente ? <span class="legal-todo">{value}</span> : <span>{value}</span>}

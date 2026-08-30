@@ -1,45 +1,117 @@
 ---
+interface Props {
+  /** MP4/WebM autoalojado. Si se define, se renderiza un <video> nativo. */
+  videoSrc?: string;
+  /** URL de embed (YouTube/Vimeo). Se usa si no hay videoSrc. */
+  videoEmbedUrl?: string;
+  /** Imagen de portada del video */
+  videoPoster?: string;
+}
 
+const { videoSrc, videoEmbedUrl, videoPoster } = Astro.props;
+const hasVideo = Boolean(videoSrc || videoEmbedUrl);
 ---
 
 <header
-  class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-black"
+  class="relative min-h-[85vh] flex items-center overflow-hidden bg-black pt-24 pb-24 px-4 md:px-20"
   aria-label="Hero — PUEDES SER MÁS"
 >
   <!-- Overlay de legibilidad para el contenido -->
   <div class="absolute inset-0 z-[2] hero-gradient pointer-events-none"></div>
 
   <div
-    class="relative z-10 text-center px-4 md:px-20 max-w-4xl mx-auto flex flex-col items-center gap-6"
+    class="relative z-10 w-full max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
   >
-    <h1
-      class="font-heading text-[clamp(40px,8vw,84px)] leading-[0.95] tracking-[0.05em] uppercase text-white"
+    <div
+      class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-6"
     >
-      EL LÍMITE DE TU CRECIMIENTO NUNCA ES TU NEGOCIO,
-      <span class="text-cta">ES TU MENTALIDAD.</span>
-    </h1>
-
-    <p
-      class="font-body text-[18px] leading-[28px] text-text-variant max-w-2xl"
-      style="color: var(--color-text-variant);"
-    >
-      En Puede Ser Más no entrenamos proyectos; transformamos a la persona que los lidera. Forja un
-      carácter inquebrantable, domina tu mundo emocional y comunica con presencia absoluta.
-    </p>
-
-    <a
-      href="#registro"
-      class="btn-lift font-heading text-[24px] px-8 py-4 rounded-lg mt-8 flex items-center gap-2 bg-cta text-white uppercase hover:bg-cta-hover transition-colors"
-    >
-      SOLICITAR ENTREVISTA DE ADMISIÓN
-      <span
-        class="material-symbols-outlined"
-        style="font-variation-settings: 'FILL' 1;"
-        aria-hidden="true"
+      <h1
+        class="font-heading text-[clamp(40px,6.5vw,72px)] leading-[0.95] tracking-[0.05em] uppercase text-white"
       >
-        arrow_forward
-      </span>
-    </a>
+        EL LÍMITE DE TU CRECIMIENTO NUNCA ES TU NEGOCIO,
+        <span class="text-cta">ES TU MENTALIDAD.</span>
+      </h1>
+
+      <p
+        class="font-body text-[18px] leading-[28px] max-w-2xl"
+        style="color: var(--color-text-variant);"
+      >
+        En Puede Ser Más no entrenamos proyectos; transformamos a la persona que los lidera. Forja
+        un carácter inquebrantable, domina tu mundo emocional y comunica con presencia absoluta.
+      </p>
+
+      <a
+        href="#registro"
+        class="btn-lift font-heading text-[24px] px-8 py-4 rounded-lg mt-4 inline-flex items-center gap-2 bg-cta text-white uppercase hover:bg-cta-hover transition-colors"
+      >
+        SOLICITAR ENTREVISTA DE ADMISIÓN
+        <span
+          class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;"
+          aria-hidden="true"
+        >
+          arrow_forward
+        </span>
+      </a>
+    </div>
+
+    <!-- Espacio para el video -->
+    <div class="lg:col-span-5">
+      <div
+        class="hero-video relative aspect-video w-full overflow-hidden rounded-lg border border-line bg-surface-lowest"
+      >
+        {
+          videoSrc && (
+            <video
+              class="absolute inset-0 w-full h-full object-cover"
+              src={videoSrc}
+              poster={videoPoster}
+              controls
+              playsinline
+              preload="metadata"
+            />
+          )
+        }
+
+        {
+          !videoSrc && videoEmbedUrl && (
+            <iframe
+              class="absolute inset-0 w-full h-full"
+              src={videoEmbedUrl}
+              title="Video de presentación — PUEDES SER MÁS"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          )
+        }
+
+        {
+          !hasVideo && (
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-6"
+              aria-hidden="true"
+            >
+              <span
+                class="material-symbols-outlined text-cta"
+                style="font-variation-settings: 'FILL' 1; font-size: 56px;"
+              >
+                play_circle
+              </span>
+              <p class="font-heading text-[20px] uppercase tracking-[0.15em] text-white/80">
+                Video de presentación
+              </p>
+              <p
+                class="font-body text-[13px] leading-5 max-w-xs"
+                style="color: var(--color-text-variant);"
+              >
+                Espacio reservado para el video institucional.
+              </p>
+            </div>
+          )
+        }
+      </div>
+    </div>
   </div>
 
   <!-- Línea diagonal roja de ruptura -->
@@ -58,5 +130,9 @@
   .hero-diagonal {
     transform: rotate(-1.5deg);
     box-shadow: 0 0 20px 4px color-mix(in srgb, var(--color-cta) 40%, transparent);
+  }
+
+  .hero-video {
+    box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--color-cta) 35%, transparent);
   }
 </style>

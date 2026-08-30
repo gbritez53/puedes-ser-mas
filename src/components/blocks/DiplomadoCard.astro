@@ -43,15 +43,16 @@ const {
   <span class="light-beam" aria-hidden="true"></span>
 
   <div class="relative z-10 bg-surface rounded-xl overflow-hidden flex flex-col h-full">
-    <div class="h-48 relative">
+    <div class="relative aspect-square">
       <img
         src={imageUrl}
         alt=""
-        class="w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover object-bottom"
         loading="lazy"
         aria-hidden="true"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface to-transparent">
+      </div>
     </div>
 
     <div class="p-6 flex-1 flex flex-col">
@@ -123,7 +124,7 @@ const {
 
       <a
         href={href}
-        class="btn-lift text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white transition-colors"
+        class="stretched-link card-cta text-cta font-body text-[14px] tracking-[0.1em] font-bold uppercase text-center w-full py-3 border border-cta rounded-lg hover:bg-cta hover:text-white"
       >
         {cta}
       </a>
@@ -163,8 +164,8 @@ const {
   }
 
   /* Haz de luz: una sola luz por card, recorre el borde a ritmo constante.
-     La card roja gira en sentido horario; la azul, antihorario: ambas a la
-     misma velocidad, así parten del mismo punto y se cruzan en el opuesto. */
+     Todas las cards giran en el mismo sentido y a la misma velocidad, y
+     arrancan juntas al renderizar: la vuelta queda al unísono. */
   .light-beam {
     position: absolute;
     inset: -100%;
@@ -179,11 +180,34 @@ const {
       #ffffff 356deg,
       transparent 360deg
     );
-    animation: border-light-spin-cw 2.5s linear infinite;
+    animation: border-light-spin 2.5s linear infinite;
   }
 
-  .border-light-blue .light-beam {
-    animation: border-light-spin-ccw 2.5s linear infinite;
+  /* Toda la card es clickeable: el enlace del CTA estira un ::after que cubre
+     la superficie. Se mantiene UN solo enlace en el árbol de accesibilidad,
+     con el texto del CTA como nombre — evita anidar <a>, que es HTML inválido. */
+  .stretched-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* El CTA NO puede llevar .btn-lift ni ningún transform: un transform en el
+     <a> lo convierte en bloque contenedor de su propio ::after, que colapsa
+     del tamaño de la card al del botón. Eso desengancha el hover, se revierte
+     el transform, y el ciclo se repite: el cursor titila entre pointer y flecha.
+     Acá el hover mueve solo la sombra, nunca el elemento. */
+  .card-cta {
+    box-shadow: 0 4px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
+    transition:
+      box-shadow 0.2s var(--ease-out),
+      background-color 0.2s var(--ease-out),
+      color 0.2s var(--ease-out);
+  }
+
+  .card-cta:hover {
+    box-shadow: 0 6px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
   }
 
   .card-glow:hover {
@@ -193,15 +217,9 @@ const {
     transform: translateY(-2px);
   }
 
-  @keyframes border-light-spin-cw {
+  @keyframes border-light-spin {
     to {
       transform: rotate(360deg);
-    }
-  }
-
-  @keyframes border-light-spin-ccw {
-    to {
-      transform: rotate(-360deg);
     }
   }
 

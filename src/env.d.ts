@@ -14,3 +14,18 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+/** API que expone CookieBanner para leer y cambiar el consentimiento de cookies. */
+interface PsmCookiesApi {
+  readonly current: 'accepted' | 'rejected' | null;
+  accept(): void;
+  reject(): void;
+  /** Borra la decisión y vuelve a mostrar el banner. */
+  reopen(): void;
+}
+
+interface Window {
+  psmCookies?: PsmCookiesApi;
+  /** Carga Google Analytics. Solo la define BaseLayout si hay PUBLIC_GA_ID. */
+  __psmLoadAnalytics?: () => void;
+}

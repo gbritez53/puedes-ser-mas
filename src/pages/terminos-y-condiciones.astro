@@ -1,0 +1,311 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalDato from '../components/ui/LegalDato.astro';
+import { legal } from '../content/legal';
+import { diplomados } from '../content/diplomados';
+
+export const prerender = false;
+
+const programas = Object.values(diplomados);
+
+// Las condiciones económicas se leen del contenido real del sitio para que estos
+// términos no puedan desincronizarse del bloque de precios.
+const pricing = programas[0].pricing;
+---
+
+<LegalLayout
+  title="Términos y Condiciones — PUEDES SER MÁS"
+  description="Términos y condiciones de uso del sitio y de contratación de los diplomados de PUEDES SER MÁS. Proceso de admisión, precios, formas de pago y derecho de revocación."
+  canonical="/terminos-y-condiciones"
+  heading="Términos y"
+  headingAccent="Condiciones"
+  intro="Estas son las reglas del juego: qué ofrecemos, cómo funciona la admisión, cuánto cuesta, qué pasa si querés dar marcha atrás y qué esperamos de vos."
+>
+  <h2>1. Quiénes somos y qué alcanza este documento</h2>
+
+  <p>
+    Este sitio, <strong>{legal.sitio}</strong>, es operado por <LegalDato
+      value={legal.razonSocial}
+    />, CUIT <LegalDato value={legal.cuit} />, con domicilio en <LegalDato
+      value={legal.domicilio}
+    />, bajo el nombre comercial <strong>{legal.brand}</strong> (en adelante, «nosotros»).
+  </p>
+
+  <p>
+    Estos Términos y Condiciones regulan tanto el <strong>uso del sitio</strong> como la <strong
+      >contratación de nuestros programas de formación</strong
+    >. Al navegar el sitio, completar cualquier formulario o inscribirte en un diplomado, declarás
+    haber leído, entendido y aceptado estas condiciones.
+  </p>
+
+  <p>
+    Si no estás de acuerdo con alguno de estos puntos, por favor no uses el sitio ni te inscribas en
+    los programas.
+  </p>
+
+  <h2>2. Quién puede contratar</h2>
+
+  <p>
+    Para postularte y contratar nuestros programas tenés que ser <strong>mayor de 18 años</strong> y tener
+    capacidad legal para obligarte. Al enviar tu postulación declarás que cumplís ambos requisitos y que
+    la información que nos das es veraz y completa.
+  </p>
+
+  <h2>3. Qué ofrecemos</h2>
+
+  <p>Actualmente dictamos los siguientes programas:</p>
+
+  <ul>
+    {
+      programas.map((programa) => (
+        <li>
+          <strong>{programa.title}</strong> — inicio previsto: {programa.fechaInicio}.{' '}
+          {programa.plazas}.
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>
+    Cada programa incluye las prestaciones que se detallan en su página. Las fechas de inicio,
+    contenidos, duración y equipo docente son los vigentes al momento de la publicación y pueden
+    sufrir ajustes razonables por motivos operativos. Si un cambio afecta de forma sustancial lo que
+    contrataste, te lo comunicaremos antes y podrás optar por continuar o solicitar el reembolso
+    proporcional de lo abonado.
+  </p>
+
+  <h3>3.1 Naturaleza del servicio</h3>
+
+  <div class="legal-callout">
+    <p>
+      Nuestros programas son de <strong>formación y desarrollo personal y profesional</strong>. No
+      constituyen ni sustituyen tratamiento médico, psicológico o psiquiátrico, ni asesoramiento
+      legal, contable, impositivo o financiero de ningún tipo.
+    </p>
+    <p>
+      Si atravesás una situación de salud mental que requiera atención profesional, te recomendamos
+      consultar con un profesional matriculado. Nuestros programas pueden acompañar ese proceso,
+      nunca reemplazarlo.
+    </p>
+  </div>
+
+  <h3>3.2 Sobre los resultados</h3>
+
+  <p>
+    Los resultados de un proceso de transformación personal dependen de forma determinante de tu
+    compromiso, tu dedicación, tu punto de partida y tu contexto. Por eso <strong
+      >no garantizamos resultados específicos</strong
+    >: ni ingresos, ni ascensos, ni resultados comerciales, ni ninguna métrica concreta. Los
+    testimonios y casos que puedas encontrar en el sitio son experiencias individuales y no
+    constituyen una promesa de resultado equivalente para vos.
+  </p>
+
+  <p>
+    Lo que sí garantizamos es el <strong>dictado íntegro del programa</strong> con los contenidos, la
+    carga horaria y el acompañamiento comprometidos.
+  </p>
+
+  <h2>4. Proceso de admisión</h2>
+
+  <p>El ingreso a nuestros programas no es automático. El proceso tiene tres etapas:</p>
+
+  <ol>
+    <li><strong>Postulación:</strong> completás el formulario de evaluación de perfil.</li>
+    <li><strong>Entrevista privada:</strong> una conversación uno a uno con nuestro equipo.</li>
+    <li>
+      <strong>Admisión:</strong> si avanzás, te confirmamos la vacante y las condiciones de matrícula.
+    </li>
+  </ol>
+
+  <div class="legal-callout">
+    <p>
+      <strong
+        >Enviar el formulario no genera derecho a la vacante ni obligación de contratar para ninguna
+        de las partes.</strong
+      > Nos reservamos el derecho de admisión, que ejercemos con criterios de compromiso y afinidad con
+      la propuesta, nunca de forma discriminatoria. Los cupos son limitados y se asignan por orden de
+      confirmación.
+    </p>
+  </div>
+
+  <h2>5. Precios y formas de pago</h2>
+
+  <p>
+    Los valores se expresan en <strong>{pricing.currency}</strong> e incluyen los impuestos que correspondan.
+    Existen dos modalidades:
+  </p>
+
+  <ul>
+    <li>
+      <strong>Pago único:</strong>
+      {pricing.currency}
+      {pricing.singleAmount} — {pricing.label}.
+    </li>
+    <li>
+      <strong>Plan financiado:</strong> reserva de vacante de {pricing.currency}
+      {pricing.reservationAmount} más {pricing.installments} cuotas mensuales de {pricing.currency}
+      {pricing.monthlyAmount}.
+    </li>
+  </ul>
+
+  <p><strong>Condiciones de pago:</strong> {pricing.paymentConditions}</p>
+
+  <p>
+    Los precios publicados son los vigentes al momento de tu confirmación de matrícula y no se
+    modifican durante la cursada del programa que contrataste. Podemos actualizar los valores para
+    futuras cohortes sin previo aviso.
+  </p>
+
+  <p>
+    <strong>El sitio no procesa pagos.</strong> La coordinación del medio de pago se realiza durante el
+    proceso de admisión por los canales que te indiquemos. Nunca te vamos a pedir datos de tu tarjeta
+    ni credenciales bancarias a través de este sitio.
+  </p>
+
+  <h3>5.1 Mora</h3>
+
+  <p>
+    Las cuotas del plan financiado vencen entre el 1 y el 10 de cada mes. Vencido ese plazo se
+    aplica un <strong>recargo del 10%</strong> sobre la cuota impaga. La falta de pago sostenida puede
+    derivar en la suspensión del acceso al material y a las sesiones en vivo, previa notificación.
+  </p>
+
+  <h2>6. Derecho de revocación</h2>
+
+  <div class="legal-callout">
+    <p>
+      Conforme al <strong>artículo 34 de la Ley 24.240 de Defensa del Consumidor</strong>, tenés
+      derecho a <strong>revocar la contratación dentro de los 10 (diez) días corridos</strong>
+      contados desde la celebración del contrato, sin necesidad de expresar motivo y sin penalidad alguna.
+    </p>
+    <p>
+      Para ejercerlo, basta con que nos lo comuniques a <LegalDato value={legal.emailContacto} />.
+      El reembolso de las sumas abonadas se realiza por el mismo medio de pago utilizado, dentro de
+      los plazos que fija la normativa vigente. El costo de la revocación es enteramente a nuestro
+      cargo.
+    </p>
+  </div>
+
+  <h3>6.1 Bajas posteriores al plazo de revocación</h3>
+
+  <p>
+    Transcurridos los 10 días, si decidís discontinuar el programa por causas ajenas a nosotros, las
+    sumas abonadas correspondientes a las clases ya dictadas y al material ya entregado no son
+    reintegrables. Analizamos cada caso particular de buena fe: si atravesás una situación
+    excepcional, escribinos y buscamos una solución razonable.
+  </p>
+
+  <h2>7. Propiedad intelectual</h2>
+
+  <p>
+    Todo el contenido de este sitio y de los programas —textos, videos, grabaciones de sesiones,
+    materiales de trabajo, metodologías, marcas, logotipos, diseños y código— es de nuestra
+    titularidad o contamos con licencia para usarlo, y está protegido por la <strong
+      >Ley 11.723 de Propiedad Intelectual</strong
+    >.
+  </p>
+
+  <p>
+    Al inscribirte recibís una licencia de uso <strong
+      >personal, intransferible y no exclusiva</strong
+    > sobre el material del programa. Eso significa que <strong>no podés</strong>:
+  </p>
+
+  <ul>
+    <li>Compartir, revender, ceder o prestar tus credenciales de acceso.</li>
+    <li>Grabar, reproducir o redistribuir las sesiones en vivo.</li>
+    <li>Publicar el material, total o parcialmente, en cualquier canal o plataforma.</li>
+    <li>Usar nuestros contenidos o metodologías para dictar formaciones propias o de terceros.</li>
+  </ul>
+
+  <p>
+    El incumplimiento de estos puntos habilita la baja inmediata del programa sin derecho a
+    reintegro, sin perjuicio de las acciones legales que correspondan.
+  </p>
+
+  <h2>8. Conducta esperada</h2>
+
+  <p>
+    Nuestros programas se sostienen sobre la confianza del grupo. Esperamos respeto hacia
+    compañeros, facilitadores y equipo, y confidencialidad sobre lo que se comparte en las sesiones.
+  </p>
+
+  <p>
+    Nos reservamos el derecho de dar de baja, sin reintegro, a quien incurra en conductas de
+    hostigamiento, discriminación, violencia verbal o divulgación de información confidencial de
+    otros participantes.
+  </p>
+
+  <h2>9. Uso del sitio</h2>
+
+  <p>Al usar este sitio te comprometés a no:</p>
+
+  <ul>
+    <li>Enviar información falsa o suplantar la identidad de otra persona.</li>
+    <li>
+      Realizar envíos automatizados, intentos de intrusión o cualquier acción que degrade el
+      servicio.
+    </li>
+    <li>Extraer datos de forma masiva o automatizada (<em>scraping</em>).</li>
+  </ul>
+
+  <p>
+    Hacemos nuestro mejor esfuerzo para mantener el sitio disponible, pero no garantizamos su
+    funcionamiento ininterrumpido ni libre de errores. Podemos suspenderlo temporalmente por
+    mantenimiento o por causas ajenas a nuestro control.
+  </p>
+
+  <h2>10. Responsabilidad</h2>
+
+  <p>
+    Respondemos por el cumplimiento de las prestaciones comprometidas en cada programa, conforme a
+    la normativa de defensa del consumidor. No respondemos por las decisiones personales,
+    profesionales o comerciales que tomes a partir de los contenidos, ni por daños indirectos, lucro
+    cesante o pérdida de chance derivados de ellas.
+  </p>
+
+  <p>
+    Nada en estos términos limita los derechos que la <strong>Ley 24.240</strong> te reconoce como consumidor,
+    que son irrenunciables.
+  </p>
+
+  <h2>11. Protección de tus datos</h2>
+
+  <p>
+    El tratamiento de tus datos personales se rige por nuestra <a href="/politica-de-privacidad"
+      >Política de Privacidad</a
+    > y el uso de cookies por nuestra <a href="/politica-de-cookies">Política de Cookies</a>, que
+    forman parte integrante de estos Términos.
+  </p>
+
+  <h2>12. Modificaciones</h2>
+
+  <p>
+    Podemos modificar estos Términos para reflejar cambios en nuestros programas o en la normativa
+    aplicable. La versión vigente es siempre la publicada en esta página, con su fecha de última
+    actualización. Las condiciones económicas y las prestaciones acordadas al momento de tu
+    inscripción se mantienen para tu cursada.
+  </p>
+
+  <h2>13. Ley aplicable, jurisdicción y defensa del consumidor</h2>
+
+  <p>
+    Estos Términos se rigen por las leyes de la <strong>República Argentina</strong>. Ante cualquier
+    controversia serán competentes los tribunales ordinarios de <LegalDato
+      value={legal.jurisdiccion}
+    />.
+  </p>
+
+  <p>
+    En su carácter de consumidor, el usuario puede presentar reclamos ante la autoridad de
+    aplicación de la Ley 24.240 o iniciar un reclamo a través del <strong
+      >Servicio de Conciliación Previa en las Relaciones de Consumo (COPREC)</strong
+    >, así como ante las oficinas de defensa del consumidor de su jurisdicción.
+  </p>
+
+  <p>
+    Para cualquier consulta sobre estos Términos, escribinos a <LegalDato
+      value={legal.emailContacto}
+    />.
+  </p>
+</LegalLayout>

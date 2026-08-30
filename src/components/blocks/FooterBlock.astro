@@ -1,13 +1,11 @@
 ---
+import { legalPages } from '../../content/legal';
+
 const logoUrl = '/assets/isotype.png';
 
 const year = new Date().getFullYear();
 
-const links = [
-  { label: 'Política de Privacidad' },
-  { label: 'Términos de Servicio' },
-  { label: 'Cookies' },
-];
+const links = legalPages;
 ---
 
 <footer class="bg-surface-lowest border-t border-line/30" aria-label="Pie de página">
@@ -29,7 +27,7 @@ const links = [
       {
         links.map((link) => (
           <a
-            href="#"
+            href={link.href}
             class="text-text-variant font-body text-[16px] leading-[24px] hover:text-cta transition-colors duration-200"
           >
             {link.label}

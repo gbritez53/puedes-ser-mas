@@ -1,0 +1,323 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalDato from '../components/ui/LegalDato.astro';
+import { legal } from '../content/legal';
+import { COOKIE_CONSENT_KEY } from '../lib/cookie-consent';
+
+export const prerender = false;
+
+const analyticsHabilitado = Boolean(import.meta.env.PUBLIC_GA_ID);
+---
+
+<LegalLayout
+  title="Política de Cookies — PUEDES SER MÁS"
+  description="Qué cookies y tecnologías de almacenamiento usa PUEDES SER MÁS, para qué sirven y cómo podés aceptarlas o rechazarlas en cualquier momento."
+  canonical="/politica-de-cookies"
+  heading="Política de"
+  headingAccent="Cookies"
+  intro="Te contamos exactamente qué se guarda en tu navegador cuando entrás al sitio, quién lo pone y cómo lo desactivás. Spoiler: nosotros no ponemos ninguna cookie propia."
+>
+  <h2>1. Qué es una cookie</h2>
+
+  <p>
+    Una cookie es un archivo pequeño que un sitio guarda en tu navegador para recordar información
+    entre visitas. Junto a ellas existen tecnologías equivalentes, como el <em>localStorage</em>,
+    que cumplen una función parecida. En esta política tratamos a todas por igual: si algo se guarda
+    en tu dispositivo, te lo contamos.
+  </p>
+
+  <h2>2. Cookies propias</h2>
+
+  <div class="legal-callout">
+    <p>
+      <strong>Este sitio no instala cookies propias.</strong> Lo único que guardamos en tu navegador es
+      tu decisión sobre las cookies analíticas, y lo hacemos con <em>localStorage</em>, no con una
+      cookie.
+    </p>
+  </div>
+
+  <div class="legal-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tecnología</th>
+          <th>Finalidad</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>{COOKIE_CONSENT_KEY}</code></td>
+          <td>localStorage</td>
+          <td>
+            Recuerda si aceptaste o rechazaste las cookies analíticas, para no volver a preguntarte
+            en cada visita.
+          </td>
+          <td>Hasta que la borres</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Esta entrada es <strong>estrictamente necesaria</strong>: sin ella no podríamos respetar tu
+    decisión. Por eso no requiere consentimiento previo y no se puede desactivar sin desactivar
+    también la posibilidad de recordar tu elección.
+  </p>
+
+  <h2>3. Cookies de terceros</h2>
+
+  <h3>3.1 Google Analytics 4 — opcionales</h3>
+
+  <p>
+    Usamos Google Analytics 4 para entender de forma agregada cómo se navega el sitio: qué páginas
+    se ven, cuánto tiempo se quedan, desde qué tipo de dispositivo. Nunca lo usamos para
+    identificarte personalmente, y la recolección de tu dirección IP está anonimizada.
+  </p>
+
+  <div class="legal-callout">
+    <p>
+      <strong>Estas cookies no se instalan hasta que las aceptás.</strong> El script de Google Analytics
+      ni siquiera se descarga mientras no hayas dado tu consentimiento desde el banner. Si rechazás, no
+      se carga nada y el sitio funciona exactamente igual.
+    </p>
+    {
+      !analyticsHabilitado && (
+        <p>
+          <strong>Estado actual de esta instalación:</strong> Google Analytics no está configurado
+          en este entorno, por lo que hoy no se carga en ningún caso, ni siquiera aceptando.
+        </p>
+      )
+    }
+  </div>
+
+  <div class="legal-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Cookie</th>
+          <th>Proveedor</th>
+          <th>Finalidad</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>_ga</code></td>
+          <td>Google LLC</td>
+          <td>Distingue usuarios únicos asignando un identificador aleatorio.</td>
+          <td>2 años</td>
+        </tr>
+        <tr>
+          <td><code>_ga_&lt;ID&gt;</code></td>
+          <td>Google LLC</td>
+          <td>Mantiene el estado de la sesión de medición de Google Analytics 4.</td>
+          <td>2 años</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Podés consultar cómo Google trata esta información en sus <a
+      href="https://policies.google.com/technologies/cookies"
+      target="_blank"
+      rel="noopener noreferrer">políticas sobre cookies</a
+    > y en su <a
+      href="https://policies.google.com/privacy"
+      target="_blank"
+      rel="noopener noreferrer">política de privacidad</a
+    >.
+  </p>
+
+  <h3>3.2 Google Fonts y Material Symbols</h3>
+
+  <p>
+    Las tipografías y los iconos del sitio se descargan desde los servidores de Google. <strong
+      >Esa descarga no instala cookies</strong
+    >, pero sí implica que Google recibe tu dirección IP y los datos de tu navegador al pedir los
+    archivos. Es un requisito técnico para que el sitio se vea correctamente y no se puede
+    desactivar de forma selectiva.
+  </p>
+
+  <h2>4. Cómo gestionar tu decisión</h2>
+
+  <p>
+    Podés cambiar de opinión cuando quieras. Este panel muestra tu elección actual y te permite
+    modificarla al instante:
+  </p>
+
+  <div id="cookie-prefs" class="not-prose">
+    <p class="cookie-prefs-estado">
+      Tu decisión actual: <strong id="cookie-prefs-valor">cargando…</strong>
+    </p>
+    <div class="cookie-prefs-acciones">
+      <button type="button" data-prefs-action="accepted" class="cookie-prefs-btn is-primary">
+        Aceptar analíticas
+      </button>
+      <button type="button" data-prefs-action="rejected" class="cookie-prefs-btn">
+        Rechazar analíticas
+      </button>
+      <button type="button" data-prefs-action="reset" class="cookie-prefs-btn">
+        Volver a preguntarme
+      </button>
+    </div>
+    <p class="cookie-prefs-nota">
+      Si aceptás, las cookies se activan de inmediato. Si rechazás después de haber aceptado,
+      dejamos de cargar Analytics: para eliminar las cookies ya instaladas, borralas desde tu
+      navegador siguiendo el punto 5.
+    </p>
+  </div>
+
+  <h2>5. Cómo borrar cookies desde tu navegador</h2>
+
+  <p>
+    Todos los navegadores permiten ver, bloquear y eliminar cookies. Los pasos varían según cuál
+    uses:
+  </p>
+
+  <ul>
+    <li>
+      <a
+        href="https://support.google.com/chrome/answer/95647"
+        target="_blank"
+        rel="noopener noreferrer">Google Chrome</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://support.mozilla.org/es/kb/Borrar%20cookies"
+        target="_blank"
+        rel="noopener noreferrer">Mozilla Firefox</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
+        target="_blank"
+        rel="noopener noreferrer">Safari</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09"
+        target="_blank"
+        rel="noopener noreferrer">Microsoft Edge</a
+      >
+    </li>
+  </ul>
+
+  <p>
+    Tené en cuenta que si borrás el almacenamiento del sitio también se borra tu decisión sobre
+    cookies, y el banner volverá a aparecer en tu próxima visita.
+  </p>
+
+  <h2>6. Cambios en esta política</h2>
+
+  <p>
+    Si incorporamos nuevas herramientas que usen cookies, actualizaremos esta página y volveremos a
+    solicitar tu consentimiento antes de activarlas. Cualquier consulta, escribinos a <LegalDato
+      value={legal.emailContacto}
+    />.
+  </p>
+
+  <p>
+    El tratamiento de tus datos personales se detalla en nuestra <a href="/politica-de-privacidad"
+      >Política de Privacidad</a
+    >.
+  </p>
+</LegalLayout>
+
+<style is:global>
+  #cookie-prefs {
+    border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    margin: 1.75rem 0 2rem;
+  }
+
+  #cookie-prefs .cookie-prefs-estado {
+    font-family: var(--font-body);
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  #cookie-prefs .cookie-prefs-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  #cookie-prefs .cookie-prefs-btn {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-variant);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.5rem;
+    background: transparent;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+
+  #cookie-prefs .cookie-prefs-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-variant);
+  }
+
+  #cookie-prefs .cookie-prefs-btn.is-primary {
+    background: var(--color-cta);
+    border-color: var(--color-cta);
+    color: #ffffff;
+  }
+
+  #cookie-prefs .cookie-prefs-btn.is-primary:hover {
+    background: var(--color-cta-hover);
+    border-color: var(--color-cta-hover);
+  }
+
+  #cookie-prefs .cookie-prefs-nota {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--color-text-variant) 80%, transparent);
+    margin: 1rem 0 0;
+  }
+</style>
+
+<script>
+  const panel = document.getElementById('cookie-prefs');
+  const valor = document.getElementById('cookie-prefs-valor');
+
+  if (panel && valor) {
+    const ETIQUETAS: Record<string, string> = {
+      accepted: 'aceptaste las cookies analíticas',
+      rejected: 'rechazaste las cookies analíticas',
+    };
+
+    const pintar = () => {
+      const actual = window.psmCookies?.current ?? null;
+      valor.textContent = actual ? ETIQUETAS[actual] : 'todavía no elegiste';
+    };
+
+    panel.querySelectorAll<HTMLButtonElement>('[data-prefs-action]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const accion = btn.dataset.prefsAction;
+        if (accion === 'accepted') window.psmCookies?.accept();
+        else if (accion === 'rejected') window.psmCookies?.reject();
+        else window.psmCookies?.reopen();
+        pintar();
+      });
+    });
+
+    document.addEventListener('psm:cookie-consent', pintar);
+    pintar();
+  }
+</script>

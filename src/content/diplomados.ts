@@ -1,10 +1,15 @@
 import type { DiplomadoDetail } from './diplomado';
+import heroCoaching from '../assets/diplomado-coaching.jpg';
+import heroOratoria from '../assets/diplomado-oratoria.jpg';
 
-const heroImageCoaching =
-  'https://images.unsplash.com/photo-1774528205285-53a125a51983?auto=format&fit=crop&w=1600&q=80';
+const heroImageCoaching = heroCoaching.src;
 
-const heroImageComunicacion =
-  'https://images.unsplash.com/photo-1762968274962-20c12e6e8ecd?auto=format&fit=crop&w=1600&q=80';
+const heroImageComunicacion = heroOratoria.src;
+
+/**
+ * Cierre de inscripción: 11 días. Editá esta fecha para reiniciar la cuenta regresiva.
+ */
+const inscripcionDeadline = '2026-09-10T23:59:00-03:00';
 
 const pricingCoaching = {
   amount: '397',
@@ -89,6 +94,7 @@ export const diplomados: Record<string, DiplomadoDetail> = {
       'Forjarás una mentalidad inquebrantable, dominio emocional absoluto y un liderazgo con propósito.',
     fechaInicio: 'Martes 15 de Septiembre 2026',
     plazas: 'Aulas Exclusivas (Máximo 15 plazas por entrevista)',
+    inscripcionDeadline,
   },
 
   'comunicacion-y-oratoria': {
@@ -147,5 +153,6 @@ export const diplomados: Record<string, DiplomadoDetail> = {
       'Destruirás la timidez, eliminarás las máscaras y dominarás el arte de la presencia escénica.',
     fechaInicio: 'Miércoles 16 de Septiembre 2026',
     plazas: 'Aulas Exclusivas (Máximo 15 plazas por entrevista)',
+    inscripcionDeadline,
   },
 };

@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import CookieBanner from '../components/blocks/CookieBanner.astro';
+import { COOKIE_CONSENT_KEY } from '../lib/cookie-consent';
+
+const gaId = import.meta.env.PUBLIC_GA_ID;
 
 interface Props {
   title?: string;
@@ -71,25 +75,35 @@ const canonicalUrl = canonical.startsWith('http') ? canonical : `${siteUrl}${can
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     />
 
-    <!-- GA4 stub (gated by consent in production) -->
-    {
-      import.meta.env.PUBLIC_GA_ID && (
-        <>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}
-          />
-          <script is:inline>{`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${import.meta.env.PUBLIC_GA_ID}', { anonymize_ip: true });
-          `}</script>
-        </>
-      )
-    }
+    <!-- GA4: NO se carga hasta que el usuario acepta cookies analíticas.
+         El script solo define el cargador; quien lo dispara es CookieBanner. -->
+    <script is:inline define:vars={{ gaId, consentKey: COOKIE_CONSENT_KEY }}>
+      window.__psmLoadAnalytics = function () {
+        if (window.__psmAnalyticsLoaded || !gaId) return;
+        window.__psmAnalyticsLoaded = true;
+
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        document.head.appendChild(s);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag('js', new Date());
+        window.gtag('config', gaId, { anonymize_ip: true });
+      };
+
+      try {
+        if (localStorage.getItem(consentKey) === 'accepted') window.__psmLoadAnalytics();
+      } catch {
+        /* localStorage bloqueado: sin consentimiento verificable, no cargamos nada. */
+      }
+    </script>
   </head>
   <body class="bg-bg text-text font-body">
     <slot />
+    <CookieBanner />
   </body>
 </html>

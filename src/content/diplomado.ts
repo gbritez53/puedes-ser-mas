@@ -56,4 +56,6 @@ export interface DiplomadoDetail {
   fechaInicio: string;
   /** Condición de cupo (para la grilla de la home) */
   plazas: string;
+  /** Cierre de inscripción en ISO 8601 con offset (alimenta la cuenta regresiva) */
+  inscripcionDeadline: string;
 }

@@ -1,0 +1,332 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import LegalDato from '../components/ui/LegalDato.astro';
+import { legal } from '../content/legal';
+
+export const prerender = false;
+---
+
+<LegalLayout
+  title="Política de Privacidad — PUEDES SER MÁS"
+  description="Cómo PUEDES SER MÁS recolecta, usa, conserva y protege tus datos personales, conforme a la Ley 25.326 de Protección de Datos Personales de la República Argentina."
+  canonical="/politica-de-privacidad"
+  heading="Política de"
+  headingAccent="Privacidad"
+  intro="Acá te explicamos, sin vueltas, qué datos tuyos recolectamos, para qué los usamos, cuánto tiempo los guardamos y cómo podés pedirnos que los borremos."
+>
+  <h2>1. Quién es responsable de tus datos</h2>
+
+  <p>
+    El responsable del tratamiento de los datos personales recolectados a través de <strong
+      >{legal.sitio}</strong
+    > es <LegalDato value={legal.razonSocial} />, CUIT <LegalDato value={legal.cuit} />, con
+    domicilio en <LegalDato value={legal.domicilio} />, que opera bajo el nombre comercial <strong
+      >{legal.brand}</strong
+    >.
+  </p>
+
+  <p>
+    Para cualquier consulta sobre esta política o para ejercer tus derechos, escribinos a <LegalDato
+      value={legal.emailContacto}
+    />.
+  </p>
+
+  <h2>2. Qué datos recolectamos</h2>
+
+  <p>
+    Solo recolectamos datos que vos nos entregás de forma voluntaria, más un mínimo de información
+    técnica necesaria para que el sitio funcione y esté protegido contra abusos.
+  </p>
+
+  <h3>2.1 Formulario de solicitud de entrevista de admisión</h3>
+
+  <p>Cuando completás el formulario de admisión, recolectamos y almacenamos:</p>
+
+  <ul>
+    <li><strong>Nombre</strong> que declarás.</li>
+    <li><strong>Número de WhatsApp</strong>, para contactarte y coordinar la entrevista.</li>
+    <li>
+      <strong>Desafío principal</strong> que seleccionás (mentalidad, comunicación o ambos).
+    </li>
+    <li>
+      <strong>Texto libre</strong> en el que explicás por qué deberías ser seleccionado. Te pedimos que
+      no incluyas ahí datos sensibles (salud, origen étnico, opiniones políticas, religión, vida sexual
+      o antecedentes penales): no los necesitamos y no queremos tratarlos.
+    </li>
+  </ul>
+
+  <h3>2.2 Encuesta de diagnóstico</h3>
+
+  <p>
+    La encuesta disponible en <a href="/encuesta">/encuesta</a> solicita nombre, correo electrónico, número
+    de WhatsApp, profesión, sector de actividad y tus respuestas sobre hábitos, saboteadores, objetivos
+    y disponibilidad.
+  </p>
+
+  <div class="legal-callout">
+    <p>
+      <strong>Estado actual:</strong> a la fecha de esta política, las respuestas de la encuesta se procesan
+      únicamente en tu navegador y <strong>no se envían ni se almacenan</strong> en nuestros servidores.
+      Cuando conectemos esta encuesta a nuestra base de datos, actualizaremos esta política y la fecha
+      de última actualización antes de que el cambio entre en vigencia.
+    </p>
+  </div>
+
+  <h3>2.3 Datos técnicos</h3>
+
+  <p>Junto a cada solicitud de admisión guardamos:</p>
+
+  <ul>
+    <li>
+      <strong>Un hash de tu dirección IP</strong>, no la IP en sí. Lo usamos exclusivamente para
+      limitar la cantidad de envíos por hora y frenar el spam automatizado.
+    </li>
+    <li>
+      <strong>El user-agent de tu navegador</strong> (nombre y versión del navegador y del sistema operativo),
+      con la misma finalidad de seguridad.
+    </li>
+    <li><strong>La fecha y hora</strong> del envío.</li>
+  </ul>
+
+  <h3>2.4 Datos que NO recolectamos</h3>
+
+  <ul>
+    <li>
+      No pedimos ni almacenamos <strong
+        >datos de tarjetas de crédito ni credenciales bancarias</strong
+      > en este sitio.
+    </li>
+    <li>No recolectamos datos sensibles en los términos del art. 2 de la Ley 25.326.</li>
+    <li>No compramos bases de datos ni incorporamos contactos de terceros.</li>
+    <li>El formulario de admisión ya no solicita correo electrónico.</li>
+  </ul>
+
+  <h2>3. Para qué usamos tus datos</h2>
+
+  <p>Usamos tus datos únicamente para estas finalidades:</p>
+
+  <ol>
+    <li>
+      <strong>Evaluar tu postulación</strong> y decidir si avanzás en el proceso de admisión a nuestros
+      diplomados.
+    </li>
+    <li>
+      <strong>Contactarte por WhatsApp</strong> para coordinar la entrevista y responder tus consultas.
+    </li>
+    <li>
+      <strong>Enviarte información sobre los programas</strong> a los que te postulaste, incluidas fechas,
+      condiciones y modalidades de pago.
+    </li>
+    <li>
+      <strong>Proteger el sitio</strong> frente a envíos automatizados, spam y abuso del formulario.
+    </li>
+    <li>
+      <strong>Medir el uso del sitio de forma agregada</strong>, solo si prestaste tu consentimiento
+      para cookies analíticas. Ver la <a href="/politica-de-cookies">Política de Cookies</a>.
+    </li>
+  </ol>
+
+  <p>
+    No usamos tus datos para tomar decisiones automatizadas con efectos jurídicos sobre vos: la
+    evaluación de tu postulación la hace siempre una persona del equipo.
+  </p>
+
+  <h2>4. Base legal del tratamiento</h2>
+
+  <p>
+    El tratamiento se funda en tu <strong>consentimiento libre, expreso e informado</strong>, que
+    prestás al completar y enviar el formulario, conforme al art. 5 de la Ley 25.326. Podés
+    revocarlo en cualquier momento, sin efecto retroactivo, escribiéndonos a <LegalDato
+      value={legal.emailContacto}
+    />.
+  </p>
+
+  <p>
+    Los datos técnicos descriptos en el punto 2.3 se tratan sobre la base de nuestro interés
+    legítimo en mantener el servicio seguro y operativo.
+  </p>
+
+  <h2>5. Con quién compartimos tus datos</h2>
+
+  <p>
+    <strong
+      >No vendemos, alquilamos ni cedemos tus datos personales a terceros con fines comerciales.</strong
+    > Compartimos información únicamente con los proveedores que necesitamos para que el sitio funcione:
+  </p>
+
+  <div class="legal-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Proveedor</th>
+          <th>Para qué</th>
+          <th>Qué recibe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vercel Inc.</strong> (EE.UU.)</td>
+          <td>Hosting y entrega del sitio</td>
+          <td>Datos de conexión y contenido de las solicitudes</td>
+        </tr>
+        <tr>
+          <td><strong>Turso / libSQL</strong></td>
+          <td>Base de datos donde se guardan las postulaciones</td>
+          <td>Los datos del formulario de admisión</td>
+        </tr>
+        <tr>
+          <td><strong>Google LLC</strong> (Fonts y Material Symbols)</td>
+          <td>Tipografías e iconos del sitio</td>
+          <td>Tu dirección IP y user-agent al descargar las fuentes</td>
+        </tr>
+        <tr>
+          <td><strong>Google LLC</strong> (Analytics 4)</td>
+          <td>Estadísticas de uso agregadas</td>
+          <td>
+            Solo si aceptaste cookies analíticas: identificador de cookie, IP anonimizada y
+            navegación
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Meta Platforms</strong> (WhatsApp)</td>
+          <td>Canal por el que te contactamos</td>
+          <td>Tu número de teléfono y el contenido de la conversación</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    También podremos comunicar tus datos cuando exista una <strong
+      >orden judicial o un requerimiento de autoridad competente</strong
+    >, conforme al art. 11 de la Ley 25.326.
+  </p>
+
+  <h2>6. Transferencia internacional de datos</h2>
+
+  <p>
+    Algunos de los proveedores mencionados almacenan o procesan información en servidores ubicados
+    fuera de la República Argentina, principalmente en los Estados Unidos. Al enviarnos tus datos
+    prestás conformidad con esa transferencia, en los términos del art. 12 de la Ley 25.326.
+    Seleccionamos proveedores que ofrecen niveles adecuados de protección mediante cláusulas
+    contractuales y estándares de seguridad reconocidos en la industria.
+  </p>
+
+  <h2>7. Cuánto tiempo conservamos tus datos</h2>
+
+  <ul>
+    <li>
+      <strong>Postulaciones que no avanzan:</strong> hasta 24 meses desde el envío, por si querés retomar
+      el proceso en una convocatoria posterior.
+    </li>
+    <li>
+      <strong>Postulaciones de alumnos admitidos:</strong> mientras dure la relación académica y comercial,
+      más los plazos de prescripción legal y las obligaciones fiscales y contables aplicables.
+    </li>
+    <li>
+      <strong>Hash de IP y user-agent:</strong> hasta 12 meses, plazo tras el cual dejan de tener utilidad
+      para la prevención de abuso.
+    </li>
+  </ul>
+
+  <p>Cumplidos esos plazos, los datos se eliminan o se anonimizan de forma irreversible.</p>
+
+  <h2>8. Tus derechos</h2>
+
+  <p>
+    Como titular de los datos, la Ley 25.326 te reconoce los derechos de <strong
+      >acceso, rectificación, actualización y supresión</strong
+    > de tus datos personales. Concretamente, podés pedirnos:
+  </p>
+
+  <ul>
+    <li><strong>Acceso:</strong> que te informemos qué datos tuyos tenemos y cómo los usamos.</li>
+    <li>
+      <strong>Rectificación y actualización:</strong> que corrijamos datos inexactos o vencidos.
+    </li>
+    <li>
+      <strong>Supresión:</strong> que borremos tus datos, salvo que debamos conservarlos por una obligación
+      legal.
+    </li>
+    <li><strong>Revocación del consentimiento</strong>, hacia el futuro.</li>
+  </ul>
+
+  <p>
+    Para ejercerlos, escribinos a <LegalDato value={legal.emailContacto} /> desde el contacto que usaste
+    al postularte, o indicando el número de WhatsApp con el que completaste el formulario, para que podamos
+    identificarte. Respondemos dentro de los <strong>10 días corridos</strong> para las solicitudes de
+    acceso y de los <strong>5 días hábiles</strong> para las de rectificación o supresión, conforme a
+    los arts. 14 y 16 de la Ley 25.326.
+  </p>
+
+  <div class="legal-callout">
+    <p>
+      El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los
+      mismos en forma gratuita a intervalos no inferiores a seis (6) meses, salvo que se acredite un
+      interés legítimo al efecto, conforme lo establecido en el artículo 14, inciso 3 de la Ley N°
+      25.326.
+    </p>
+    <p>
+      La <strong>Agencia de Acceso a la Información Pública</strong>, en su carácter de órgano de
+      control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que
+      interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas
+      vigentes en materia de protección de datos personales.
+    </p>
+  </div>
+
+  <h2>9. Seguridad de la información</h2>
+
+  <p>Aplicamos medidas técnicas y organizativas razonables para proteger tus datos:</p>
+
+  <ul>
+    <li>Todo el tráfico del sitio viaja cifrado mediante HTTPS.</li>
+    <li>Tu dirección IP nunca se guarda en claro: se almacena únicamente su hash criptográfico.</li>
+    <li>
+      Limitamos la cantidad de envíos por hora desde un mismo origen y usamos un campo trampa (<em
+        >honeypot</em
+      >) para descartar envíos automatizados.
+    </li>
+    <li>El acceso a la base de datos está restringido al personal que lo necesita.</li>
+  </ul>
+
+  <p>
+    Ningún sistema es infalible. Si detectáramos un incidente de seguridad que afecte tus datos
+    personales, te lo notificaremos por los medios de contacto que nos hayas provisto.
+  </p>
+
+  <h2>10. Menores de edad</h2>
+
+  <p>
+    Nuestros programas y este sitio están dirigidos a <strong>personas mayores de 18 años</strong>.
+    No recolectamos de forma consciente datos de menores. Si sos madre, padre o tutor y detectás que
+    un menor a tu cargo nos envió datos, escribinos a <LegalDato value={legal.emailContacto} /> y los
+    eliminaremos.
+  </p>
+
+  <h2>11. Cookies</h2>
+
+  <p>
+    El uso de cookies y tecnologías similares se detalla en nuestra <a href="/politica-de-cookies"
+      >Política de Cookies</a
+    >, donde también podés cambiar tu decisión sobre las cookies analíticas en cualquier momento.
+  </p>
+
+  <h2>12. Cambios en esta política</h2>
+
+  <p>
+    Podemos actualizar esta política para reflejar cambios en el sitio, en nuestros proveedores o en
+    la normativa aplicable. Cuando lo hagamos, modificaremos la fecha de última actualización que
+    figura al comienzo. Si el cambio es sustancial y afecta el modo en que tratamos tus datos, te lo
+    comunicaremos por los medios de contacto disponibles antes de que entre en vigencia.
+  </p>
+
+  <h2>13. Ley aplicable y jurisdicción</h2>
+
+  <p>
+    Esta política se rige por las leyes de la <strong>República Argentina</strong>, en particular
+    por la Ley 25.326 de Protección de Datos Personales y su decreto reglamentario. Ante cualquier
+    controversia, serán competentes los tribunales ordinarios de <LegalDato
+      value={legal.jurisdiccion}
+    />, con renuncia a cualquier otro fuero o jurisdicción.
+  </p>
+</LegalLayout>
