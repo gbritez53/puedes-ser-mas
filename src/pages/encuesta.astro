@@ -2,38 +2,37 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavigationBlock from '../components/blocks/NavigationBlock.astro';
 import FooterBlock from '../components/blocks/FooterBlock.astro';
-import EncuestaForm from '../components/multiple-steps/encuesta';
+import DiagnosticoForm from '../components/multiple-steps/diagnostico';
 import { Toaster } from 'sonner';
 ---
 
 <BaseLayout
-  title="Encuesta de Diagnóstico — PUEDES SER MÁS"
-  description="Descubrí cuál es tu saboteador principal y el punto de partida de tu transformación. Respondé esta encuesta de 6 pasos."
+  title="Diagnóstico de Claridad — PUEDES SER MÁS"
+  description="Descubrí en 7 preguntas qué es lo que realmente te está frenando y cuál es el punto de partida de tu transformación."
   ogImage="/assets/logo.png"
 >
   <NavigationBlock />
 
   <main class="min-h-screen bg-bg">
     <section class="px-4 md:px-20 pt-16 md:pt-24 pb-20 max-w-[1280px] mx-auto">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 print:hidden">
         <p class="font-body text-sm uppercase tracking-[0.3em] text-cta mb-4">
-          Diagnóstico personal
+          Diagnóstico de claridad
         </p>
         <h1 class="font-heading text-hero uppercase text-white">
-          ¿Cuál es tu <span class="text-cta">saboteador</span>?
+          ¿Qué es lo que <span class="text-cta">realmente</span> te frena?
         </h1>
         <p class="font-body text-text-muted text-lg max-w-2xl mx-auto mt-4">
-          Nada cambia en la zona cómoda. Identificá el freno que te domina y empezá a construir tu
-          transformación.
+          7 preguntas para identificar tu principal freno hoy y el primer paso concreto para
+          resolverlo.
         </p>
       </div>
 
-      <EncuestaForm client:load />
+      <DiagnosticoForm client:load />
 
-      <div class="text-center mt-10">
+      <div class="text-center mt-10 print:hidden">
         <p class="font-body text-text-variant text-sm max-w-md mx-auto">
-          Completá los 6 pasos. Tu respuesta es confidencial y solo se usa para acompañarte mejor en
-          tu proceso.
+          Tu respuesta es confidencial y solo se usa para acompañarte mejor en tu proceso.
         </p>
       </div>
     </section>

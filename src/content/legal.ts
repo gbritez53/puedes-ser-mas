@@ -31,7 +31,7 @@ export const legal = {
    * Fecha de última actualización de los documentos legales.
    * Actualizala cada vez que modifiques el contenido de alguna de las páginas.
    */
-  ultimaActualizacion: '30 de agosto de 2026',
+  ultimaActualizacion: '16 de septiembre de 2026',
 } as const;
 
 export const legalPages = [

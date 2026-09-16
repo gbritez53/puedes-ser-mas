@@ -22,6 +22,13 @@
       "when": 1785885341074,
       "tag": "0002_optimal_daredevil",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1789535149202,
+      "tag": "0003_nasty_senator_kelly",
+      "breakpoints": true
     }
   ]
 }
