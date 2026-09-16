@@ -1,4 +1,11 @@
 ---
+interface Props {
+  /** Header sin links de navegación ni CTA — solo el logo. Para landings de conversión (ej. /encuesta) donde las anclas a secciones de la home no existen y solo distraen. */
+  minimal?: boolean;
+}
+
+const { minimal = false } = Astro.props;
+
 const logoUrl = '/assets/isotype.png';
 
 const links = [
@@ -17,24 +24,28 @@ const links = [
       </a>
     </div>
 
-    <div class="hidden md:flex gap-8 items-center">
-      {
-        links.map((link) => (
-          <a
-            href={link.href}
-            class="text-white font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase hover:text-cta transition-colors duration-200"
-          >
-            {link.label}
-          </a>
-        ))
-      }
-    </div>
+    {
+      !minimal && (
+        <>
+          <div class="hidden md:flex gap-8 items-center">
+            {links.map((link) => (
+              <a
+                href={link.href}
+                class="text-white font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase hover:text-cta transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
 
-    <a
-      href="#admision"
-      class="btn-lift font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase px-6 py-3 rounded-lg bg-cta text-white hover:bg-cta-hover transition-colors"
-    >
-      POSTULAR AHORA
-    </a>
+          <a
+            href="#admision"
+            class="btn-lift font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase px-6 py-3 rounded-lg bg-cta text-white hover:bg-cta-hover transition-colors"
+          >
+            POSTULAR AHORA
+          </a>
+        </>
+      )
+    }
   </div>
 </nav>
