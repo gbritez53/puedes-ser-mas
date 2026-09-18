@@ -14,6 +14,9 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   site: process.env.PUBLIC_SITE_URL || 'https://puedessermas.com',
+  redirects: {
+    '/encuesta': '/diagnostico',
+  },
   integrations: [
     react(),
     sitemap(),

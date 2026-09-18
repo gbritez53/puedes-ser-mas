@@ -1,6 +1,6 @@
 ---
 interface Props {
-  /** Header sin links de navegación ni CTA — solo el logo. Para landings de conversión (ej. /encuesta) donde las anclas a secciones de la home no existen y solo distraen. */
+  /** Header sin links de navegación ni CTA — solo el logo. Para landings de conversión (ej. /diagnostico) donde las anclas a secciones de la home no existen y solo distraen. */
   minimal?: boolean;
 }
 
@@ -9,8 +9,6 @@ const { minimal = false } = Astro.props;
 const logoUrl = '/assets/isotype.png';
 
 const links = [
-  { href: '#filosofia', label: 'Filosofía' },
-  { href: '#diplomados', label: 'Diplomados' },
   { href: '#admision', label: 'Admisión' },
   { href: '#inversion', label: 'Inversión' },
 ];
@@ -28,6 +26,18 @@ const links = [
       !minimal && (
         <>
           <div class="hidden md:flex gap-8 items-center">
+            <a
+              href="#filosofia"
+              class="text-white font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase hover:text-cta transition-colors duration-200"
+            >
+              Filosofía
+            </a>
+            <a
+              href="/diagnostico"
+              class="border border-line font-label-bold text-[14px] leading-[20px] tracking-[0.1em] font-bold uppercase px-4 py-2 rounded-lg text-white hover:border-cta hover:text-cta transition-colors duration-200"
+            >
+              Hacer diagnóstico
+            </a>
             {links.map((link) => (
               <a
                 href={link.href}
