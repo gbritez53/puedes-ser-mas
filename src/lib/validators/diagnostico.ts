@@ -1,27 +1,39 @@
 import { z } from 'zod';
 
-export const diagnosticoSchema = z.object({
-  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres').max(120),
-  phone: z.string().min(6, 'El WhatsApp debe tener al menos 6 caracteres').max(32),
-  email: z.string().email('Ingresá un email válido').max(160),
-  track: z.enum(['A', 'B', 'C', 'D'], { message: 'Track inválido' }),
-  scoreA: z.number().int().min(0).max(20),
-  scoreB: z.number().int().min(0).max(20),
-  scoreC: z.number().int().min(0).max(20),
-  scoreD: z.number().int().min(0).max(20),
-  closingText: z.string().min(1, 'Contanos qué buscás con la mentoría').max(2000),
-  aspirations: z.array(z.string().max(200)).max(10),
-  answers: z
-    .array(
-      z.object({
-        question: z.string().max(300),
-        answer: z.string().max(500),
-      }),
-    )
-    .max(10),
-  honeypot: z.string().max(0).optional(), // must be empty — filled = bot
+export const diagnosticoLeadSchema = z
+  .object({
+    name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres').max(120),
+    email: z.string().email('Ingresá un email válido').max(160).optional().or(z.literal('')),
+    phone: z
+      .string()
+      .min(6, 'El WhatsApp debe tener al menos 6 caracteres')
+      .max(32)
+      .optional()
+      .or(z.literal('')),
+    honeypot: z.string().max(0).optional(), // must be empty — filled = bot
+  })
+  .refine((data) => !!data.email || !!data.phone, {
+    message: 'Dejanos al menos un email o un WhatsApp',
+    path: ['email'],
+  });
+
+export type DiagnosticoLeadInput = z.infer<typeof diagnosticoLeadSchema>;
+
+const answerSchema = z.object({
+  question: z.string().max(300),
+  selected: z.array(z.string().max(200)).max(10),
+  other: z.string().max(500),
 });
 
-export type DiagnosticoInput = z.infer<typeof diagnosticoSchema>;
+export const diagnosticoCompleteSchema = z.object({
+  id: z.number().int().positive(),
+  painSentence: z.string().min(1).max(1000),
+  category: z.enum(['sanidad', 'liderazgo', 'caracter', 'oratoria']),
+  level: z.enum(['sesion-unica', 'acompanamiento', 'transformacion']),
+  levelInferred: z.boolean(),
+  answers: z.array(answerSchema).max(10),
+});
 
-export type DiagnosticoFieldErrors = Partial<Record<keyof DiagnosticoInput, string>>;
+export type DiagnosticoCompleteInput = z.infer<typeof diagnosticoCompleteSchema>;
+
+export type DiagnosticoFieldErrors = Partial<Record<keyof DiagnosticoLeadInput, string>>;

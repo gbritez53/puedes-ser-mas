@@ -29,6 +29,13 @@
       "when": 1789535149202,
       "tag": "0003_nasty_senator_kelly",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1789758467291,
+      "tag": "0004_diagnostico_checkpoint",
+      "breakpoints": true
     }
   ]
 }

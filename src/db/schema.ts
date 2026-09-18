@@ -22,22 +22,24 @@ export type NewAdmission = typeof admissions.$inferInsert;
 
 export const diagnosticos = sqliteTable('diagnosticos', {
   id: integer('id').primaryKey({ autoIncrement: true }),
+  // Capturados en el checkpoint, a mitad del cuestionario (pregunta 4 de 7).
   name: text('name').notNull(),
-  phone: text('phone').notNull(),
-  email: text('email').notNull(),
-  track: text('track').notNull(),
-  scoreA: integer('score_a').notNull(),
-  scoreB: integer('score_b').notNull(),
-  scoreC: integer('score_c').notNull(),
-  scoreD: integer('score_d').notNull(),
-  closingText: text('closing_text').notNull(),
-  // JSON.stringify de string[] con las aspiraciones elegidas en la última pregunta.
-  aspirations: text('aspirations').notNull(),
-  // JSON.stringify de { question, answer }[] con todas las respuestas, para dar contexto completo antes de la llamada.
-  answers: text('answers').notNull(),
+  email: text('email'),
+  phone: text('phone'),
+  // Se completan recién si termina las 7 preguntas; quedan null si abandona después del checkpoint.
+  painSentence: text('pain_sentence'),
+  category: text('category'),
+  level: text('level'),
+  levelInferred: integer('level_inferred', { mode: 'boolean' }),
+  // JSON.stringify de { question, selected, other }[] con todas las respuestas, para dar contexto completo antes de la llamada.
+  answers: text('answers'),
+  completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
   ipHash: text('ip_hash'),
   userAgent: text('user_agent'),
   createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+  updatedAt: integer('updated_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
 });
