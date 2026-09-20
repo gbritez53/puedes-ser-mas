@@ -199,10 +199,14 @@ export function DiagnosticoForm() {
             <p className="mb-1.5 font-body text-xs font-semibold uppercase tracking-wide text-text-variant">
               Pregunta {questionIndex + 1} de {totalSteps}
             </p>
-            <div className="h-1 overflow-hidden rounded-full bg-line">
+            <div className="relative h-2.5 overflow-hidden rounded-full bg-line">
               <div
-                className="h-full bg-cta transition-all duration-300"
-                style={{ width: `${((questionIndex + 1) / totalSteps) * 100}%` }}
+                className="absolute inset-0 rounded-full"
+                style={{ background: 'linear-gradient(90deg, #dc2626, #f97316, #eab308, #22c55e)' }}
+              />
+              <div
+                className="absolute inset-y-0 right-0 rounded-full bg-line transition-all duration-300"
+                style={{ width: `${100 - ((questionIndex + 1) / totalSteps) * 100}%` }}
               />
             </div>
           </div>
