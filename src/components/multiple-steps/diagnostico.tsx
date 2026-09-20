@@ -208,6 +208,10 @@ export function DiagnosticoForm() {
                 className="absolute inset-y-0 right-0 rounded-full bg-line transition-all duration-300"
                 style={{ width: `${100 - ((questionIndex + 1) / totalSteps) * 100}%` }}
               />
+              <div
+                className="progress-shine absolute inset-y-0 left-0 overflow-hidden rounded-full transition-all duration-300"
+                style={{ width: `${((questionIndex + 1) / totalSteps) * 100}%` }}
+              />
             </div>
           </div>
 

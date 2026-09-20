@@ -135,4 +135,27 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
   }
+
+  .progress-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, white 55%, transparent),
+      transparent
+    );
+    animation: progress-shine 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes progress-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
 }
