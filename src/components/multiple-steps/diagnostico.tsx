@@ -32,6 +32,12 @@ function emptyAnswers(): Answers {
   return Object.fromEntries(questions.map((q) => [q.id, { selected: [], other: '' }]));
 }
 
+function sanitizePhone(value: string): string {
+  const hasCountryCode = value.trimStart().startsWith('+');
+  const digits = value.replace(/\D/g, '');
+  return hasCountryCode ? `+${digits}` : digits;
+}
+
 export function DiagnosticoForm() {
   const [step, setStep] = useState<Step>('question');
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -358,10 +364,14 @@ export function DiagnosticoForm() {
                 inputMode="tel"
                 autoComplete="tel"
                 value={leadPhone}
-                onChange={(e) => setLeadPhone(e.target.value)}
+                onChange={(e) => setLeadPhone(sanitizePhone(e.target.value))}
                 placeholder="+54 9 11 ..."
                 className="w-full rounded-xl border-2 border-line bg-surface px-5 py-2.5 font-body text-[15px] text-white outline-none focus:border-cta"
               />
+              <p className="mt-1 font-body text-[11.5px] text-text-variant">
+                Solo números. Usá el + solo si ponés el código de país; si es tu número local, sin
+                el +.
+              </p>
             </div>
           </div>
 
