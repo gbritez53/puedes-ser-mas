@@ -414,7 +414,7 @@ export function DiagnosticoForm() {
             </p>
 
             <div className="rounded-2xl border-2 border-line bg-surface p-7">
-              <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
+              <p className="mb-3 inline-block rounded-full bg-cta/15 px-3 py-1 font-heading text-sm tracking-[1.5px] text-cta">
                 MENTORÍA RECOMENDADA
               </p>
               <h3 className="mb-1 font-heading text-2xl text-white sm:text-3xl">
@@ -424,7 +424,7 @@ export function DiagnosticoForm() {
               <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
                 LO QUE VAS A LOGRAR
               </p>
-              <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
+              <p className="font-body text-lg leading-relaxed text-[#2dfa87] sm:text-xl">
                 {result.benefit}
               </p>
             </div>
