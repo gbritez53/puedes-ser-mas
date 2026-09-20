@@ -136,6 +136,10 @@
     box-shadow: 0 6px 0 color-mix(in srgb, var(--color-cta) 55%, #000);
   }
 
+  .pulse-cta {
+    animation: pulse-cta 2s ease-in-out infinite;
+  }
+
   .progress-shine::after {
     content: '';
     position: absolute;
@@ -157,5 +161,19 @@
   }
   100% {
     transform: translateX(300%);
+  }
+}
+
+@keyframes pulse-cta {
+  0%,
+  100% {
+    box-shadow:
+      0 4px 0 color-mix(in srgb, var(--color-cta) 55%, #000),
+      0 0 0 0 color-mix(in srgb, var(--color-cta) 55%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 4px 0 color-mix(in srgb, var(--color-cta) 55%, #000),
+      0 0 16px 6px color-mix(in srgb, var(--color-cta) 65%, transparent);
   }
 }

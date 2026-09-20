@@ -421,10 +421,10 @@ export function DiagnosticoForm() {
                 {result.levelName}
               </h3>
               <p className="mb-5 font-body text-xs text-text-variant">{result.levelMeta}</p>
-              <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
+              <p className="mb-2 font-heading text-sm tracking-[1.5px] text-[#2dfa87]">
                 LO QUE VAS A LOGRAR
               </p>
-              <p className="font-body text-lg leading-relaxed text-[#2dfa87] sm:text-xl">
+              <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
                 {result.benefit}
               </p>
             </div>
@@ -452,9 +452,9 @@ export function DiagnosticoForm() {
                 href={result.ctaHref}
                 target="_blank"
                 rel="noopener"
-                className="btn-lift block w-full whitespace-nowrap rounded-xl bg-cta px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
+                className="btn-lift pulse-cta block w-full whitespace-nowrap rounded-xl bg-cta px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
               >
-                Quiero mi mentoría →
+                Quiero mi mentoría gratuita →
               </a>
 
               <button
