@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -53,12 +53,6 @@ export function DiagnosticoForm() {
   const [submittingResult, setSubmittingResult] = useState(false);
 
   const [result, setResult] = useState<ResultData | null>(null);
-
-  useEffect(() => {
-    if (step !== 'result') return;
-    const timer = setTimeout(() => setStep('offer'), 3500);
-    return () => clearTimeout(timer);
-  }, [step]);
 
   const q = questions[questionIndex];
   const answer = answers[q.id];
@@ -450,36 +444,55 @@ export function DiagnosticoForm() {
               </div>
             </div>
           </div>
+
+          <div className="mt-8 flex justify-center lg:col-span-2">
+            <Button onClick={() => setStep('offer')} className="btn-lift rounded-full px-8">
+              Ver cómo lograrlo <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       )}
 
       {step === 'offer' && result && (
-        <div className="flex flex-col items-center text-center">
-          <img
-            src="/assets/fotoclaudio.jpeg"
-            alt="Claudio Español"
-            className="size-28 flex-shrink-0 rounded-full border-2 border-cta object-cover"
-          />
-          <p className="mt-4 font-body text-lg font-bold text-white">Claudio Español</p>
-          <p className="mb-6 font-body text-xs text-text-variant">
-            CEO y fundador de Puedes Ser Más
-          </p>
+        <div className="offer-in relative overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface to-black p-8 text-center sm:p-12">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,_var(--color-cta)_25%,_transparent),_transparent_70%)]" />
 
-          <p className="mb-8 max-w-lg font-body text-[15px] leading-relaxed text-text-muted">
-            {leadName.trim() ? `${leadName.trim()}, leí` : 'Leí'} tu diagnóstico: lo que te está
-            frenando es {result.painSentence}. Te quiero ofrecer una mentoría gratuita, 1 a 1
-            conmigo, totalmente personalizada a tu situación — nada de fórmulas genéricas. Hablamos
-            de lo tuyo, en profundidad, y salís con un plan concreto para moverte.
-          </p>
+          <div className="relative">
+            <div className="relative mx-auto w-fit">
+              <div className="absolute inset-0 -z-10 animate-pulse rounded-full bg-cta/40 blur-2xl" />
+              <img
+                src="/assets/fotoclaudio.jpeg"
+                alt="Claudio Español"
+                className="size-32 flex-shrink-0 rounded-full border-4 border-cta object-cover shadow-[0_0_40px_rgba(196,23,24,0.45)]"
+              />
+            </div>
 
-          <a
-            href={result.ctaHref}
-            target="_blank"
-            rel="noopener"
-            className="btn-lift pulse-cta block w-full max-w-sm whitespace-nowrap rounded-xl bg-cta px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
-          >
-            Quiero mi mentoría gratuita →
-          </a>
+            <p className="mt-5 font-heading text-2xl text-white">Claudio Español</p>
+            <p className="mt-1.5 mb-8 inline-block rounded-full bg-cta/15 px-3 py-1 font-heading text-xs tracking-[1.5px] text-cta">
+              CEO Y FUNDADOR DE PUEDES SER MÁS
+            </p>
+
+            <div className="relative mx-auto max-w-lg rounded-2xl border-2 border-line bg-surface/80 p-6 text-left backdrop-blur-sm sm:p-7">
+              <span className="absolute -top-4 left-6 font-heading text-5xl leading-none text-cta/50">
+                “
+              </span>
+              <p className="font-body text-[15.5px] leading-relaxed text-white">
+                {leadName.trim() ? `${leadName.trim()}, leí` : 'Leí'} tu diagnóstico: lo que te está
+                frenando es {result.painSentence}. Te quiero ofrecer una mentoría gratuita, 1 a 1
+                conmigo, totalmente personalizada a tu situación — nada de fórmulas genéricas.
+                Hablamos de lo tuyo, en profundidad, y salís con un plan concreto para moverte.
+              </p>
+            </div>
+
+            <a
+              href={result.ctaHref}
+              target="_blank"
+              rel="noopener"
+              className="btn-lift pulse-cta mx-auto mt-8 block w-full max-w-sm whitespace-nowrap rounded-xl bg-cta px-4 py-5 text-center font-body text-base font-bold text-white transition-colors hover:bg-cta-hover"
+            >
+              Quiero mi mentoría gratuita →
+            </a>
+          </div>
         </div>
       )}
     </div>
