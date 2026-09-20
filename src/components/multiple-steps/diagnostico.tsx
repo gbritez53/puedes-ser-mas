@@ -477,10 +477,17 @@ export function DiagnosticoForm() {
                 “
               </span>
               <p className="font-body text-[15.5px] leading-relaxed text-white">
-                {leadName.trim() ? `${leadName.trim()}, leí` : 'Leí'} tu diagnóstico: lo que te está
-                frenando es {result.painSentence}. Te quiero ofrecer una mentoría gratuita, 1 a 1
-                conmigo, totalmente personalizada a tu situación — nada de fórmulas genéricas.
-                Hablamos de lo tuyo, en profundidad, y salís con un plan concreto para moverte.
+                {leadName.trim() ? (
+                  <>
+                    <strong className="font-bold">{leadName.trim()}</strong>, leí
+                  </>
+                ) : (
+                  'Leí'
+                )}{' '}
+                tu diagnóstico: lo que te está frenando es {result.painSentence}. Te quiero ofrecer
+                una <strong className="font-bold">mentoría gratuita</strong>, 1 a 1 conmigo,
+                totalmente personalizada a tu situación — nada de fórmulas genéricas. Hacé clic aquí
+                abajo y nos vemos en la mentoría 😉
               </p>
             </div>
 
