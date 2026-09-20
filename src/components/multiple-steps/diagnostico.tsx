@@ -186,6 +186,7 @@ export function DiagnosticoForm() {
   }
 
   const totalSteps = questions.length;
+  const progressPct = ((questionIndex + 1) / totalSteps) * 100;
 
   return (
     <div
@@ -201,17 +202,17 @@ export function DiagnosticoForm() {
             </p>
             <div className="relative h-2.5 overflow-hidden rounded-full bg-line">
               <div
-                className="absolute inset-0 rounded-full"
-                style={{ background: 'linear-gradient(90deg, #dc2626, #f97316, #eab308, #22c55e)' }}
-              />
-              <div
-                className="absolute inset-y-0 right-0 rounded-full bg-line transition-all duration-300"
-                style={{ width: `${100 - ((questionIndex + 1) / totalSteps) * 100}%` }}
-              />
-              <div
                 className="progress-shine absolute inset-y-0 left-0 overflow-hidden rounded-full transition-all duration-300"
-                style={{ width: `${((questionIndex + 1) / totalSteps) * 100}%` }}
-              />
+                style={{ width: `${progressPct}%` }}
+              >
+                <div
+                  className="absolute inset-y-0 left-0"
+                  style={{
+                    width: `${(100 / progressPct) * 100}%`,
+                    background: 'linear-gradient(90deg, #dc2626, #f97316, #eab308, #22c55e)',
+                  }}
+                />
+              </div>
             </div>
           </div>
 
