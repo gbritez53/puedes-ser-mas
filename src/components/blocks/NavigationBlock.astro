@@ -6,7 +6,8 @@ interface Props {
 
 const { minimal = false } = Astro.props;
 
-const logoUrl = '/assets/isotype.png';
+// La versión "tight" recorta el margen transparente del archivo original, para headers compactos.
+const logoUrl = minimal ? '/assets/isotype-tight.png' : '/assets/isotype.png';
 
 const links = [
   { href: '#admision', label: 'Admisión' },
@@ -14,11 +15,24 @@ const links = [
 ];
 ---
 
-<nav class="sticky top-0 z-50 bg-black border-b border-line/30" aria-label="Navegación principal">
-  <div class="flex justify-between items-center w-full px-4 md:px-20 py-4 max-w-[1280px] mx-auto">
+<nav
+  class:list={['sticky top-0 z-50 bg-black border-b border-line/30', { 'shrink-0': minimal }]}
+  aria-label="Navegación principal"
+>
+  <div
+    class:list={[
+      'flex justify-between items-center w-full px-4 md:px-20 max-w-[1280px] mx-auto',
+      minimal ? 'py-2' : 'py-4',
+    ]}
+  >
     <div class="flex items-center gap-4">
       <a href="/" aria-label="PUEDES SER MÁS — Inicio">
-        <img src={logoUrl} alt="PUEDES SER MÁS Logo" class="h-24 w-auto" loading="eager" />
+        <img
+          src={logoUrl}
+          alt="PUEDES SER MÁS Logo"
+          class:list={['w-auto', minimal ? 'h-10' : 'h-24']}
+          loading="eager"
+        />
       </a>
     </div>
 

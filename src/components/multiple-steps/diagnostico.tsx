@@ -188,7 +188,11 @@ export function DiagnosticoForm() {
   const totalSteps = questions.length;
 
   return (
-    <div className="mx-auto my-auto w-full max-w-2xl">
+    <div
+      className={
+        step === 'result' ? 'mx-auto my-auto w-full max-w-4xl' : 'mx-auto my-auto w-full max-w-2xl'
+      }
+    >
       {step === 'question' && (
         <div>
           <div className="mb-3 print:hidden">
@@ -382,69 +386,73 @@ export function DiagnosticoForm() {
       )}
 
       {step === 'result' && result && (
-        <div>
-          <div className="mb-6 flex items-center gap-3.5 border-b border-line pb-5">
-            <img
-              src="/assets/fotoclaudio.jpeg"
-              alt="Claudio Español"
-              className="h-14 w-14 flex-shrink-0 rounded-full border-2 border-cta object-cover"
-            />
-            <div>
-              <p className="font-body text-[14.5px] font-bold text-white">Claudio Español</p>
-              <p className="font-body text-xs text-text-variant">Fundador de Puedes Ser Más</p>
+        <div className="lg:grid lg:grid-cols-[1fr_260px] lg:items-start lg:gap-8">
+          <div>
+            <div className="mb-6 flex items-center gap-3.5 border-b border-line pb-5">
+              <img
+                src="/assets/fotoclaudio.jpeg"
+                alt="Claudio Español"
+                className="h-14 w-14 flex-shrink-0 rounded-full border-2 border-cta object-cover"
+              />
+              <div>
+                <p className="font-body text-[14.5px] font-bold text-white">Claudio Español</p>
+                <p className="font-body text-xs text-text-variant">Fundador de Puedes Ser Más</p>
+              </div>
             </div>
+
+            <p className="mb-6 font-body text-[15px] leading-relaxed text-text-muted">
+              {result.greeting}
+            </p>
+
+            <p className="mb-3.5 font-heading text-sm tracking-[2px] text-cta">TU DIAGNÓSTICO</p>
+            <div className="mb-7 rounded-2xl border-l-4 border-cta bg-surface p-6">
+              <p className="font-body text-xl leading-relaxed text-white sm:text-2xl">
+                Lo que te está frenando hoy es {result.painSentence}.
+              </p>
+            </div>
+
+            <div className="mb-5 rounded-2xl border-2 border-line bg-surface p-7">
+              <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
+                MENTORÍA RECOMENDADA
+              </p>
+              <h3 className="mb-1 font-heading text-2xl text-white sm:text-3xl">
+                {result.levelName}
+              </h3>
+              <p className="mb-5 font-body text-xs text-text-variant">{result.levelMeta}</p>
+              <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
+                LO QUE VAS A LOGRAR
+              </p>
+              <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
+                {result.benefit}
+              </p>
+            </div>
+
+            {result.inferred && (
+              <p className="font-body text-[12.5px] leading-relaxed text-text-variant">
+                Esto es una referencia inicial a partir de tus respuestas — lo ideal es que lo
+                charlemos juntos para confirmarlo.
+              </p>
+            )}
           </div>
 
-          <p className="mb-6 font-body text-[15px] leading-relaxed text-text-muted">
-            {result.greeting}
-          </p>
+          <div className="mt-6 flex flex-col gap-3 lg:sticky lg:top-4 lg:mt-0">
+            <a
+              href={result.ctaHref}
+              target="_blank"
+              rel="noopener"
+              className="btn-lift block w-full rounded-xl bg-cta px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
+            >
+              Quiero mi mentoría →
+            </a>
 
-          <p className="mb-3.5 font-heading text-sm tracking-[2px] text-cta">TU DIAGNÓSTICO</p>
-          <div className="mb-7 rounded-2xl border-l-4 border-cta bg-surface p-6">
-            <p className="font-body text-xl leading-relaxed text-white sm:text-2xl">
-              Lo que te está frenando hoy es {result.painSentence}.
-            </p>
+            <button
+              type="button"
+              onClick={() => window.Calendly?.initPopupWidget({ url: CALENDLY_URL })}
+              className="block w-full rounded-xl border-2 border-line bg-transparent px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:border-cta"
+            >
+              Reservar sesión 1 a 1 con Claudio
+            </button>
           </div>
-
-          <div className="mb-5 rounded-2xl border-2 border-line bg-surface p-7">
-            <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
-              MENTORÍA RECOMENDADA
-            </p>
-            <h3 className="mb-1 font-heading text-2xl text-white sm:text-3xl">
-              {result.levelName}
-            </h3>
-            <p className="mb-5 font-body text-xs text-text-variant">{result.levelMeta}</p>
-            <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
-              LO QUE VAS A LOGRAR
-            </p>
-            <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
-              {result.benefit}
-            </p>
-          </div>
-
-          {result.inferred && (
-            <p className="mb-7 font-body text-[12.5px] leading-relaxed text-text-variant">
-              Esto es una referencia inicial a partir de tus respuestas — lo ideal es que lo
-              charlemos juntos para confirmarlo.
-            </p>
-          )}
-
-          <a
-            href={result.ctaHref}
-            target="_blank"
-            rel="noopener"
-            className="btn-lift mb-3 block w-full rounded-xl bg-cta px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
-          >
-            Quiero mi mentoría →
-          </a>
-
-          <button
-            type="button"
-            onClick={() => window.Calendly?.initPopupWidget({ url: CALENDLY_URL })}
-            className="block w-full rounded-xl border-2 border-line bg-transparent px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:border-cta"
-          >
-            Reservar sesión 1 a 1 con Claudio
-          </button>
         </div>
       )}
     </div>
