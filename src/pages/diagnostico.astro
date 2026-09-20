@@ -13,10 +13,14 @@ import { Toaster } from 'sonner';
 >
   <div class="flex h-dvh flex-col overflow-hidden bg-bg">
     <NavigationBlock minimal />
-    <main class="flex flex-1 items-center justify-center overflow-hidden px-4 py-3 md:px-10">
+    <main class="flex flex-1 overflow-y-auto px-4 py-3 md:px-10">
       <DiagnosticoForm client:load />
     </main>
   </div>
+
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async
+  ></script>
 
   <Toaster
     position="top-center"

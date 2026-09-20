@@ -14,6 +14,7 @@ import {
 } from '@/content/diagnostico';
 
 const WHATSAPP_NUMBER = '5491134785986';
+const CALENDLY_URL = 'https://calendly.com/puedessermas/30min';
 
 type Step = 'question' | 'checkpoint' | 'result';
 
@@ -187,7 +188,7 @@ export function DiagnosticoForm() {
   const totalSteps = questions.length;
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <div className="mx-auto my-auto w-full max-w-2xl">
       {step === 'question' && (
         <div>
           <div className="mb-3 print:hidden">
@@ -432,10 +433,18 @@ export function DiagnosticoForm() {
             href={result.ctaHref}
             target="_blank"
             rel="noopener"
-            className="btn-lift block w-full rounded-xl bg-cta px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
+            className="btn-lift mb-3 block w-full rounded-xl bg-cta px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
           >
             Quiero mi mentoría →
           </a>
+
+          <button
+            type="button"
+            onClick={() => window.Calendly?.initPopupWidget({ url: CALENDLY_URL })}
+            className="block w-full rounded-xl border-2 border-line bg-transparent px-8 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:border-cta"
+          >
+            Reservar sesión 1 a 1 con Claudio
+          </button>
         </div>
       )}
     </div>
