@@ -468,7 +468,7 @@ export function DiagnosticoForm() {
             </div>
 
             <p className="mt-5 font-heading text-2xl text-white">Claudio Español</p>
-            <p className="mt-1.5 mb-8 inline-block rounded-full bg-cta/15 px-3 py-1 font-heading text-xs tracking-[1.5px] text-cta">
+            <p className="mt-1.5 mb-8 inline-block rounded-full bg-[#2dfa87]/15 px-4 py-1.5 font-heading text-base tracking-[1.5px] text-[#2dfa87]">
               CEO Y FUNDADOR DE PUEDES SER MÁS
             </p>
 
