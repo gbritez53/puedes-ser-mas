@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,8 @@ import {
 } from '@/content/diagnostico';
 
 const WHATSAPP_NUMBER = '5491134785986';
-const CALENDLY_URL = 'https://calendly.com/puedessermas/30min';
 
-type Step = 'question' | 'checkpoint' | 'result';
+type Step = 'question' | 'checkpoint' | 'result' | 'offer';
 
 type ResultData = {
   painSentence: string;
@@ -54,6 +53,12 @@ export function DiagnosticoForm() {
   const [submittingResult, setSubmittingResult] = useState(false);
 
   const [result, setResult] = useState<ResultData | null>(null);
+
+  useEffect(() => {
+    if (step !== 'result') return;
+    const timer = setTimeout(() => setStep('offer'), 3500);
+    return () => clearTimeout(timer);
+  }, [step]);
 
   const q = questions[questionIndex];
   const answer = answers[q.id];
@@ -407,18 +412,6 @@ export function DiagnosticoForm() {
       {step === 'result' && result && (
         <div className="lg:grid lg:grid-cols-[1fr_360px] lg:items-start lg:gap-8">
           <div>
-            <div className="mb-6 flex items-center gap-3.5 border-b border-line pb-5">
-              <img
-                src="/assets/fotoclaudio.jpeg"
-                alt="Claudio Español"
-                className="size-16 flex-shrink-0 rounded-full border-2 border-cta object-cover"
-              />
-              <div>
-                <p className="font-body text-[14.5px] font-bold text-white">Claudio Español</p>
-                <p className="font-body text-xs text-text-variant">Fundador de Puedes Ser Más</p>
-              </div>
-            </div>
-
             <p className="mb-6 font-body text-[15px] leading-relaxed text-text-muted">
               {result.greeting}
             </p>
@@ -456,26 +449,37 @@ export function DiagnosticoForm() {
                 </p>
               </div>
             </div>
-
-            <div className="flex flex-col gap-3">
-              <a
-                href={result.ctaHref}
-                target="_blank"
-                rel="noopener"
-                className="btn-lift pulse-cta block w-full whitespace-nowrap rounded-xl bg-cta px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
-              >
-                Quiero mi mentoría gratuita →
-              </a>
-
-              <button
-                type="button"
-                onClick={() => window.Calendly?.initPopupWidget({ url: CALENDLY_URL })}
-                className="block w-full whitespace-nowrap rounded-xl border-2 border-line bg-transparent px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:border-cta"
-              >
-                Reservar sesión 1 a 1 con Claudio
-              </button>
-            </div>
           </div>
+        </div>
+      )}
+
+      {step === 'offer' && result && (
+        <div className="flex flex-col items-center text-center">
+          <img
+            src="/assets/fotoclaudio.jpeg"
+            alt="Claudio Español"
+            className="size-28 flex-shrink-0 rounded-full border-2 border-cta object-cover"
+          />
+          <p className="mt-4 font-body text-lg font-bold text-white">Claudio Español</p>
+          <p className="mb-6 font-body text-xs text-text-variant">
+            CEO y fundador de Puedes Ser Más
+          </p>
+
+          <p className="mb-8 max-w-lg font-body text-[15px] leading-relaxed text-text-muted">
+            {leadName.trim() ? `${leadName.trim()}, leí` : 'Leí'} tu diagnóstico: lo que te está
+            frenando es {result.painSentence}. Te quiero ofrecer una mentoría gratuita, 1 a 1
+            conmigo, totalmente personalizada a tu situación — nada de fórmulas genéricas. Hablamos
+            de lo tuyo, en profundidad, y salís con un plan concreto para moverte.
+          </p>
+
+          <a
+            href={result.ctaHref}
+            target="_blank"
+            rel="noopener"
+            className="btn-lift pulse-cta block w-full max-w-sm whitespace-nowrap rounded-xl bg-cta px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:bg-cta-hover"
+          >
+            Quiero mi mentoría gratuita →
+          </a>
         </div>
       )}
     </div>
