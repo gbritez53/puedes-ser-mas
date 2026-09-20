@@ -187,7 +187,7 @@ export function DiagnosticoForm() {
   const totalSteps = questions.length;
 
   return (
-    <div className="mx-auto w-full max-w-xl">
+    <div className="mx-auto w-full max-w-2xl">
       {step === 'question' && (
         <div>
           <div className="mb-6 print:hidden">
@@ -210,7 +210,7 @@ export function DiagnosticoForm() {
             {q.hint ?? 'Elegí todas las que apliquen.'}
           </p>
 
-          <div className="mb-3 flex flex-col gap-2.5">
+          <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {q.options.map((opt, idx) => {
               const selected = answer.selected.includes(opt.id);
               return (
@@ -305,7 +305,7 @@ export function DiagnosticoForm() {
               tabIndex={-1}
               aria-hidden="true"
               onChange={(e) => setHoneypot(e.target.value)}
-              style={{ position: 'absolute', opacity: 0, width: '1px', height: '1px' }}
+              style={{ position: 'absolute', left: '-9999px', top: 0, width: '1px', height: '1px' }}
             />
 
             <div>
@@ -314,6 +314,7 @@ export function DiagnosticoForm() {
               </label>
               <input
                 type="text"
+                autoComplete="name"
                 value={leadName}
                 onChange={(e) => setLeadName(e.target.value)}
                 placeholder="¿Cómo te llamás?"
@@ -330,6 +331,8 @@ export function DiagnosticoForm() {
               </label>
               <input
                 type="email"
+                inputMode="email"
+                autoComplete="email"
                 value={leadEmail}
                 onChange={(e) => setLeadEmail(e.target.value)}
                 placeholder="tu@email.com"
@@ -342,6 +345,8 @@ export function DiagnosticoForm() {
               </label>
               <input
                 type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 value={leadPhone}
                 onChange={(e) => setLeadPhone(e.target.value)}
                 placeholder="+54 9 11 ..."
@@ -383,7 +388,7 @@ export function DiagnosticoForm() {
         <div>
           <div className="mb-6 flex items-center gap-3.5 border-b border-line pb-5">
             <img
-              src="/assets/claudio-portrait.webp"
+              src="/assets/fotoclaudio.jpeg"
               alt="Claudio Español"
               className="h-14 w-14 flex-shrink-0 rounded-full border-2 border-cta object-cover"
             />
@@ -398,9 +403,11 @@ export function DiagnosticoForm() {
           </p>
 
           <p className="mb-3.5 font-heading text-sm tracking-[2px] text-cta">TU DIAGNÓSTICO</p>
-          <p className="mb-7 font-body text-lg leading-relaxed text-white/90">
-            Lo que te está frenando hoy es {result.painSentence}.
-          </p>
+          <div className="mb-7 rounded-2xl border-l-4 border-cta bg-surface p-6">
+            <p className="font-body text-xl leading-relaxed text-white sm:text-2xl">
+              Lo que te está frenando hoy es {result.painSentence}.
+            </p>
+          </div>
 
           <div className="mb-5 rounded-2xl border-2 border-line bg-surface p-7">
             <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
@@ -409,8 +416,11 @@ export function DiagnosticoForm() {
             <h3 className="mb-1 font-heading text-2xl text-white sm:text-3xl">
               {result.levelName}
             </h3>
-            <p className="mb-4 font-body text-xs text-text-variant">{result.levelMeta}</p>
-            <p className="font-body text-[15px] leading-relaxed text-text-muted">
+            <p className="mb-5 font-body text-xs text-text-variant">{result.levelMeta}</p>
+            <p className="mb-2 font-heading text-xs tracking-[1.5px] text-cta">
+              LO QUE VAS A LOGRAR
+            </p>
+            <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
               {result.benefit}
             </p>
           </div>
