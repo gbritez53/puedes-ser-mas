@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavigationBlock from '../components/blocks/NavigationBlock.astro';
-import FooterBlock from '../components/blocks/FooterBlock.astro';
 import DiagnosticoForm from '../components/multiple-steps/diagnostico';
 import { Toaster } from 'sonner';
 ---
@@ -12,26 +11,12 @@ import { Toaster } from 'sonner';
   ogImage="/assets/og-diagnostico.jpg"
   canonical="/diagnostico"
 >
-  <NavigationBlock minimal />
-
-  <main class="min-h-screen bg-bg">
-    <section class="px-4 md:px-20 pt-16 md:pt-24 pb-20 max-w-[1280px] mx-auto">
-      <div class="text-center mb-12 print:hidden">
-        <p class="font-body text-sm uppercase tracking-[0.3em] text-cta mb-4">
-          Diagnóstico de claridad
-        </p>
-        <h1 class="font-heading text-hero uppercase text-white">
-          ¿Qué es lo que <span class="text-cta">realmente</span> te frena?
-        </h1>
-        <p class="font-body text-text-muted text-lg max-w-2xl mx-auto mt-4">
-          7 preguntas para identificar tu principal freno hoy y el primer paso concreto para
-          resolverlo.
-        </p>
-      </div>
-
+  <div class="flex h-dvh flex-col overflow-hidden bg-bg">
+    <NavigationBlock minimal />
+    <main class="flex flex-1 items-center justify-center overflow-hidden px-4 py-3 md:px-10">
       <DiagnosticoForm client:load />
-    </section>
-  </main>
+    </main>
+  </div>
 
   <Toaster
     position="top-center"
@@ -44,6 +29,4 @@ import { Toaster } from 'sonner';
     }}
     client:load
   />
-
-  <FooterBlock />
 </BaseLayout>

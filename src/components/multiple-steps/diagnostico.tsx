@@ -190,8 +190,8 @@ export function DiagnosticoForm() {
     <div className="mx-auto w-full max-w-2xl">
       {step === 'question' && (
         <div>
-          <div className="mb-6 print:hidden">
-            <p className="mb-2.5 font-body text-xs font-semibold uppercase tracking-wide text-text-variant">
+          <div className="mb-3 print:hidden">
+            <p className="mb-1.5 font-body text-xs font-semibold uppercase tracking-wide text-text-variant">
               Pregunta {questionIndex + 1} de {totalSteps}
             </p>
             <div className="h-1 overflow-hidden rounded-full bg-line">
@@ -202,15 +202,15 @@ export function DiagnosticoForm() {
             </div>
           </div>
 
-          <div className="mb-3 text-4xl leading-none">{q.emoji}</div>
-          <h2 className="mb-2 max-w-lg font-heading text-3xl leading-tight text-white sm:text-4xl">
+          <div className="mb-1 text-3xl leading-none">{q.emoji}</div>
+          <h2 className="mb-1 max-w-lg font-heading text-2xl leading-tight text-white sm:text-3xl">
             {q.title}
           </h2>
-          <p className="mb-5 font-body text-sm font-medium text-text-variant">
+          <p className="mb-2 font-body text-sm font-medium text-text-variant">
             {q.hint ?? 'Elegí todas las que apliquen.'}
           </p>
 
-          <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <div className="mb-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {q.options.map((opt, idx) => {
               const selected = answer.selected.includes(opt.id);
               return (
@@ -220,8 +220,8 @@ export function DiagnosticoForm() {
                   onClick={() => toggleOption(idx)}
                   className={
                     selected
-                      ? 'flex w-full items-center gap-3 rounded-xl border-2 border-cta bg-[#1B1414] px-5 py-4 text-left font-body text-[15px] font-medium text-white transition-colors'
-                      : 'flex w-full items-center gap-3 rounded-xl border-2 border-line bg-surface px-5 py-4 text-left font-body text-[15px] font-medium text-white transition-colors hover:border-[#3A3A3A]'
+                      ? 'flex w-full items-center gap-3 rounded-xl border-2 border-cta bg-[#1B1414] px-4 py-3 text-left font-body text-[15px] font-medium text-white transition-colors'
+                      : 'flex w-full items-center gap-3 rounded-xl border-2 border-line bg-surface px-4 py-3 text-left font-body text-[15px] font-medium text-white transition-colors hover:border-[#3A3A3A]'
                   }
                 >
                   <span className="flex-shrink-0 text-xl">{opt.emoji}</span>
@@ -246,10 +246,10 @@ export function DiagnosticoForm() {
               value={answer.other}
               onChange={(e) => setOtherText(e.target.value)}
               placeholder="Otro: contanos con tus palabras..."
-              className="mb-7 w-full rounded-xl border-2 border-line bg-surface px-5 py-3.5 font-body text-[15px] text-white outline-none placeholder:text-text-variant/60 focus:border-cta"
+              className="mb-3 w-full rounded-xl border-2 border-line bg-surface px-4 py-2.5 font-body text-[15px] text-white outline-none placeholder:text-text-variant/60 focus:border-cta"
             />
           )}
-          {!q.other && <div className="mb-7" />}
+          {!q.other && <div className="mb-3" />}
 
           <div className="flex items-center justify-between">
             <Button
@@ -277,27 +277,23 @@ export function DiagnosticoForm() {
               )}
             </Button>
           </div>
-
-          <p className="mt-8 text-center font-body text-xs text-text-variant">
-            Tu respuesta es confidencial y solo se usa para acompañarte mejor en tu proceso.
-          </p>
         </div>
       )}
 
       {step === 'checkpoint' && (
         <div>
-          <div className="mb-4 text-4xl leading-none">🎉</div>
-          <h2 className="mb-3 font-heading text-3xl leading-tight text-white sm:text-4xl">
+          <div className="mb-2 text-3xl leading-none">🎉</div>
+          <h2 className="mb-2 font-heading text-2xl leading-tight text-white sm:text-3xl">
             ¡Vas muy bien!
           </h2>
-          <p className="mb-7 font-body text-[14.5px] leading-relaxed text-text-muted">
+          <p className="mb-4 font-body text-[14.5px] leading-relaxed text-text-muted">
             Llegaste a la mitad del diagnóstico —{' '}
             <span className="font-bold text-white">el 90% de las personas no llega hasta acá.</span>{' '}
             Ya hiciste lo más difícil. Dejame tus datos para poder enviarte tu diagnóstico
             personalizado apenas termines.
           </p>
 
-          <div className="mb-6 flex flex-col gap-3">
+          <div className="mb-3 flex flex-col gap-2.5">
             <input
               type="text"
               name="website"
@@ -320,8 +316,8 @@ export function DiagnosticoForm() {
                 placeholder="¿Cómo te llamás?"
                 className={
                   leadTouched && leadName.trim().length <= 1
-                    ? 'w-full rounded-xl border-2 border-cta bg-surface px-5 py-3.5 font-body text-[15px] text-white outline-none'
-                    : 'w-full rounded-xl border-2 border-line bg-surface px-5 py-3.5 font-body text-[15px] text-white outline-none focus:border-cta'
+                    ? 'w-full rounded-xl border-2 border-cta bg-surface px-5 py-2.5 font-body text-[15px] text-white outline-none'
+                    : 'w-full rounded-xl border-2 border-line bg-surface px-5 py-2.5 font-body text-[15px] text-white outline-none focus:border-cta'
                 }
               />
             </div>
@@ -336,7 +332,7 @@ export function DiagnosticoForm() {
                 value={leadEmail}
                 onChange={(e) => setLeadEmail(e.target.value)}
                 placeholder="tu@email.com"
-                className="w-full rounded-xl border-2 border-line bg-surface px-5 py-3.5 font-body text-[15px] text-white outline-none focus:border-cta"
+                className="w-full rounded-xl border-2 border-line bg-surface px-5 py-2.5 font-body text-[15px] text-white outline-none focus:border-cta"
               />
             </div>
             <div>
@@ -350,7 +346,7 @@ export function DiagnosticoForm() {
                 value={leadPhone}
                 onChange={(e) => setLeadPhone(e.target.value)}
                 placeholder="+54 9 11 ..."
-                className="w-full rounded-xl border-2 border-line bg-surface px-5 py-3.5 font-body text-[15px] text-white outline-none focus:border-cta"
+                className="w-full rounded-xl border-2 border-line bg-surface px-5 py-2.5 font-body text-[15px] text-white outline-none focus:border-cta"
               />
             </div>
           </div>
@@ -378,7 +374,7 @@ export function DiagnosticoForm() {
               )}
             </Button>
           </div>
-          <p className="mt-5 text-center font-body text-[11.5px] text-text-variant">
+          <p className="mt-2 text-center font-body text-[11.5px] text-text-variant">
             Tus datos son confidenciales. No hacemos spam, solo te acompañamos en tu proceso.
           </p>
         </div>
