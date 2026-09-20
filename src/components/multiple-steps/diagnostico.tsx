@@ -392,7 +392,7 @@ export function DiagnosticoForm() {
               <img
                 src="/assets/fotoclaudio.jpeg"
                 alt="Claudio Español"
-                className="h-14 w-14 flex-shrink-0 rounded-full border-2 border-cta object-cover"
+                className="size-16 flex-shrink-0 rounded-full border-2 border-cta object-cover"
               />
               <div>
                 <p className="font-body text-[14.5px] font-bold text-white">Claudio Español</p>
@@ -453,7 +453,7 @@ export function DiagnosticoForm() {
                 onClick={() => window.Calendly?.initPopupWidget({ url: CALENDLY_URL })}
                 className="block w-full whitespace-nowrap rounded-xl border-2 border-line bg-transparent px-4 py-4 text-center font-body text-[15px] font-bold text-white transition-colors hover:border-cta"
               >
-                Reservar sesión 1 a 1
+                Reservar sesión 1 a 1 con Claudio
               </button>
             </div>
           </div>
