@@ -10,7 +10,7 @@ export const prerender = false;
 
 // POST: se llama en el checkpoint (mitad del cuestionario) para no perder el lead si abandona.
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  if (!checkRateLimit(clientAddress)) {
+  if (!checkRateLimit(clientAddress, 'diagnostico')) {
     return Response.json({ ok: false, error: 'rate_limited' }, { status: 429 });
   }
 
@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
 // PATCH: se llama al terminar las 7 preguntas, completando el lead ya creado en el checkpoint.
 export const PATCH: APIRoute = async ({ request, clientAddress }) => {
-  if (!checkRateLimit(clientAddress)) {
+  if (!checkRateLimit(clientAddress, 'diagnostico')) {
     return Response.json({ ok: false, error: 'rate_limited' }, { status: 429 });
   }
 

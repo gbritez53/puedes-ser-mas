@@ -16,7 +16,7 @@ const DIPLOMADO_FROM_DESAFIO: Record<string, string> = {
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Rate limit check
-  if (!checkRateLimit(clientAddress)) {
+  if (!checkRateLimit(clientAddress, 'admission')) {
     return Response.json({ ok: false, error: 'rate_limited' }, { status: 429 });
   }
 

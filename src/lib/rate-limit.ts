@@ -8,10 +8,19 @@ interface RateLimitEntry {
 const WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const ipMap = new Map<string, RateLimitEntry>();
 
-function getLimit(): number {
-  const envLimit = import.meta.env.ADMISSION_RATE_LIMIT_PER_HOUR;
-  const parsed = parseInt(envLimit as string, 10);
-  return isNaN(parsed) ? 5 : parsed;
+// Cada scope tiene su propio balde: /api/diagnostico hace 2 requests por intento
+// completo (checkpoint + resultado), así que comparte límite con /api/admission
+// lo agotaba después de 2-3 intentos.
+const DEFAULT_LIMITS: Record<string, number> = {
+  admission: 5,
+  diagnostico: 20,
+};
+
+function getLimit(scope: string): number {
+  const envKey = `${scope.toUpperCase()}_RATE_LIMIT_PER_HOUR`;
+  const envLimit = (import.meta.env as Record<string, string | undefined>)[envKey];
+  const parsed = parseInt(envLimit ?? '', 10);
+  return isNaN(parsed) ? (DEFAULT_LIMITS[scope] ?? 5) : parsed;
 }
 
 function hashIp(ip: string): string {
@@ -22,19 +31,20 @@ function hashIp(ip: string): string {
 }
 
 /**
- * Check if the given IP is rate-limited.
- * Returns true if the request is ALLOWED, false if BLOCKED.
+ * Check if the given IP is rate-limited for a given scope (ej. "admission", "diagnostico").
+ * Cada scope lleva su propio contador, para que un flujo con varias requests por intento
+ * no agote el límite de otro. Returns true if the request is ALLOWED, false if BLOCKED.
  */
-export function checkRateLimit(ip: string): boolean {
-  const hashed = hashIp(ip);
+export function checkRateLimit(ip: string, scope: string): boolean {
+  const key = `${scope}:${hashIp(ip)}`;
   const now = Date.now();
-  const limit = getLimit();
+  const limit = getLimit(scope);
 
-  const entry = ipMap.get(hashed);
+  const entry = ipMap.get(key);
 
   if (!entry || now - entry.windowStart >= WINDOW_MS) {
     // New window
-    ipMap.set(hashed, { count: 1, windowStart: now });
+    ipMap.set(key, { count: 1, windowStart: now });
     return true;
   }
 
