@@ -15,7 +15,7 @@ import {
 
 const WHATSAPP_NUMBER = '5491134785986';
 
-type Step = 'question' | 'checkpoint' | 'result' | 'offer';
+type Step = 'intro' | 'question' | 'checkpoint' | 'result' | 'offer';
 
 type ResultData = {
   painSentence: string;
@@ -38,7 +38,7 @@ function sanitizePhone(value: string): string {
 }
 
 export function DiagnosticoForm() {
-  const [step, setStep] = useState<Step>('question');
+  const [step, setStep] = useState<Step>('intro');
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
 
@@ -199,6 +199,27 @@ export function DiagnosticoForm() {
         step === 'result' ? 'mx-auto my-auto w-full max-w-5xl' : 'mx-auto my-auto w-full max-w-2xl'
       }
     >
+      {step === 'intro' && (
+        <div className="text-center">
+          <div className="mb-4 text-5xl leading-none">🧭</div>
+          <h1 className="mb-4 font-heading text-3xl leading-tight text-white sm:text-4xl">
+            Diagnóstico de Claridad
+          </h1>
+          <p className="mx-auto mb-4 max-w-md font-body text-[15px] leading-relaxed text-text-muted">
+            Descubrí en 7 preguntas qué es lo que realmente te está frenando hoy y cuál es el primer
+            paso concreto para resolverlo.
+          </p>
+          <p className="mb-8 inline-block rounded-full bg-cta/15 px-3 py-1 font-heading text-xs tracking-[1.5px] text-cta">
+            7 PREGUNTAS · 2 MINUTOS
+          </p>
+          <div>
+            <Button onClick={() => setStep('question')} className="btn-lift rounded-full px-10">
+              Comenzar <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+
       {step === 'question' && (
         <div>
           <div className="mb-3 print:hidden">
