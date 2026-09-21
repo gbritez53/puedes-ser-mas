@@ -10,6 +10,8 @@ export interface QuizOption {
   category?: Category;
   urgency?: Urgency;
   level?: Level;
+  /** Marca que elegir esta opción indica una fortaleza ya presente en esa categoría (no un bloqueo). */
+  strength?: Category;
 }
 
 export interface QuizQuestion {
@@ -88,6 +90,7 @@ export const questions: QuizQuestion[] = [
         id: 'ya-trabajado',
         emoji: '✅',
         label: 'Ya trabajé bastante en esto, no es mi prioridad ahora',
+        strength: 'sanidad',
       },
     ],
   },
@@ -182,11 +185,13 @@ export const questions: QuizQuestion[] = [
         id: 'pulir',
         emoji: '💪',
         label: 'Me manejo bien, quiero pulir el nivel',
+        strength: 'oratoria',
       },
       {
         id: 'no-preocupa',
         emoji: '🙅',
         label: 'No es algo que me preocupe hoy',
+        strength: 'oratoria',
       },
     ],
   },
@@ -344,4 +349,90 @@ export function pickLevel(answers: Answers): { level: Exclude<Level, 'no-se'>; i
     inferred = true;
   }
   return { level: level as Exclude<Level, 'no-se'>, inferred };
+}
+
+export type Metric = 'proposito' | 'enfoque' | 'confianza' | 'accion';
+
+export const METRIC_ORDER: Metric[] = ['proposito', 'enfoque', 'confianza', 'accion'];
+
+export const METRIC_META: Record<Metric, { label: string; short: string; emoji: string }> = {
+  proposito: { label: 'Claridad de propósito', short: 'más claridad', emoji: '🎯' },
+  enfoque: { label: 'Enfoque y disciplina', short: 'enfoque', emoji: '📊' },
+  confianza: { label: 'Confianza personal', short: 'confianza', emoji: '👤' },
+  accion: { label: 'Acción y ejecución', short: 'acción sostenida', emoji: '🚀' },
+};
+
+const CATEGORY_TO_METRIC: Record<Category, Metric> = {
+  sanidad: 'proposito',
+  caracter: 'enfoque',
+  oratoria: 'confianza',
+  liderazgo: 'accion',
+};
+
+export function computeMetrics(answers: Answers): Record<Metric, number> {
+  const scores: Record<Metric, number> = { proposito: 65, enfoque: 65, confianza: 65, accion: 65 };
+
+  ['q1', 'q2', 'q3', 'q5'].forEach((qid) => {
+    collectSelectedOptions(answers, qid).forEach((opt) => {
+      if (opt.category && opt.pain) scores[CATEGORY_TO_METRIC[opt.category]] -= 18;
+      if (opt.strength) scores[CATEGORY_TO_METRIC[opt.strength]] += 15;
+    });
+  });
+
+  collectSelectedOptions(answers, 'q4').forEach((opt) => {
+    if (opt.category) scores[CATEGORY_TO_METRIC[opt.category]] -= 8;
+  });
+
+  METRIC_ORDER.forEach((metric) => {
+    scores[metric] = Math.max(15, Math.min(95, scores[metric]));
+  });
+
+  return scores;
+}
+
+function sortedMetrics(scores: Record<Metric, number>): Metric[] {
+  return [...METRIC_ORDER].sort((a, b) => scores[a] - scores[b]);
+}
+
+const PROFILE_LABEL: Record<Metric, string> = {
+  proposito: 'Rumbo por definir',
+  enfoque: 'Enfoque disperso',
+  confianza: 'Voz en reserva',
+  accion: 'Potencial en pausa',
+};
+
+const STRENGTH_TEXT: Record<Metric, string> = {
+  proposito: 'tenés bastante claro qué es lo que realmente querés — esa base ya la tenés.',
+  enfoque: 'cuando te lo proponés, sostenés la disciplina bastante bien.',
+  confianza: 'te mostrás con seguridad cuando la situación lo requiere.',
+  accion: 'cuando decidís avanzar, las cosas se mueven — tenés capacidad real de ejecución.',
+};
+
+const BLOCKER_TEXT: Record<Metric, string> = {
+  proposito: 'te falta claridad sobre hacia dónde ir, y eso te hace dar vueltas en lo mismo.',
+  enfoque: 'te cuesta sostener la disciplina y la constancia en el tiempo.',
+  confianza: 'te cuesta mostrarte con seguridad cuando más importa.',
+  accion: 'sabés qué querés, pero te cuesta pasar a la acción y ejecutar.',
+};
+
+export interface DiagnosticoProfile {
+  metrics: Record<Metric, number>;
+  profileLabel: string;
+  strengthText: string;
+  blockerText: string;
+  priorityText: string;
+}
+
+export function buildProfile(answers: Answers): DiagnosticoProfile {
+  const metrics = computeMetrics(answers);
+  const weakest = sortedMetrics(metrics);
+  const strongest = [...weakest].reverse();
+
+  return {
+    metrics,
+    profileLabel: PROFILE_LABEL[weakest[0]],
+    strengthText: STRENGTH_TEXT[strongest[0]],
+    blockerText: BLOCKER_TEXT[weakest[0]],
+    priorityText: `${METRIC_META[weakest[0]].short} + ${METRIC_META[weakest[1]].short}`,
+  };
 }

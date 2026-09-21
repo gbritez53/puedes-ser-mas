@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -6,24 +6,23 @@ import {
   questions,
   CHECKPOINT_AFTER_INDEX,
   LEVEL_INFO,
-  CATEGORY_ADDON,
   buildPainSentence,
+  buildProfile,
   pickPrimaryCategory,
   pickLevel,
+  METRIC_ORDER,
+  METRIC_META,
   type Answers,
+  type DiagnosticoProfile,
 } from '@/content/diagnostico';
 
 const WHATSAPP_NUMBER = '5491134785986';
 
-type Step = 'intro' | 'question' | 'checkpoint' | 'result' | 'offer';
+type Step = 'intro' | 'question' | 'checkpoint' | 'result';
 
 type ResultData = {
   painSentence: string;
-  greeting: string;
-  levelName: string;
-  levelMeta: string;
-  benefit: string;
-  inferred: boolean;
+  profile: DiagnosticoProfile;
   ctaHref: string;
 };
 
@@ -53,6 +52,16 @@ export function DiagnosticoForm() {
   const [submittingResult, setSubmittingResult] = useState(false);
 
   const [result, setResult] = useState<ResultData | null>(null);
+  const [barsAnimated, setBarsAnimated] = useState(false);
+
+  useEffect(() => {
+    if (step !== 'result') {
+      setBarsAnimated(false);
+      return;
+    }
+    const timer = setTimeout(() => setBarsAnimated(true), 250);
+    return () => clearTimeout(timer);
+  }, [step]);
 
   const q = questions[questionIndex];
   const answer = answers[q.id];
@@ -134,7 +143,7 @@ export function DiagnosticoForm() {
     const category = pickPrimaryCategory(answers);
     const { level, inferred } = pickLevel(answers);
     const info = LEVEL_INFO[level];
-    const addon = CATEGORY_ADDON[category];
+    const profile = buildProfile(answers);
     const name = leadName.trim();
 
     setSubmittingResult(true);
@@ -178,13 +187,7 @@ export function DiagnosticoForm() {
 
     setResult({
       painSentence,
-      greeting: name
-        ? `¡Gracias por completar el diagnóstico, ${name}! Esto es lo que veo en tus respuestas:`
-        : '¡Gracias por completar el diagnóstico! Esto es lo que veo en tus respuestas:',
-      levelName: info.name,
-      levelMeta: info.meta,
-      benefit: `Ahí ${info.benefit}, ${addon}.`,
-      inferred,
+      profile,
       ctaHref: `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
     });
     setStep('result');
@@ -194,11 +197,7 @@ export function DiagnosticoForm() {
   const progressPct = ((questionIndex + 1) / totalSteps) * 100;
 
   return (
-    <div
-      className={
-        step === 'result' ? 'mx-auto my-auto w-full max-w-5xl' : 'mx-auto my-auto w-full max-w-2xl'
-      }
-    >
+    <div className="mx-auto my-auto w-full max-w-2xl">
       {step === 'intro' && (
         <div className="text-center">
           <div className="mb-4 text-5xl leading-none">🧭</div>
@@ -425,102 +424,127 @@ export function DiagnosticoForm() {
       )}
 
       {step === 'result' && result && (
-        <div className="lg:grid lg:grid-cols-[1fr_360px] lg:items-start lg:gap-8">
-          <div>
-            <p className="mb-6 font-body text-[15px] leading-relaxed text-text-muted">
-              {result.greeting}
-            </p>
-
-            <div className="rounded-2xl border-2 border-line bg-surface p-7">
-              <p className="mb-3 inline-block rounded-full bg-cta/15 px-3 py-1 font-heading text-sm tracking-[1.5px] text-cta">
-                MENTORÍA RECOMENDADA
-              </p>
-              <h3 className="mb-1 font-heading text-2xl text-white sm:text-3xl">
-                {result.levelName}
-              </h3>
-              <p className="mb-5 font-body text-xs text-text-variant">{result.levelMeta}</p>
-              <p className="mb-2 font-heading text-sm tracking-[1.5px] text-[#2dfa87]">
-                LO QUE VAS A LOGRAR
-              </p>
-              <p className="font-body text-lg leading-relaxed text-white sm:text-xl">
-                {result.benefit}
-              </p>
-            </div>
-
-            {result.inferred && (
-              <p className="mt-5 font-body text-[12.5px] leading-relaxed text-text-variant">
-                Esto es una referencia inicial a partir de tus respuestas — lo ideal es que lo
-                charlemos juntos para confirmarlo.
-              </p>
-            )}
-          </div>
-
-          <div className="mt-6 flex flex-col gap-4 lg:sticky lg:top-4 lg:mt-0">
-            <div>
-              <p className="mb-3.5 font-heading text-sm tracking-[2px] text-cta">TU DIAGNÓSTICO</p>
-              <div className="rounded-2xl border-l-4 border-cta bg-surface p-6">
-                <p className="font-body text-lg leading-relaxed text-white">
-                  Lo que te está frenando hoy es {result.painSentence}.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 flex justify-center lg:col-span-2">
-            <Button onClick={() => setStep('offer')} className="btn-lift rounded-full px-8">
-              Ver cómo lograrlo <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {step === 'offer' && result && (
-        <div className="offer-in relative overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface to-black p-8 text-center sm:p-12">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,_var(--color-cta)_25%,_transparent),_transparent_70%)]" />
-
-          <div className="relative">
+        <div className="offer-in">
+          <div className="relative mb-6 text-center">
             <div className="relative mx-auto w-fit">
               <div className="absolute inset-0 -z-10 animate-pulse rounded-full bg-cta/40 blur-2xl" />
               <img
                 src="/assets/fotoclaudio.jpeg"
                 alt="Claudio Español"
-                className="size-32 flex-shrink-0 rounded-full border-4 border-cta object-cover shadow-[0_0_40px_rgba(196,23,24,0.45)]"
+                className="size-24 flex-shrink-0 rounded-full border-4 border-cta object-cover shadow-[0_0_40px_rgba(196,23,24,0.45)]"
               />
             </div>
-
-            <p className="mt-5 font-heading text-2xl text-white">Claudio Español</p>
-            <p className="mt-1.5 mb-8 inline-block rounded-full bg-[#2dfa87]/15 px-4 py-1.5 font-heading text-base tracking-[1.5px] text-[#2dfa87]">
+            <p className="mt-4 font-heading text-xl text-white">Claudio Español</p>
+            <p className="mt-1.5 inline-block rounded-full bg-[#2dfa87]/15 px-4 py-1.5 font-heading text-sm tracking-[1.5px] text-[#2dfa87]">
               CEO Y FUNDADOR DE PUEDES SER MÁS
             </p>
-
-            <div className="relative mx-auto max-w-lg rounded-2xl border-2 border-line bg-surface/80 p-6 text-left backdrop-blur-sm sm:p-7">
-              <span className="absolute -top-4 left-6 font-heading text-5xl leading-none text-cta/50">
-                “
-              </span>
-              <p className="font-body text-[15.5px] leading-relaxed text-white">
-                {leadName.trim() ? (
-                  <>
-                    <strong className="font-bold">{leadName.trim()}</strong>, leí
-                  </>
-                ) : (
-                  'Leí'
-                )}{' '}
-                tu diagnóstico: lo que te está frenando es {result.painSentence}. Te quiero ofrecer
-                una <strong className="font-bold">mentoría gratuita</strong>, 1 a 1 conmigo,
-                totalmente personalizada a tu situación — nada de fórmulas genéricas. Hacé clic aquí
-                abajo y nos vemos en la mentoría 😉
-              </p>
-            </div>
-
-            <a
-              href={result.ctaHref}
-              target="_blank"
-              rel="noopener"
-              className="btn-lift pulse-cta mx-auto mt-8 block w-full max-w-sm whitespace-nowrap rounded-xl bg-cta px-4 py-5 text-center font-body text-base font-bold text-white transition-colors hover:bg-cta-hover"
-            >
-              Quiero mi mentoría gratuita →
-            </a>
           </div>
+
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface to-black p-6 sm:p-8">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,_color-mix(in_srgb,_var(--color-cta)_20%,_transparent),_transparent_70%)]" />
+
+            <div className="relative">
+              <p className="mb-5 flex items-start gap-2.5 font-body text-lg leading-snug text-white sm:text-xl">
+                <span className="text-2xl">📊</span>
+                <span>
+                  {leadName.trim() && <strong className="font-bold">{leadName.trim()}, </strong>}
+                  este es tu resultado de diagnóstico
+                </span>
+              </p>
+
+              <div className="mb-6 flex items-center gap-2.5 rounded-2xl border border-cta/40 bg-gradient-to-r from-cta/20 to-cta/5 px-4 py-3.5">
+                <span className="text-xl">⚡</span>
+                <p className="font-body text-[15px] text-white">
+                  Perfil actual:{' '}
+                  <strong className="font-bold text-[#ff5361]">
+                    {result.profile.profileLabel.toUpperCase()}
+                  </strong>
+                </p>
+              </div>
+
+              <div className="mb-6 flex flex-col gap-4">
+                {METRIC_ORDER.map((metric) => {
+                  const value = result.profile.metrics[metric];
+                  const gradient =
+                    value < 50
+                      ? 'linear-gradient(90deg, #ff3546, #ff5361)'
+                      : value < 70
+                        ? 'linear-gradient(90deg, #ffcc66, #ffad33)'
+                        : 'linear-gradient(90deg, #35d895, #12ba71)';
+                  return (
+                    <div key={metric}>
+                      <div className="mb-1.5 flex items-center justify-between gap-3">
+                        <p className="flex items-center gap-1.5 font-body text-sm font-bold text-white">
+                          <span>{METRIC_META[metric].emoji}</span> {METRIC_META[metric].label}
+                        </p>
+                        <span className="font-heading text-lg text-white">{value}%</span>
+                      </div>
+                      <div className="h-3 overflow-hidden rounded-full bg-line">
+                        <div
+                          className="h-full rounded-full transition-[width] duration-[1200ms] ease-out"
+                          style={{ width: barsAnimated ? `${value}%` : '0%', background: gradient }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mb-6 h-px bg-line" />
+
+              <div className="mb-6 flex flex-col gap-4">
+                <div className="flex items-start gap-3.5">
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#00bf73] bg-[#00bf73]/10 text-lg text-[#00e68a]">
+                    ★
+                  </span>
+                  <p className="font-body text-[15px] leading-relaxed text-text-muted">
+                    <strong className="font-bold text-white">Tu fortaleza:</strong>{' '}
+                    {result.profile.strengthText}
+                  </p>
+                </div>
+                <div className="flex items-start gap-3.5">
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-cta bg-cta/10 text-lg text-[#ff5361]">
+                    🔒
+                  </span>
+                  <p className="font-body text-[15px] leading-relaxed text-text-muted">
+                    <strong className="font-bold text-white">Tu principal bloqueo:</strong>{' '}
+                    {result.profile.blockerText} Concretamente, lo que más te frena hoy es{' '}
+                    {result.painSentence}.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3.5">
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#ffd026] bg-[#ffd026]/10 text-lg text-[#ffd026]">
+                    ↗
+                  </span>
+                  <p className="font-body text-[15px] leading-relaxed text-text-muted">
+                    <strong className="font-bold text-white">Área prioritaria:</strong>{' '}
+                    {result.profile.priorityText}.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-5 h-px bg-line" />
+
+              <p className="mb-5 font-body text-[15px] leading-relaxed text-text-muted">
+                Si querés trabajar esta área en profundidad, podés hacerlo en una{' '}
+                <strong className="font-bold text-white">mentoría gratuita</strong>, 1 a 1 conmigo,
+                personalizada a tu situación.
+              </p>
+
+              <a
+                href={result.ctaHref}
+                target="_blank"
+                rel="noopener"
+                className="btn-lift pulse-cta block w-full whitespace-nowrap rounded-xl bg-cta px-4 py-5 text-center font-body text-base font-bold text-white transition-colors hover:bg-cta-hover"
+              >
+                Quiero mi mentoría gratuita →
+              </a>
+            </div>
+          </div>
+
+          <p className="mt-6 text-center font-heading text-xs tracking-[4px] text-text-variant uppercase">
+            Más disciplina · Más libertad · Un vos más grande
+          </p>
         </div>
       )}
     </div>
