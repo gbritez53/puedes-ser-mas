@@ -1,5 +1,17 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import {
+  BarChart3,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  Lock,
+  Rocket,
+  Star,
+  Target,
+  TrendingUp,
+  User,
+  Zap,
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,9 +26,17 @@ import {
   METRIC_META,
   type Answers,
   type DiagnosticoProfile,
+  type Metric,
 } from '@/content/diagnostico';
 
 const WHATSAPP_NUMBER = '5491134785986';
+
+const METRIC_ICON: Record<Metric, typeof Target> = {
+  proposito: Target,
+  enfoque: BarChart3,
+  confianza: User,
+  accion: Rocket,
+};
 
 type Step = 'intro' | 'question' | 'checkpoint' | 'result';
 
@@ -445,7 +465,7 @@ export function DiagnosticoForm() {
 
             <div className="relative">
               <p className="mb-5 flex items-start gap-2.5 font-body text-lg leading-snug text-white sm:text-xl">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="mt-1 h-6 w-6 flex-shrink-0 text-cta" />
                 <span>
                   {leadName.trim() && <strong className="font-bold">{leadName.trim()}, </strong>}
                   este es tu resultado de diagnóstico
@@ -453,7 +473,7 @@ export function DiagnosticoForm() {
               </p>
 
               <div className="mb-6 flex items-center gap-2.5 rounded-2xl border border-cta/40 bg-gradient-to-r from-cta/20 to-cta/5 px-4 py-3.5">
-                <span className="text-xl">⚡</span>
+                <Zap className="h-5 w-5 flex-shrink-0 text-cta" />
                 <p className="font-body text-[15px] text-white">
                   Perfil actual:{' '}
                   <strong className="font-bold text-[#ff5361]">
@@ -471,11 +491,12 @@ export function DiagnosticoForm() {
                       : value < 70
                         ? 'linear-gradient(90deg, #ffcc66, #ffad33)'
                         : 'linear-gradient(90deg, #35d895, #12ba71)';
+                  const MetricIcon = METRIC_ICON[metric];
                   return (
                     <div key={metric}>
                       <div className="mb-1.5 flex items-center justify-between gap-3">
                         <p className="flex items-center gap-1.5 font-body text-sm font-bold text-white">
-                          <span>{METRIC_META[metric].emoji}</span> {METRIC_META[metric].label}
+                          <MetricIcon className="h-4 w-4 text-cta" /> {METRIC_META[metric].label}
                         </p>
                         <span className="font-heading text-lg text-white">{value}%</span>
                       </div>
@@ -494,8 +515,8 @@ export function DiagnosticoForm() {
 
               <div className="mb-6 flex flex-col gap-4">
                 <div className="flex items-start gap-3.5">
-                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#00bf73] bg-[#00bf73]/10 text-lg text-[#00e68a]">
-                    ★
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#00bf73] bg-[#00bf73]/10 text-[#00e68a]">
+                    <Star className="h-4 w-4 fill-current" />
                   </span>
                   <p className="font-body text-[15px] leading-relaxed text-text-muted">
                     <strong className="font-bold text-white">Tu fortaleza:</strong>{' '}
@@ -503,8 +524,8 @@ export function DiagnosticoForm() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3.5">
-                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-cta bg-cta/10 text-lg text-[#ff5361]">
-                    🔒
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-cta bg-cta/10 text-[#ff5361]">
+                    <Lock className="h-4 w-4" />
                   </span>
                   <p className="font-body text-[15px] leading-relaxed text-text-muted">
                     <strong className="font-bold text-white">Tu principal bloqueo:</strong>{' '}
@@ -513,8 +534,8 @@ export function DiagnosticoForm() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3.5">
-                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#ffd026] bg-[#ffd026]/10 text-lg text-[#ffd026]">
-                    ↗
+                  <span className="flex size-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[#ffd026] bg-[#ffd026]/10 text-[#ffd026]">
+                    <TrendingUp className="h-4 w-4" />
                   </span>
                   <p className="font-body text-[15px] leading-relaxed text-text-muted">
                     <strong className="font-bold text-white">Área prioritaria:</strong>{' '}

@@ -355,11 +355,11 @@ export type Metric = 'proposito' | 'enfoque' | 'confianza' | 'accion';
 
 export const METRIC_ORDER: Metric[] = ['proposito', 'enfoque', 'confianza', 'accion'];
 
-export const METRIC_META: Record<Metric, { label: string; short: string; emoji: string }> = {
-  proposito: { label: 'Claridad de propósito', short: 'más claridad', emoji: '🎯' },
-  enfoque: { label: 'Enfoque y disciplina', short: 'enfoque', emoji: '📊' },
-  confianza: { label: 'Confianza personal', short: 'confianza', emoji: '👤' },
-  accion: { label: 'Acción y ejecución', short: 'acción sostenida', emoji: '🚀' },
+export const METRIC_META: Record<Metric, { label: string; short: string }> = {
+  proposito: { label: 'Claridad de propósito', short: 'más claridad' },
+  enfoque: { label: 'Enfoque y disciplina', short: 'enfoque' },
+  confianza: { label: 'Confianza personal', short: 'confianza' },
+  accion: { label: 'Acción y ejecución', short: 'acción sostenida' },
 };
 
 const CATEGORY_TO_METRIC: Record<Category, Metric> = {
